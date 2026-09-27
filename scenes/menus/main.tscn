@@ -13,6 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hnw6f")
+start_level = "uid://3eugs5lwessb"
 
 [node name="TitleContainer" type="CenterContainer" parent="." unique_id=1870373617]
 layout_mode = 0
@@ -43,3 +44,6 @@ text = "Start"
 [node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1659959679]
 layout_mode = 2
 text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

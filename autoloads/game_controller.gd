@@ -10,13 +10,9 @@ func _ready() -> void:
 
 #endregion
 
-#region Game handlers
 
-#endregion
-
-
-#region Level management
-func load_level(level_path: String) -> Level:
+#region Game public API
+func change_level(level_path: String) -> void:
 	# Pause current scene so it can finish any process leftover.
 	var scene_tree = get_tree()
 	scene_tree.paused = true
@@ -30,7 +26,17 @@ func load_level(level_path: String) -> Level:
 	scene_tree.paused = false
 	await scene_tree.process_frame
 
-	return scene_tree.current_scene as Level
+
+func quit():
+	# Emit quit event so any subscribed node can execute some behaviour before
+	# defacto program termination.
+	EventBus.quit.emit()
+
+	# Propagate process exit request so nodes can react to the event,
+	# then call quit/0 to actually terminate the process.
+	var scene_tree = get_tree()
+	scene_tree.root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	scene_tree.quit()
 
 
 #endregion
