@@ -1,0 +1,65 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="FPS Demo"
+run/main_scene="uid://vpu43au1ws3g"
+config/features=PackedStringArray("4.7")
+config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout=""
+
+[autoload]
+
+EventBus="*uid://rsdtg4cbx6b"
+GameController="*uid://lpqnpj3mfnod"
+GUIDE="*uid://p2jwrgjcbexr"
+SignalLens="*uid://85rkx60vm7a7"
+
+[clean_copy_examples]
+
+examples_paths=Array[String]([])
+replace_strings=Dictionary[String, String]({})
+copy_path="res://examples/"
+
+[display]
+
+window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/at-icons/plugin.cfg", "res://addons/beautify_code_on_save/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/signal_lens/plugin.cfg")
+
+[maaacks_game_template]
+
+disable_install_wizard=true
+main_menu_scene_path="res://examples/scenes/menus/main_menu/main_menu.tscn"
+game_scene_path="res://examples/scenes/game/game.tscn"
+ending_scene_path="res://examples/scenes/end_credits/end_credits.tscn"
+copy_path="res://examples/"
+
+[maaacks_music_controller]
+
+disable_install_audio_busses=true
+
+[maaacks_scene_loader]
+
+loading_scene_path="res://addons/maaacks_scene_loader/examples/scenes/loading_screens/loading_screen.tscn"
+
+[maaacks_ui_sound_controller]
+
+disable_install_audio_busses=true
+
+[plugin_updater]
+
+plugins={}
