@@ -2,7 +2,7 @@
 
 ## Description
 
-FPS Game Demo on Godot 4, based on [Let's Make An FPS in the Godot Engine](https://www.youtube.com/playlist?list=PLEHvj4yeNfeHtjrRBSqEii1jcDx2yPv6-).
+FPS Game Demo on Godot 4, based on [Godot FPS Tutorial Series 2.0](https://www.youtube.com/playlist?list=PLEHvj4yeNfeHtjrRBSqEii1jcDx2yPv6-).
 
 This is a game made for learning purposes only!
 
