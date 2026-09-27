@@ -4,4 +4,8 @@ extends Control
 
 
 func _on_exit_button_pressed() -> void:
-	pass  # Replace with function body.
+	GameController.quit()
+
+
+func _on_start_button_pressed() -> void:
+	GameController.change_level(start_level)
