@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://vpu43au1ws3g"]
+
+[ext_resource type="Script" uid="uid://ds4wbgfeyra80" path="res://scenes/menus/main.gd" id="1_hnw6f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgp6g"]
+font_size = 56
+
+[node name="MainMenu" type="Control" unique_id=1056027996]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hnw6f")
+
+[node name="TitleContainer" type="CenterContainer" parent="." unique_id=1870373617]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 320.0
+
+[node name="Title" type="Label" parent="TitleContainer" unique_id=1344440257]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_sgp6g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1543782209]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1280634463]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1153628620]
+layout_mode = 2
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1659959679]
+layout_mode = 2
+text = "Exit"

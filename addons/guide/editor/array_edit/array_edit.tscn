@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://cly0ff32fvpb2"]
+
+[ext_resource type="Script" uid="uid://whm2ksw6nc4h" path="res://addons/guide/editor/array_edit/array_edit.gd" id="1_y3qyt"]
+[ext_resource type="PackedScene" uid="uid://cjabwsa4gmlpp" path="res://addons/guide/editor/array_edit/array_edit_item.tscn" id="2_n3ncl"]
+
+[sub_resource type="DPITexture" id="DPITexture_2nfri"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5d5d\" d=\"M2 1v8.586l1.293-1.293a1 1 0 0 1 1.414 0L7 10.587l2.293-2.293a1 1 0 0 1 1.414 0L13 10.586l1-1V6H9V1H2zm8 0v4h4zm-6 9.414-2 2V15h12v-2.586l-.293.293a1 1 0 0 1-1.414 0L10 10.414l-2.293 2.293a1 1 0 0 1-1.414 0L4 10.414z\"/></svg>
+"
+
+[node name="Array" type="MarginContainer" unique_id=649000451]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y3qyt")
+item_scene = ExtResource("2_n3ncl")
+item_separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=331121031]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=28073204]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer" unique_id=617102679]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1337136523]
+layout_mode = 2
+
+[node name="CollapseButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=358993390]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Collapse"
+icon = SubResource("DPITexture_2nfri")
+
+[node name="ExpandButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=1189486800]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Expand"
+icon = SubResource("DPITexture_2nfri")
+
+[node name="AddButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=147869736]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+icon = SubResource("DPITexture_2nfri")
+
+[node name="ClearButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=110478075]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+icon = SubResource("DPITexture_2nfri")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/HBoxContainer" unique_id=839925306]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=465420657]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer" unique_id=279847721]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CountLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer" unique_id=1798152871]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(0)"
+
+[node name="Contents" type="VBoxContainer" parent="VBoxContainer" unique_id=436998764]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PopupMenu" type="PopupMenu" parent="." unique_id=123418320]
+unique_name_in_owner = true
+item_count = 2
+item_0/text = "Duplicate"
+item_0/icon = SubResource("DPITexture_2nfri")
+item_0/id = 3
+item_1/text = "Delete"
+item_1/icon = SubResource("DPITexture_2nfri")
+item_1/id = 2
