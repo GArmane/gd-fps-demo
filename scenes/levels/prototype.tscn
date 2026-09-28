@@ -4,17 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player/player_controller.tscn" id="1_qq37k"]
 [ext_resource type="PackedScene" uid="uid://c3auay8pdua3g" path="res://props/blueprints/modular-kit/glTF/FL_2X2.gltf" id="4_odond"]
 
-[sub_resource type="GDScript" id="GDScript_qq37k"]
-resource_name = "debug"
-script/source = "extends Label
-
-@export var player: CharacterBody3D
-
-func _process(delta: float) -> void:
-	var velocity = player.velocity
-	text = \"{0}, {1}, {2}\".format([velocity.x, velocity.y, velocity.z])
-"
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 
 [sub_resource type="Sky" id="Sky_dovyc"]
@@ -27,22 +16,6 @@ sky = SubResource("Sky_dovyc")
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qq37k"]
 
 [node name="World" type="Node3D" unique_id=765870677]
-
-[node name="Debug" type="CanvasLayer" parent="." unique_id=1537212279]
-
-[node name="PlayerInfo" type="Control" parent="Debug" unique_id=231903027]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Debug/PlayerInfo" unique_id=1714555886 node_paths=PackedStringArray("player")]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "TEEEEST"
-script = SubResource("GDScript_qq37k")
-player = NodePath("../../../PlayerController")
 
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1103200190]
 environment = SubResource("Environment_4mojx")
@@ -62,4 +35,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -4)
 
 [node name="PlayerController" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, -12)
-speed = 6.0
