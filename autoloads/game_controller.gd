@@ -5,7 +5,6 @@ extends Node
 func _ready() -> void:
 	EventBus.pause.connect(_on_event_bus_pause)
 	EventBus.unpause.connect(_on_event_bus_unpause)
-	print("Hello World!")
 
 
 #endregion
