@@ -1,18 +1,19 @@
 [gd_scene format=3 uid="uid://3eugs5lwessb"]
 
+[ext_resource type="PackedScene" uid="uid://w8cv1hxilqai" path="res://props/blueprints/room_md_no_roof.tscn" id="1_dovyc"]
 [ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player/player_controller.tscn" id="1_qq37k"]
+[ext_resource type="PackedScene" uid="uid://c3auay8pdua3g" path="res://props/blueprints/modular-kit/glTF/FL_2X2.gltf" id="4_odond"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_a7g5q"]
-size = Vector3(10, 1, 10)
+[sub_resource type="GDScript" id="GDScript_qq37k"]
+resource_name = "debug"
+script/source = "extends Label
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4mojx"]
-data = PackedVector3Array(-5, 0.5, 5, 5, 0.5, 5, -5, -0.5, 5, 5, 0.5, 5, 5, -0.5, 5, -5, -0.5, 5, 5, 0.5, -5, -5, 0.5, -5, 5, -0.5, -5, -5, 0.5, -5, -5, -0.5, -5, 5, -0.5, -5, 5, 0.5, 5, 5, 0.5, -5, 5, -0.5, 5, 5, 0.5, -5, 5, -0.5, -5, 5, -0.5, 5, -5, 0.5, -5, -5, 0.5, 5, -5, -0.5, -5, -5, 0.5, 5, -5, -0.5, 5, -5, -0.5, -5, 5, 0.5, 5, -5, 0.5, 5, 5, 0.5, -5, -5, 0.5, 5, -5, 0.5, -5, 5, 0.5, -5, -5, -0.5, 5, 5, -0.5, 5, -5, -0.5, -5, 5, -0.5, 5, 5, -0.5, -5, -5, -0.5, -5)
+@export var player: CharacterBody3D
 
-[sub_resource type="BoxMesh" id="BoxMesh_sfw5m"]
-size = Vector3(2, 0.5, 2)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qq37k"]
-data = PackedVector3Array(-1, 0.25, 1, 1, 0.25, 1, -1, -0.25, 1, 1, 0.25, 1, 1, -0.25, 1, -1, -0.25, 1, 1, 0.25, -1, -1, 0.25, -1, 1, -0.25, -1, -1, 0.25, -1, -1, -0.25, -1, 1, -0.25, -1, 1, 0.25, 1, 1, 0.25, -1, 1, -0.25, 1, 1, 0.25, -1, 1, -0.25, -1, 1, -0.25, 1, -1, 0.25, -1, -1, 0.25, 1, -1, -0.25, -1, -1, 0.25, 1, -1, -0.25, 1, -1, -0.25, -1, 1, 0.25, 1, -1, 0.25, 1, 1, 0.25, -1, -1, 0.25, 1, -1, 0.25, -1, 1, 0.25, -1, -1, -0.25, 1, 1, -0.25, 1, -1, -0.25, -1, 1, -0.25, 1, 1, -0.25, -1, -1, -0.25, -1)
+func _process(delta: float) -> void:
+	var velocity = player.velocity
+	text = \"{0}, {1}, {2}\".format([velocity.x, velocity.y, velocity.z])
+"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 
@@ -27,30 +28,38 @@ sky = SubResource("Sky_dovyc")
 
 [node name="World" type="Node3D" unique_id=765870677]
 
-[node name="Geometry" type="Node3D" parent="." unique_id=1799434634]
+[node name="Debug" type="CanvasLayer" parent="." unique_id=1537212279]
 
-[node name="Floor" type="StaticBody3D" parent="Geometry" unique_id=2026361645]
+[node name="PlayerInfo" type="Control" parent="Debug" unique_id=231903027]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor" unique_id=407565778]
-mesh = SubResource("BoxMesh_a7g5q")
+[node name="Label" type="Label" parent="Debug/PlayerInfo" unique_id=1714555886 node_paths=PackedStringArray("player")]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "TEEEEST"
+script = SubResource("GDScript_qq37k")
+player = NodePath("../../../PlayerController")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor" unique_id=253095869]
-shape = SubResource("ConcavePolygonShape3D_4mojx")
-
-[node name="CrouchCheck" type="StaticBody3D" parent="Geometry" unique_id=1505541895]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, -2)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/CrouchCheck" unique_id=111082715]
-mesh = SubResource("BoxMesh_sfw5m")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/CrouchCheck" unique_id=960113198]
-shape = SubResource("ConcavePolygonShape3D_qq37k")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1103200190]
+[node name="Environment" type="WorldEnvironment" parent="." unique_id=1103200190]
 environment = SubResource("Environment_4mojx")
 camera_attributes = SubResource("CameraAttributesPractical_qq37k")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1893017971]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=498823623]
+shadow_enabled = true
+
+[node name="Geometry" type="Node3D" parent="." unique_id=1799434634]
+metadata/_edit_lock_ = true
+
+[node name="RoomMdNoRoof" parent="Geometry" unique_id=1740593442 instance=ExtResource("1_dovyc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+
+[node name="CrouchCheck" parent="Geometry" unique_id=1143590165 instance=ExtResource("4_odond")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -4)
 
 [node name="PlayerController" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, -12)
+speed = 6.0
