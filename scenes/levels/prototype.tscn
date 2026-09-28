@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://3eugs5lwessb"]
 
+[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player/player_controller.tscn" id="1_qq37k"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_a7g5q"]
 size = Vector3(10, 1, 10)
 
@@ -44,12 +46,11 @@ mesh = SubResource("BoxMesh_sfw5m")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/CrouchCheck" unique_id=960113198]
 shape = SubResource("ConcavePolygonShape3D_qq37k")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1296985105]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 4, 10)
-fov = 90.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1103200190]
 environment = SubResource("Environment_4mojx")
 camera_attributes = SubResource("CameraAttributesPractical_qq37k")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1893017971]
+
+[node name="PlayerController" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
