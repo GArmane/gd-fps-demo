@@ -8,4 +8,4 @@ func _on_exit_button_pressed() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	GameController.change_level(start_level)
+	GameController.start_game(start_level)

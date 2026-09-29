@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://dcovavjcffyyq"]
 
-[ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player/player_controller.gd" id="1_ofhqr"]
-[ext_resource type="PackedScene" uid="uid://dofi5e666lvxb" path="res://actors/player/camera_controller.tscn" id="2_ojfk0"]
+[ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player/player.gd" id="1_ofhqr"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="2_ynqnd"]
+[ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="3_lsln6"]
+[ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/game-mode/move.tres" id="3_rptib"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
+[ext_resource type="PackedScene" uid="uid://dofi5e666lvxb" path="res://components/camera/camera.tscn" id="4_lsln6"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_extwr"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
@@ -15,6 +17,8 @@
 
 [node name="PlayerController" type="CharacterBody3D" unique_id=1812465745]
 script = ExtResource("1_ofhqr")
+_move_action = ExtResource("3_rptib")
+_sprint_action = ExtResource("3_lsln6")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0075684, 0)
@@ -24,13 +28,11 @@ mesh = SubResource("CapsuleMesh_iubkf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0075684, 0)
 shape = SubResource("CapsuleShape3D_7jqdq")
 
-[node name="CameraController" parent="." unique_id=1966828444 instance=ExtResource("2_ojfk0")]
+[node name="CameraController" parent="." unique_id=1966828444 instance=ExtResource("4_lsln6")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Components" type="Node" parent="." unique_id=1283188554]
-
-[node name="MouseCapture" type="Node" parent="Components" unique_id=1165098384]
+[node name="MouseCapture" type="Node" parent="." unique_id=1165098384]
 unique_name_in_owner = true
 script = ExtResource("2_ynqnd")
 metadata/_custom_type_script = "uid://di1amkceydt40"
@@ -105,4 +107,7 @@ metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_physics_processing"]
-[connection signal="state_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Moving/Walking" to="." method="_on_walking_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Movement/Grounded/Moving/Sprinting" to="." method="_on_sprinting_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Movement/Grounded/Moving/Sprinting" to="." method="_on_sprinting_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Moving/Sprinting" to="." method="_on_sprinting_state_physics_processing"]

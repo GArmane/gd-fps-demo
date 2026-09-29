@@ -5,7 +5,12 @@ var _current_gui: GUI
 
 #region GUIDE input modes
 var _debug_mode: GUIDEMappingContext = preload("res://input/debug-mode/debug_mode.tres")
+var _game_mode: GUIDEMappingContext = preload("res://input/game-mode/game_mode.tres")
 #endregion
+
+var current_gui: GUI:
+	get():
+		return _current_gui
 
 #region Engine callbacks
 #endregion
@@ -13,6 +18,9 @@ var _debug_mode: GUIDEMappingContext = preload("res://input/debug-mode/debug_mod
 
 #region Game public API
 func start_game(level_path: String) -> void:
+	# Setup GUI
+	_current_gui = _gui_scene.instantiate()
+	add_sibling.call_deferred(current_gui)
 	# Load level
 	_change_level(level_path)
 
@@ -44,19 +52,12 @@ func _change_level(level_path: String) -> void:
 	await scene_tree.process_frame
 
 
-## Get current active GUI, or create one if no GUI has been created.
-func _get_current_gui() -> GUI:
-	if _current_gui == null:
-		_current_gui = _gui_scene.instantiate()
-	return _current_gui
-
-
 #endregion
 
 
 #region Input modes handling
 func switch_to_game_mode():
-	_switch_input_game_modes([_debug_mode], [])
+	_switch_input_game_modes([_debug_mode, _game_mode], [])
 	get_tree().paused = false
 
 

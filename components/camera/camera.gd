@@ -1,4 +1,4 @@
-class_name CameraController extends Node3D
+class_name Camera extends Node3D
 
 @export var debug: bool = false
 @export_category("Camera Settings")
