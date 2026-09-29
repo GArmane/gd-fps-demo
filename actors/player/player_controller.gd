@@ -1,5 +1,7 @@
 class_name PlayerController extends CharacterBody3D
 
+signal active
+
 @export_category("Movement settings")
 @export var acceleration := 1.0
 @export var friction := 1.0
@@ -7,12 +9,7 @@ class_name PlayerController extends CharacterBody3D
 @export var jump_velocity = 4.5
 
 
-func _physics_process(delta: float) -> void:
-	# Handle rotation.
-	var mouse_rotation: Vector2 = %MouseCapture.input
-	rotation_degrees.y += mouse_rotation.x
-	%CameraController.update_rotation(mouse_rotation)
-
+func _update_movement(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -35,3 +32,20 @@ func _physics_process(delta: float) -> void:
 
 	velocity = Vector3(move_vec.x, velocity.y, move_vec.y)
 	move_and_slide()
+
+
+func _update_rotation() -> void:
+	var mouse_rotation: Vector2 = %MouseCapture.input
+	rotation_degrees.y += mouse_rotation.x
+	%CameraController.update_rotation(mouse_rotation)
+
+
+#region State machine
+func _on_root_state_entered() -> void:
+	active.emit()
+
+
+func _on_idle_state_physics_processing(delta: float) -> void:
+	_update_rotation()
+	_update_movement(delta)
+#endregion

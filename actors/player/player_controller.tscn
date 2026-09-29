@@ -3,6 +3,11 @@
 [ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player/player_controller.gd" id="1_ofhqr"]
 [ext_resource type="PackedScene" uid="uid://dofi5e666lvxb" path="res://actors/player/camera_controller.tscn" id="2_ojfk0"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="2_ynqnd"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_extwr"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
@@ -29,3 +34,75 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 unique_name_in_owner = true
 script = ExtResource("2_ynqnd")
 metadata/_custom_type_script = "uid://di1amkceydt40"
+
+[node name="StateChart" type="Node" parent="." unique_id=1841322225]
+unique_name_in_owner = true
+script = ExtResource("4_48hux")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=913931831]
+script = ExtResource("5_extwr")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="Movement" type="Node" parent="StateChart/Root" unique_id=1369101924]
+script = ExtResource("6_j58rd")
+initial_state = NodePath("Grounded")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Grounded" type="Node" parent="StateChart/Root/Movement" unique_id=1737073178]
+script = ExtResource("6_j58rd")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Idle" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=2095069697]
+script = ExtResource("7_arksy")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToMoving" type="Node" parent="StateChart/Root/Movement/Grounded/Idle" unique_id=802526479]
+script = ExtResource("8_rptib")
+to = NodePath("../../Moving")
+event = &"Moving"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Moving" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=751443346]
+script = ExtResource("6_j58rd")
+initial_state = NodePath("Walking")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="ToIdle" type="Node" parent="StateChart/Root/Movement/Grounded/Moving" unique_id=546885696]
+script = ExtResource("8_rptib")
+to = NodePath("../../Idle")
+event = &"Idle"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Walking" type="Node" parent="StateChart/Root/Movement/Grounded/Moving" unique_id=2121167802]
+script = ExtResource("7_arksy")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToSprinting" type="Node" parent="StateChart/Root/Movement/Grounded/Moving/Walking" unique_id=42331280]
+script = ExtResource("8_rptib")
+to = NodePath("../../Sprinting")
+event = &"Sprinting"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Sprinting" type="Node" parent="StateChart/Root/Movement/Grounded/Moving" unique_id=310257594]
+script = ExtResource("7_arksy")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToWalking" type="Node" parent="StateChart/Root/Movement/Grounded/Moving/Sprinting" unique_id=1390681890]
+script = ExtResource("8_rptib")
+to = NodePath("../../Walking")
+event = &"Walking"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Airborne" type="Node" parent="StateChart/Root/Movement" unique_id=566149196]
+script = ExtResource("6_j58rd")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_processing"]
