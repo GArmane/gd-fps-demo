@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dtrbumde42yyn"]
+
+[ext_resource type="Script" uid="uid://c0qy5ivyba1kc" path="res://gui/debug-hud/debug_hud.gd" id="1_4cn0y"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="2_1x6hn"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="3_82xnq"]
+
+[node name="DebugHUD" type="Control" unique_id=102546804]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4cn0y")
+
+[node name="GuideDebugger" parent="." unique_id=2146353638 instance=ExtResource("2_1x6hn")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = -576.0
+
+[node name="StateChartDebugger" parent="." unique_id=321863757 instance=ExtResource("3_82xnq")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 576.0
