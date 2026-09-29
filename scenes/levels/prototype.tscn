@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://3eugs5lwessb"]
 
+[ext_resource type="Script" uid="uid://dr7hfejxrye0x" path="res://scenes/levels/prototype.gd" id="1_corbn"]
 [ext_resource type="PackedScene" uid="uid://w8cv1hxilqai" path="res://props/blueprints/room_md_no_roof.tscn" id="1_dovyc"]
-[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player/player_controller.tscn" id="1_qq37k"]
+[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player/player.tscn" id="1_qq37k"]
 [ext_resource type="PackedScene" uid="uid://c3auay8pdua3g" path="res://props/blueprints/modular-kit/glTF/FL_2X2.gltf" id="4_odond"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
@@ -15,9 +16,12 @@ sky = SubResource("Sky_dovyc")
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qq37k"]
 
-[node name="World" type="Node3D" unique_id=765870677]
+[node name="World" type="Node3D" unique_id=765870677 node_paths=PackedStringArray("_player")]
+script = ExtResource("1_corbn")
+_player = NodePath("Player")
 
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1103200190]
+unique_name_in_owner = true
 environment = SubResource("Environment_4mojx")
 camera_attributes = SubResource("CameraAttributesPractical_qq37k")
 
@@ -25,6 +29,7 @@ camera_attributes = SubResource("CameraAttributesPractical_qq37k")
 shadow_enabled = true
 
 [node name="Geometry" type="Node3D" parent="." unique_id=1799434634]
+unique_name_in_owner = true
 metadata/_edit_lock_ = true
 
 [node name="RoomMdNoRoof" parent="Geometry" unique_id=1740593442 instance=ExtResource("1_dovyc")]
@@ -33,5 +38,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
 [node name="CrouchCheck" parent="Geometry" unique_id=1143590165 instance=ExtResource("4_odond")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -4)
 
-[node name="PlayerController" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
+[node name="Player" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, -12)

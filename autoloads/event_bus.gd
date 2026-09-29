@@ -1,12 +1,14 @@
 extends Node
 
+signal switch_debug_mode
+
+signal quit
 signal pause
 signal unpause
-signal quit
 
 
 func _ready() -> void:
-	for p_signal in [quit, pause, unpause]:
+	for p_signal in [quit, pause, switch_debug_mode, unpause]:
 		p_signal.connect(func(): _log_event(p_signal.get_name()))
 
 
