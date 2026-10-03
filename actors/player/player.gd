@@ -27,6 +27,11 @@ var movement_vector: Vector3:
 		return transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 
 
+func _process(_delta: float) -> void:
+	%StateChart.set_expression_property("Player Hitting Head", %CrouchingCheck.is_colliding())
+	%StateChart.set_expression_property("Player Velocity", velocity)
+
+
 func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 	# Add the gravity.
 	if not is_on_floor():
