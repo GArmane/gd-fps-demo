@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="2_ynqnd"]
 [ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="3_lsln6"]
 [ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/game-mode/move.tres" id="3_rptib"]
+[ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/game-mode/crouch.tres" id="3_ssdk0"]
+[ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/game-mode/jump.tres" id="4_7aotg"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
 [ext_resource type="PackedScene" uid="uid://dofi5e666lvxb" path="res://components/camera/camera.tscn" id="4_lsln6"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_extwr"]
@@ -13,24 +15,41 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_iubkf"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7jqdq"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_a7g5q"]
+
 [node name="PlayerController" type="CharacterBody3D" unique_id=1812465745]
+collision_layer = 2
 script = ExtResource("1_ofhqr")
 _move_action = ExtResource("3_rptib")
+_crouch_action = ExtResource("3_ssdk0")
+_jump_action = ExtResource("4_7aotg")
 _sprint_action = ExtResource("3_lsln6")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0075684, 0)
 mesh = SubResource("CapsuleMesh_iubkf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1505516578]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0075684, 0)
+[node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("SphereShape3D_iubkf")
+
+[node name="StandingCollision" type="CollisionShape3D" parent="." unique_id=1505516578]
+unique_name_in_owner = true
 shape = SubResource("CapsuleShape3D_7jqdq")
 
-[node name="CameraController" parent="." unique_id=1966828444 instance=ExtResource("4_lsln6")]
+[node name="CrouchingCheck" type="ShapeCast3D" parent="." unique_id=884388992]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("SphereShape3D_a7g5q")
+target_position = Vector3(0, 0.5, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="Camera" parent="." unique_id=1966828444 instance=ExtResource("4_lsln6")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="MouseCapture" type="Node" parent="." unique_id=1165098384]
 unique_name_in_owner = true
@@ -101,9 +120,32 @@ event = &"Walking"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Airborne" type="Node" parent="StateChart/Root/Movement" unique_id=566149196]
+[node name="Posture" type="Node" parent="StateChart/Root" unique_id=1631779809]
 script = ExtResource("6_j58rd")
+initial_state = NodePath("Standing")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Standing" type="Node" parent="StateChart/Root/Posture" unique_id=999460055]
+script = ExtResource("7_arksy")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToCrouching" type="Node" parent="StateChart/Root/Posture/Standing" unique_id=1227249443]
+script = ExtResource("8_rptib")
+to = NodePath("../../Crouching")
+event = &"Crouch"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Crouching" type="Node" parent="StateChart/Root/Posture" unique_id=1459349997]
+script = ExtResource("7_arksy")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToStanding" type="Node" parent="StateChart/Root/Posture/Crouching" unique_id=610057314]
+script = ExtResource("8_rptib")
+to = NodePath("../../Standing")
+event = &"Stand"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_physics_processing"]
@@ -111,3 +153,9 @@ metadata/_custom_type_script = "uid://jk2jm1g6q853"
 [connection signal="state_entered" from="StateChart/Root/Movement/Grounded/Moving/Sprinting" to="." method="_on_sprinting_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Movement/Grounded/Moving/Sprinting" to="." method="_on_sprinting_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Moving/Sprinting" to="." method="_on_sprinting_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Posture/Standing" to="." method="_on_standing_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Posture/Standing" to="." method="_on_standing_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Posture/Standing" to="." method="_on_standing_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Posture/Crouching" to="." method="_on_crouching_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Posture/Crouching" to="." method="_on_crouching_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Posture/Crouching" to="." method="_on_crouching_state_physics_processing"]
