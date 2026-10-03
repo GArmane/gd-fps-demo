@@ -88,13 +88,9 @@ input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_oegkm")])
 script = ExtResource("4_q6d2s")
 key = 32
 
-[sub_resource type="Resource" id="Resource_4r0d7"]
-script = ExtResource("10_teaac")
-
 [sub_resource type="Resource" id="Resource_b51d7"]
 script = ExtResource("3_mmvjt")
 input = SubResource("Resource_34bfl")
-triggers = Array[ExtResource("8_d81ln")]([SubResource("Resource_4r0d7")])
 
 [sub_resource type="Resource" id="Resource_qk616"]
 script = ExtResource("1_0pol1")
