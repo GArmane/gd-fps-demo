@@ -3,24 +3,26 @@ extends Control
 
 @export var radius := 30.0:
 	set(value):
+		assert(value, "radius should be between -360° to 360°")
 		radius = value
 		queue_redraw()
-@export var thickness := 1.0:
+@export_range(0, 60) var thickness := 1.0:
 	set(value):
+		assert(value >= 0, "thickness should be between 0 and 60")
 		thickness = value
 		queue_redraw()
 @export var color := Color.WHITE:
 	set(value):
 		color = value
 		queue_redraw()
-@export var gap_angle := 45.0:
+@export_range(-180.0, 180.0) var gap_angle := 45.0:
 	set(value):
+		assert(value >= 0 and value <= 180, "gap angle should be between -180° and 180°")
 		gap_angle = value
 		queue_redraw()
-@export var segments := 32:
+@export_range(0, 32) var segments := 32:
 	set(value):
-		if value <= 0:
-			assert(value >= 1, "segments can't be less or equals to 0")
+		assert(value >= 0, "segments should be between 0 and 32")
 		segments = value
 		queue_redraw()
 @export var anti_aliased := true:
