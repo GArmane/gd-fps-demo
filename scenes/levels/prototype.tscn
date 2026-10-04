@@ -12,8 +12,6 @@ sky_material = SubResource("ProceduralSkyMaterial_a1d61")
 background_mode = 2
 sky = SubResource("Sky_dovyc")
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qq37k"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_a7g5q"]
 size = Vector3(15, 1, 15)
 
@@ -39,7 +37,6 @@ _player = NodePath("Player")
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1103200190]
 unique_name_in_owner = true
 environment = SubResource("Environment_4mojx")
-camera_attributes = SubResource("CameraAttributesPractical_qq37k")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=498823623]
 shadow_enabled = true

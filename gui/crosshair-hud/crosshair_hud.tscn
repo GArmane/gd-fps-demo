@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://w2ropg6w5rgy"]
+
+[ext_resource type="Script" uid="uid://b6g8x56ams6vw" path="res://gui/crosshair-hud/reticle_draw.gd" id="1_odnpd"]
+
+[node name="ReticleDraw" type="Control" unique_id=19174075]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_odnpd")
