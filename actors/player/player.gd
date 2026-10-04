@@ -26,11 +26,15 @@ var movement_vector: Vector3:
 		var input_dir := _move_action.value_axis_2d
 		return transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 
+var _airborne_momentum := Vector3.ZERO
 
-func _process(_delta: float) -> void:
+
+func _process(delta: float) -> void:
 	%StateChart.set_expression_property("Player Hitting Head", %CrouchingCheck.is_colliding())
+	%StateChart.set_expression_property("Player Airborne Momentum", _airborne_momentum)
 	%StateChart.set_expression_property("Player Velocity", velocity)
 	%StateChart.set_expression_property("Player Speed", speed)
+	%StateChart.set_expression_property("Player Mouse Vector", %MouseCapture.input)
 
 
 func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
@@ -48,7 +52,6 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 		else move_vec.move_toward(Vector2.ZERO, friction * delta)
 	)
 
-	%StateChart.set_expression_property("Player Mov Vector", move_vec)
 	velocity = Vector3(move_vec.x, velocity.y, move_vec.y)
 	move_and_slide()
 
@@ -93,12 +96,7 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 
 
 func _on_sprinting_state_entered() -> void:
-	speed *= sprinting_multiplier
 	%StateChart.send_event("ToStanding")
-
-
-func _on_sprinting_state_exited() -> void:
-	speed /= sprinting_multiplier
 
 
 func _on_sprinting_state_physics_processing(delta: float) -> void:
@@ -107,21 +105,28 @@ func _on_sprinting_state_physics_processing(delta: float) -> void:
 		return
 
 	_update_rotation()
-	_update_movement(delta, movement_vector)
+	_update_movement(delta, movement_vector * sprinting_multiplier)
 
 
 func _on_airborne_state_entered() -> void:
+	_airborne_momentum = (
+		movement_vector * (sprinting_multiplier if _sprint_action.is_triggered() else 1.0)
+	)
 	if is_on_floor():
 		%StateChart.send_event("ToJumping")
 	else:
 		%StateChart.send_event("ToFalling")
 
 
+func _on_airborne_state_exited() -> void:
+	_airborne_momentum = Vector3.ZERO
+
+
 func _on_falling_state_physics_processing(delta: float) -> void:
 	if is_on_floor():
 		%StateChart.send_event("ToGrounded")
 	_update_rotation()
-	_update_movement(delta, movement_vector)
+	_update_movement(delta, _airborne_momentum)
 
 
 func _on_jumping_state_entered() -> void:
@@ -129,10 +134,10 @@ func _on_jumping_state_entered() -> void:
 
 
 func _on_jumping_state_physics_processing(delta: float) -> void:
-	_update_rotation()
-	_update_movement(delta, movement_vector)
 	if velocity.y <= 0:
 		%StateChart.send_event("ToFalling")
+	_update_rotation()
+	_update_movement(delta, _airborne_momentum)
 
 
 #endregion
@@ -143,10 +148,6 @@ func _on_standing_state_entered() -> void:
 	%StandingCollision.disabled = false
 
 
-func _on_standing_state_exited() -> void:
-	%StandingCollision.disabled = true
-
-
 func _on_standing_state_physics_processing(delta: float) -> void:
 	%Camera.update_height(
 		camera_default_height, camera_crouching_offset, Camera.Direction.UP, camera_speed, delta
@@ -155,14 +156,13 @@ func _on_standing_state_physics_processing(delta: float) -> void:
 		%StateChart.send_event("ToCrouching")
 
 
+func _on_standing_state_exited() -> void:
+	%StandingCollision.disabled = true
+
+
 func _on_crouching_state_entered() -> void:
 	speed *= crouch_multiplier
 	%CrouchingCollision.disabled = false
-
-
-func _on_crouching_state_exited() -> void:
-	speed /= crouch_multiplier
-	%CrouchingCollision.disabled = true
 
 
 func _on_crouching_state_physics_processing(delta: float) -> void:
@@ -172,6 +172,11 @@ func _on_crouching_state_physics_processing(delta: float) -> void:
 	%Camera.update_height(
 		camera_default_height, camera_crouching_offset, Camera.Direction.DOWN, camera_speed, delta
 	)
+
+
+func _on_crouching_state_exited() -> void:
+	speed /= crouch_multiplier
+	%CrouchingCollision.disabled = true
 
 #endregion
 #endregion

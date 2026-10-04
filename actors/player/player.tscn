@@ -99,17 +99,17 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 script = ExtResource("7_arksy")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
+[node name="ToAirborne" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=413494984]
+script = ExtResource("8_rptib")
+to = NodePath("../../Airborne")
+event = &"ToAirborne"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
 [node name="ToIdle" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=1809129077]
 script = ExtResource("8_rptib")
 to = NodePath("../Idle")
 event = &"ToIdle"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="ToWalking" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=1959760679]
-script = ExtResource("8_rptib")
-to = NodePath("../Walking")
-event = &"ToWalking"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
@@ -120,10 +120,10 @@ event = &"ToSprinting"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="ToFalling" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=413494984]
+[node name="ToWalking" type="Node" parent="StateChart/Root/Movement/Grounded" unique_id=1959760679]
 script = ExtResource("8_rptib")
-to = NodePath("../../Airborne/Falling")
-event = &"ToAirborne"
+to = NodePath("../Walking")
+event = &"ToWalking"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
@@ -194,9 +194,9 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Walking" to="." method="_on_walking_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Grounded/Sprinting" to="." method="_on_sprinting_state_entered"]
-[connection signal="state_exited" from="StateChart/Root/Movement/Grounded/Sprinting" to="." method="_on_sprinting_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Sprinting" to="." method="_on_sprinting_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Airborne" to="." method="_on_airborne_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Movement/Airborne" to="." method="_on_airborne_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Falling" to="." method="_on_falling_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Airborne/Jumping" to="." method="_on_jumping_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Jumping" to="." method="_on_jumping_state_physics_processing"]
