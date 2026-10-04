@@ -71,18 +71,22 @@ action = ExtResource("2_6x4li")
 input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_eh8s6"), SubResource("Resource_2ttvs"), SubResource("Resource_cxd0x"), SubResource("Resource_vcb3b")])
 metadata/_guide_input_mappings_collapsed = false
 
-[sub_resource type="Resource" id="Resource_teaac"]
+[sub_resource type="Resource" id="Resource_6x4li"]
 script = ExtResource("4_q6d2s")
-key = 4194326
+key = 4194305
 
-[sub_resource type="Resource" id="Resource_oegkm"]
+[sub_resource type="Resource" id="Resource_q6d2s"]
+script = ExtResource("10_teaac")
+
+[sub_resource type="Resource" id="Resource_ce0b8"]
 script = ExtResource("3_mmvjt")
-input = SubResource("Resource_teaac")
+input = SubResource("Resource_6x4li")
+triggers = Array[ExtResource("8_d81ln")]([SubResource("Resource_q6d2s")])
 
-[sub_resource type="Resource" id="Resource_xbet8"]
+[sub_resource type="Resource" id="Resource_mmvjt"]
 script = ExtResource("1_0pol1")
-action = ExtResource("13_q6d2s")
-input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_oegkm")])
+action = ExtResource("11_6x4li")
+input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_ce0b8")])
 
 [sub_resource type="Resource" id="Resource_34bfl"]
 script = ExtResource("4_q6d2s")
@@ -106,32 +110,29 @@ key = 4194325
 script = ExtResource("3_mmvjt")
 input = SubResource("Resource_cwppc")
 metadata/_guide_triggers_collapsed = false
+metadata/_guide_modifiers_collapsed = false
 
 [sub_resource type="Resource" id="Resource_57v2y"]
 script = ExtResource("1_0pol1")
 action = ExtResource("11_mmvjt")
 input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_d81ln")])
 
-[sub_resource type="Resource" id="Resource_6x4li"]
+[sub_resource type="Resource" id="Resource_teaac"]
 script = ExtResource("4_q6d2s")
-key = 4194305
+key = 4194326
 
-[sub_resource type="Resource" id="Resource_q6d2s"]
-script = ExtResource("10_teaac")
-
-[sub_resource type="Resource" id="Resource_ce0b8"]
+[sub_resource type="Resource" id="Resource_oegkm"]
 script = ExtResource("3_mmvjt")
-input = SubResource("Resource_6x4li")
-triggers = Array[ExtResource("8_d81ln")]([SubResource("Resource_q6d2s")])
+input = SubResource("Resource_teaac")
 
-[sub_resource type="Resource" id="Resource_mmvjt"]
+[sub_resource type="Resource" id="Resource_xbet8"]
 script = ExtResource("1_0pol1")
-action = ExtResource("11_6x4li")
-input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_ce0b8")])
+action = ExtResource("13_q6d2s")
+input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_oegkm")])
 
 [resource]
 script = ExtResource("11_4r0d7")
 display_name = "Game Mode"
-mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_xbet8"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_mmvjt")])
+mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8")])
 metadata/_custom_type_script = "uid://dsa1dnifd6w32"
 metadata/_guide_action_mappings_collapsed = false

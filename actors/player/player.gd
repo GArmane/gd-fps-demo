@@ -8,8 +8,8 @@ signal active
 @export var camera_speed := 3.0
 
 @export_category("Movement settings")
-@export var acceleration := 1.0
-@export var friction := 1.0
+@export_range(0.0, 1.0) var acceleration := 0.2
+@export var friction := 50
 @export var speed := 4.8
 @export var crouch_multiplier := 0.4
 @export var sprinting_multiplier := 1.25
@@ -45,9 +45,10 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 	move_vec = (
 		lerp(move_vec, Vector2(direction.x, direction.z) * speed, acceleration)
 		if direction
-		else move_vec.move_toward(Vector2.ZERO, friction)
+		else move_vec.move_toward(Vector2.ZERO, friction * delta)
 	)
 
+	%StateChart.set_expression_property("Player Mov Vector", move_vec)
 	velocity = Vector3(move_vec.x, velocity.y, move_vec.y)
 	move_and_slide()
 
@@ -63,19 +64,16 @@ func _on_root_state_entered() -> void:
 	active.emit()
 
 
-#region Grounded
+#region Movement
 func _on_grounded_state_physics_processing(_delta: float) -> void:
-	if not is_on_floor():
-		%StateChart.send_event("ToAirborne")
-		return
-	if _jump_action.is_triggered() and is_on_floor():
+	if not is_on_floor() or _jump_action.is_triggered():
 		%StateChart.send_event("ToAirborne")
 		return
 
 
 func _on_idle_state_physics_processing(delta: float) -> void:
 	if _move_action.is_triggered() and _move_action.value_axis_2d != Vector2.ZERO:
-		%StateChart.send_event("ToMoving")
+		%StateChart.send_event("ToWalking")
 		return
 
 	_update_rotation()
@@ -96,6 +94,7 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 
 func _on_sprinting_state_entered() -> void:
 	speed *= sprinting_multiplier
+	%StateChart.send_event("ToStanding")
 
 
 func _on_sprinting_state_exited() -> void:
@@ -111,21 +110,29 @@ func _on_sprinting_state_physics_processing(delta: float) -> void:
 	_update_movement(delta, movement_vector)
 
 
-#endregion
-
-
-#region Airborne
 func _on_airborne_state_entered() -> void:
 	if is_on_floor():
-		velocity.y = jump_velocity
+		%StateChart.send_event("ToJumping")
+	else:
+		%StateChart.send_event("ToFalling")
 
 
-func _on_airborne_state_physics_processing(delta: float) -> void:
-	_update_rotation()
-	_update_movement(delta, movement_vector)
+func _on_falling_state_physics_processing(delta: float) -> void:
 	if is_on_floor():
 		%StateChart.send_event("ToGrounded")
-		return
+	_update_rotation()
+	_update_movement(delta, movement_vector)
+
+
+func _on_jumping_state_entered() -> void:
+	velocity.y = jump_velocity
+
+
+func _on_jumping_state_physics_processing(delta: float) -> void:
+	_update_rotation()
+	_update_movement(delta, movement_vector)
+	if velocity.y <= 0:
+		%StateChart.send_event("ToFalling")
 
 
 #endregion
@@ -144,7 +151,7 @@ func _on_standing_state_physics_processing(delta: float) -> void:
 	%Camera.update_height(
 		camera_default_height, camera_crouching_offset, Camera.Direction.UP, camera_speed, delta
 	)
-	if _crouch_action.is_triggered() and is_on_floor():
+	if _crouch_action.is_triggered() and is_on_floor() and not _sprint_action.is_triggered():
 		%StateChart.send_event("ToCrouching")
 
 
