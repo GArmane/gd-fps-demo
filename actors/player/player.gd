@@ -30,6 +30,7 @@ var _airborne_momentum := Vector3.ZERO
 
 
 func _process(_delta: float) -> void:
+	%StateChart.set_expression_property("Interaction Target", %InteractionRaycast.target)
 	%StateChart.set_expression_property("Player Hitting Head", %CrouchingCheck.is_colliding())
 	%StateChart.set_expression_property("Player Airborne Momentum", _airborne_momentum)
 	%StateChart.set_expression_property("Player Velocity", velocity)
