@@ -2,7 +2,6 @@ class_name Camera extends Node3D
 
 enum Direction { UP = 1, DOWN = -1 }
 
-@export var debug: bool = false
 @export_category("Camera Settings")
 @export_group("Tilt")
 @export_range(-90, -60) var tilt_lower_limit := -90.0
