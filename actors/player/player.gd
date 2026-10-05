@@ -60,7 +60,7 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 func _update_rotation() -> void:
 	var mouse_rotation: Vector2 = %MouseCapture.input
 	rotation_degrees.y += mouse_rotation.x
-	%Camera.update_rotation(mouse_rotation)
+	%FPCamera3D.update_rotation(velocity, mouse_rotation)
 
 
 #region State machine
@@ -150,8 +150,8 @@ func _on_standing_state_entered() -> void:
 
 
 func _on_standing_state_physics_processing(delta: float) -> void:
-	%Camera.update_height(
-		camera_default_height, camera_crouching_offset, Camera.Direction.UP, camera_speed, delta
+	%FPCamera3D.update_height(
+		camera_default_height, camera_crouching_offset, FPCamera3D.Direction.UP, camera_speed, delta
 	)
 	if _crouch_action.is_triggered() and is_on_floor() and not _sprint_action.is_triggered():
 		%StateChart.send_event("ToCrouching")
@@ -170,8 +170,12 @@ func _on_crouching_state_physics_processing(delta: float) -> void:
 	if not _crouch_action.is_triggered() and is_on_floor() and not %CrouchingCheck.is_colliding():
 		%StateChart.send_event("ToStanding")
 		return
-	%Camera.update_height(
-		camera_default_height, camera_crouching_offset, Camera.Direction.DOWN, camera_speed, delta
+	%FPCamera3D.update_height(
+		camera_default_height,
+		camera_crouching_offset,
+		FPCamera3D.Direction.DOWN,
+		camera_speed,
+		delta
 	)
 
 
