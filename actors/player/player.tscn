@@ -6,8 +6,8 @@
 [ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/game-mode/crouch.tres" id="3_ssdk0"]
 [ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/game-mode/jump.tres" id="4_7aotg"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
-[ext_resource type="PackedScene" uid="uid://dofi5e666lvxb" path="res://components/camera/camera.tscn" id="4_lsln6"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_extwr"]
+[ext_resource type="PackedScene" uid="uid://b3bs0y5jtxqt2" path="res://components/fp-camera-3d/fp_camera_3d.tscn" id="6_12xki"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
 [ext_resource type="PackedScene" uid="uid://dusi46e30e3xb" path="res://components/interaction-raycast/interaction_raycast.tscn" id="7_12xki"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
@@ -45,6 +45,13 @@ _sprint_action = ExtResource("3_lsln6")
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
 mesh = SubResource("CapsuleMesh_iubkf")
 
+[node name="FPCamera3D" parent="." unique_id=277889128 instance=ExtResource("6_12xki")]
+unique_name_in_owner = true
+
+[node name="InteractionRaycast" parent="FPCamera3D" unique_id=9869564 instance=ExtResource("7_12xki")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -59,13 +66,6 @@ unique_name_in_owner = true
 shape = SubResource("SphereShape3D_a7g5q")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
-
-[node name="Camera" parent="." unique_id=1966828444 instance=ExtResource("4_lsln6")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[node name="InteractionRaycast" parent="Camera" unique_id=9869564 instance=ExtResource("7_12xki")]
-unique_name_in_owner = true
 
 [node name="MouseCapture" parent="." unique_id=1546859760 instance=ExtResource("7_k67x5")]
 unique_name_in_owner = true
