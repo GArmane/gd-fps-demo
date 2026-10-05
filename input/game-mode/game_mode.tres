@@ -14,6 +14,9 @@
 [ext_resource type="Resource" uid="uid://be146lb73a8yl" path="res://input/game-mode/pause.tres" id="11_6x4li"]
 [ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="11_mmvjt"]
 [ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/game-mode/crouch.tres" id="13_q6d2s"]
+[ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/game-mode/mouse_vec.tres" id="14_cwppc"]
+[ext_resource type="Script" uid="uid://dh0hf08e0yit5" path="res://addons/guide/inputs/guide_input_mouse_axis_2d.gd" id="15_82epi"]
+[ext_resource type="Script" uid="uid://bjm4myqxg4phm" path="res://addons/guide/modifiers/guide_modifier_scale.gd" id="16_82epi"]
 
 [sub_resource type="Resource" id="Resource_egfbn"]
 script = ExtResource("4_q6d2s")
@@ -130,9 +133,30 @@ script = ExtResource("1_0pol1")
 action = ExtResource("13_q6d2s")
 input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_oegkm")])
 
+[sub_resource type="Resource" id="Resource_82epi"]
+script = ExtResource("15_82epi")
+
+[sub_resource type="Resource" id="Resource_4r0d7"]
+script = ExtResource("6_cwppc")
+
+[sub_resource type="Resource" id="Resource_md1ej"]
+script = ExtResource("16_82epi")
+apply_delta_time = true
+
+[sub_resource type="Resource" id="Resource_p6olv"]
+script = ExtResource("3_mmvjt")
+input = SubResource("Resource_82epi")
+modifiers = Array[ExtResource("5_ce0b8")]([SubResource("Resource_4r0d7"), SubResource("Resource_md1ej")])
+
+[sub_resource type="Resource" id="Resource_k0d5b"]
+script = ExtResource("1_0pol1")
+action = ExtResource("14_cwppc")
+input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_p6olv")])
+metadata/_guide_input_mappings_collapsed = false
+
 [resource]
 script = ExtResource("11_4r0d7")
 display_name = "Game Mode"
-mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8")])
+mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8"), SubResource("Resource_k0d5b")])
 metadata/_custom_type_script = "uid://dsa1dnifd6w32"
 metadata/_guide_action_mappings_collapsed = false
