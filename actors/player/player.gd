@@ -71,6 +71,15 @@ func _on_root_state_entered() -> void:
 	active.emit()
 
 
+#region Combat
+func _on_combat_state_processing(_delta: float) -> void:
+	if _fire_action.is_triggered():
+		%FPCamera3D.apply_weapon_kick(1, 1, 1)
+
+
+#endregion
+
+
 #region Movement
 func _on_grounded_state_physics_processing(_delta: float) -> void:
 	if not is_on_floor():
@@ -78,7 +87,7 @@ func _on_grounded_state_physics_processing(_delta: float) -> void:
 		return
 
 
-func _on_grounded_state_processing(delta: float) -> void:
+func _on_grounded_state_processing(_delta: float) -> void:
 	if _jump_action.is_triggered():
 		%StateChart.send_event("ToAirborne")
 		return

@@ -32,6 +32,10 @@ enum Direction { NONE = 0, UP = 1, DOWN = -1 }
 @export_range(0.0, 10.0) var damage_kick_strength := 1.0
 @export_range(0.1, 10.0) var damage_kick_magnitude := 0.2
 
+@export_group("Weapon Kick")
+@export var enable_weapon_kick := false
+@export var weapon_kick_decay := 0.5
+
 ## Used to adjust camera height.
 var _target_direction := Direction.NONE
 ## Used to calculate run tilt.
@@ -44,6 +48,8 @@ var _damage_kick_pitch := 0.0
 var _damage_kick_roll := 0.0
 ## Used to apply damage kick effect over time.
 var _damage_kick_time_factor := 0.0
+## Used to accumulate and control weapon kick by a constant factor, instead of only by time
+var _weapon_kick_angles := Vector3.ZERO
 
 
 func apply_damage_kick(pitch: float, roll: float, source: Vector3) -> Vector3:
@@ -65,6 +71,13 @@ func apply_fall_kick() -> float:
 func apply_run_tilt(velocity: Vector3) -> Vector3:
 	_velocity = velocity
 	return _velocity
+
+
+func apply_weapon_kick(pitch: float, yaw: float, roll: float) -> Vector3:
+	_weapon_kick_angles.x += deg_to_rad(pitch)
+	_weapon_kick_angles.y += deg_to_rad(randf_range(-yaw, yaw))
+	_weapon_kick_angles.z += deg_to_rad(randf_range(-roll, roll))
+	return _weapon_kick_angles
 
 
 func move_view_to(direction: Direction) -> Direction:
@@ -108,21 +121,28 @@ func _physics_process(delta: float) -> void:
 		angles.z -= side_tilt
 
 	## Fall kick
-	_fall_kick_time_factor -= delta
+	_fall_kick_time_factor = clampf(_fall_kick_time_factor - delta, 0.0, 10.0)
 	if enable_fall_kick:
-		var kick_ratio = max(0.0, _fall_kick_time_factor / fall_kick_magnitude)
+		var kick_ratio = _fall_kick_time_factor / fall_kick_magnitude
 		var kick_amount = kick_ratio * deg_to_rad(fall_kick_strength)
 		angles.x -= kick_amount
 		offset.y -= kick_amount
 
 	## Damage kick
-	_damage_kick_time_factor -= delta
+	_damage_kick_time_factor = clampf(_damage_kick_time_factor - delta, 0.0, 10.0)
 	if enable_damage_kick:
-		var damage_ratio = max(0.0, _damage_kick_time_factor / damage_kick_magnitude)
+		var damage_ratio = _damage_kick_time_factor / damage_kick_magnitude
 		if ease_damage_kick:
 			damage_ratio = ease(damage_ratio, -2)
 		angles.x -= damage_ratio * _damage_kick_pitch
 		angles.z -= damage_ratio * _damage_kick_roll
+
+	## Weapon kick
+	if enable_weapon_kick:
+		_weapon_kick_angles = _weapon_kick_angles.move_toward(
+			Vector3.ZERO, weapon_kick_decay * delta
+		)
+		angles += _weapon_kick_angles
 
 	%Camera3D.position = offset
 	%Camera3D.rotation = angles
