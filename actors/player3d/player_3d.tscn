@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dcovavjcffyyq"]
 
-[ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player/player.gd" id="1_ofhqr"]
+[ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player3d/player_3d.gd" id="1_ofhqr"]
 [ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="3_lsln6"]
 [ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/game-mode/move.tres" id="3_rptib"]
 [ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/game-mode/fire.tres" id="3_rt46e"]
@@ -35,7 +35,7 @@ script = ExtResource("14_12xki")
 guard = SubResource("Resource_k67x5")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="PlayerController" type="CharacterBody3D" unique_id=1812465745]
+[node name="Player3D" type="CharacterBody3D" unique_id=1812465745]
 collision_layer = 2
 script = ExtResource("1_ofhqr")
 _move_action = ExtResource("3_rptib")

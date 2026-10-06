@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var _player: Player
+@export var _player: Player3D
 
 
 # Called when the node enters the scene tree for the first time.
