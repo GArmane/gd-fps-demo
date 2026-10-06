@@ -17,6 +17,8 @@
 [ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/game-mode/mouse_vec.tres" id="14_cwppc"]
 [ext_resource type="Script" uid="uid://dh0hf08e0yit5" path="res://addons/guide/inputs/guide_input_mouse_axis_2d.gd" id="15_82epi"]
 [ext_resource type="Script" uid="uid://bjm4myqxg4phm" path="res://addons/guide/modifiers/guide_modifier_scale.gd" id="16_82epi"]
+[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/game-mode/fire.tres" id="17_d81ln"]
+[ext_resource type="Script" uid="uid://vgjlx6p007lp" path="res://addons/guide/inputs/guide_input_mouse_button.gd" id="18_57v2y"]
 
 [sub_resource type="Resource" id="Resource_egfbn"]
 script = ExtResource("4_q6d2s")
@@ -154,9 +156,26 @@ action = ExtResource("14_cwppc")
 input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_p6olv")])
 metadata/_guide_input_mappings_collapsed = false
 
+[sub_resource type="Resource" id="Resource_myvn5"]
+script = ExtResource("18_57v2y")
+
+[sub_resource type="Resource" id="Resource_bea4o"]
+script = ExtResource("10_teaac")
+
+[sub_resource type="Resource" id="Resource_fdqkn"]
+script = ExtResource("3_mmvjt")
+input = SubResource("Resource_myvn5")
+triggers = Array[ExtResource("8_d81ln")]([SubResource("Resource_bea4o")])
+
+[sub_resource type="Resource" id="Resource_vmh68"]
+script = ExtResource("1_0pol1")
+action = ExtResource("17_d81ln")
+input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_fdqkn")])
+metadata/_guide_input_mappings_collapsed = false
+
 [resource]
 script = ExtResource("11_4r0d7")
 display_name = "Game Mode"
-mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8"), SubResource("Resource_k0d5b")])
+mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8"), SubResource("Resource_k0d5b"), SubResource("Resource_vmh68")])
 metadata/_custom_type_script = "uid://dsa1dnifd6w32"
 metadata/_guide_action_mappings_collapsed = false
