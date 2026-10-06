@@ -3,6 +3,9 @@ class_name FPCamera3D extends Node3D
 
 enum Direction { NONE = 0, UP = 1, DOWN = -1 }
 
+const MIN_SCREEN_SHAKE := 0.05
+const MAX_SCREEN_SHAKE := 0.5
+
 @export_category("View")
 @export_group("Height")
 @export var max_height := 0.5
@@ -36,6 +39,9 @@ enum Direction { NONE = 0, UP = 1, DOWN = -1 }
 @export var enable_weapon_kick := false
 @export var weapon_kick_decay := 0.5
 
+@export_group("Screen Shake")
+@export var enable_screen_shake := false
+
 ## Used to adjust camera height.
 var _target_direction := Direction.NONE
 ## Used to calculate run tilt.
@@ -48,8 +54,10 @@ var _damage_kick_pitch := 0.0
 var _damage_kick_roll := 0.0
 ## Used to apply damage kick effect over time.
 var _damage_kick_time_factor := 0.0
-## Used to accumulate and control weapon kick by a constant factor, instead of only by time
+## Used to accumulate and control weapon kick by a constant factor, instead of only by time.
 var _weapon_kick_angles := Vector3.ZERO
+## Used to control frequency of screen shake.
+var _screen_shake_tween: Tween = null
 
 
 func apply_damage_kick(pitch: float, roll: float, source: Vector3) -> Vector3:
@@ -73,6 +81,16 @@ func apply_run_tilt(velocity: Vector3) -> Vector3:
 	return _velocity
 
 
+func apply_screen_shake(amount: float, seconds: float) -> void:
+	if _screen_shake_tween:
+		_screen_shake_tween.kill()
+
+	_screen_shake_tween = create_tween()
+	_screen_shake_tween.tween_method(_update_screen_shake.bind(amount), 0.0, 1.0, seconds).set_ease(
+		Tween.EASE_OUT
+	)
+
+
 func apply_weapon_kick(pitch: float, yaw: float, roll: float) -> Vector3:
 	_weapon_kick_angles.x += deg_to_rad(pitch)
 	_weapon_kick_angles.y += deg_to_rad(randf_range(-yaw, yaw))
@@ -89,6 +107,16 @@ func tilt_view(vec: Vector2) -> Vector3:
 	rotation_degrees.x += vec.y
 	rotation_degrees.x = clamp(rotation_degrees.x, tilt_lower_limit, tilt_upper_limit)
 	return rotation
+
+
+func _update_screen_shake(alpha: float, amount: float) -> void:
+	if not enable_screen_shake:
+		return
+
+	amount = remap(amount, 0.0, 1.0, MIN_SCREEN_SHAKE, MAX_SCREEN_SHAKE)
+	var current_amount := amount * (1.0 - alpha)
+	%Camera3D.h_offset = randf_range(-current_amount, current_amount)
+	%Camera3D.v_offset = randf_range(-current_amount, current_amount)
 
 
 func _physics_process(delta: float) -> void:
