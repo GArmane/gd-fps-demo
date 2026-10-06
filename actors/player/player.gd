@@ -3,9 +3,8 @@ class_name Player extends CharacterBody3D
 signal active
 
 @export_category("Camera settings")
-@export var camera_default_height := 0.5
-@export var camera_crouching_offset := 0.0
-@export var camera_speed := 3.0
+## After this much time, triggers camera kick effect.
+@export var camera_fall_kick_threshold := 0.4
 
 @export_category("Movement settings")
 @export_range(0.0, 1.0) var acceleration := 0.2
@@ -26,19 +25,27 @@ var movement_vector: Vector3:
 		var input_dir := _move_action.value_axis_2d
 		return transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 
+## Store movement momentum at the moment player went airborne.
 var _airborne_momentum := Vector3.ZERO
+## Store the amount of time the player has been falling.
+var _fall_time := 0.0
 
 
 func _process(_delta: float) -> void:
 	%StateChart.set_expression_property("Interaction Target", %InteractionRaycast.target)
+	%StateChart.set_expression_property("Player Fall Time", _fall_time)
 	%StateChart.set_expression_property("Player Hitting Head", %CrouchingCheck.is_colliding())
 	%StateChart.set_expression_property("Player Airborne Momentum", _airborne_momentum)
 	%StateChart.set_expression_property("Player Velocity", velocity)
 	%StateChart.set_expression_property("Player Speed", speed)
-	%StateChart.set_expression_property("Player Mouse Vector", %MouseCapture.input)
 
 
 func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
+	# Rotate character and camera
+	var view_pos = %MouseCapture.relative_position
+	rotation_degrees.y += view_pos.x
+	%FPCamera3D.tilt_view(view_pos)
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -54,13 +61,8 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 	)
 
 	velocity = Vector3(move_vec.x, velocity.y, move_vec.y)
+	%FPCamera3D.apply_run_tilt(velocity)
 	move_and_slide()
-
-
-func _update_rotation() -> void:
-	var mouse_rotation: Vector2 = %MouseCapture.input
-	rotation_degrees.y += mouse_rotation.x
-	%FPCamera3D.update_rotation(velocity, mouse_rotation)
 
 
 #region State machine
@@ -80,7 +82,6 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 		%StateChart.send_event("ToWalking")
 		return
 
-	_update_rotation()
 	_update_movement(delta)
 
 
@@ -92,7 +93,6 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 		%StateChart.send_event("ToSprinting")
 		return
 
-	_update_rotation()
 	_update_movement(delta, movement_vector)
 
 
@@ -105,7 +105,6 @@ func _on_sprinting_state_physics_processing(delta: float) -> void:
 		%StateChart.send_event("ToWalking")
 		return
 
-	_update_rotation()
 	_update_movement(delta, movement_vector * sprinting_multiplier)
 
 
@@ -123,11 +122,20 @@ func _on_airborne_state_exited() -> void:
 	_airborne_momentum = Vector3.ZERO
 
 
+func _on_falling_state_entered() -> void:
+	_fall_time = 0.0
+
+
 func _on_falling_state_physics_processing(delta: float) -> void:
 	if is_on_floor():
 		%StateChart.send_event("ToGrounded")
-	_update_rotation()
+	_fall_time += delta
 	_update_movement(delta, _airborne_momentum)
+
+
+func _on_falling_state_exited() -> void:
+	if _fall_time >= camera_fall_kick_threshold:
+		%FPCamera3D.trigger_fall_kick()
 
 
 func _on_jumping_state_entered() -> void:
@@ -137,7 +145,6 @@ func _on_jumping_state_entered() -> void:
 func _on_jumping_state_physics_processing(delta: float) -> void:
 	if velocity.y <= 0:
 		%StateChart.send_event("ToFalling")
-	_update_rotation()
 	_update_movement(delta, _airborne_momentum)
 
 
@@ -146,13 +153,11 @@ func _on_jumping_state_physics_processing(delta: float) -> void:
 
 #region Posture
 func _on_standing_state_entered() -> void:
+	%FPCamera3D.move_view_to(FPCamera3D.Direction.UP)
 	%StandingCollision.disabled = false
 
 
-func _on_standing_state_physics_processing(delta: float) -> void:
-	%FPCamera3D.update_height(
-		camera_default_height, camera_crouching_offset, FPCamera3D.Direction.UP, camera_speed, delta
-	)
+func _on_standing_state_physics_processing(_delta: float) -> void:
 	if _crouch_action.is_triggered() and is_on_floor() and not _sprint_action.is_triggered():
 		%StateChart.send_event("ToCrouching")
 
@@ -164,19 +169,13 @@ func _on_standing_state_exited() -> void:
 func _on_crouching_state_entered() -> void:
 	speed *= crouch_multiplier
 	%CrouchingCollision.disabled = false
+	%FPCamera3D.move_view_to(FPCamera3D.Direction.DOWN)
 
 
-func _on_crouching_state_physics_processing(delta: float) -> void:
+func _on_crouching_state_physics_processing(_delta: float) -> void:
 	if not _crouch_action.is_triggered() and is_on_floor() and not %CrouchingCheck.is_colliding():
 		%StateChart.send_event("ToStanding")
 		return
-	%FPCamera3D.update_height(
-		camera_default_height,
-		camera_crouching_offset,
-		FPCamera3D.Direction.DOWN,
-		camera_speed,
-		delta
-	)
 
 
 func _on_crouching_state_exited() -> void:

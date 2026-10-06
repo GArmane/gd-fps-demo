@@ -47,10 +47,14 @@ mesh = SubResource("CapsuleMesh_iubkf")
 
 [node name="FPCamera3D" parent="." unique_id=277889128 instance=ExtResource("6_12xki")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+enable_run_tilt = true
+enable_fall_kick = true
+fall_kick_strength = 3.0
+fall_kick_magnitude = 0.30000000000000004
 
 [node name="InteractionRaycast" parent="FPCamera3D" unique_id=9869564 instance=ExtResource("7_12xki")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
 unique_name_in_owner = true
@@ -199,6 +203,8 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Sprinting" to="." method="_on_sprinting_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Airborne" to="." method="_on_airborne_state_entered"]
 [connection signal="state_exited" from="StateChart/Root/Movement/Airborne" to="." method="_on_airborne_state_exited"]
+[connection signal="state_entered" from="StateChart/Root/Movement/Airborne/Falling" to="." method="_on_falling_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Movement/Airborne/Falling" to="." method="_on_falling_state_exited"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Falling" to="." method="_on_falling_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Airborne/Jumping" to="." method="_on_jumping_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Airborne/Jumping" to="." method="_on_jumping_state_physics_processing"]
