@@ -4,7 +4,7 @@ class_name GUI extends Control
 @export var _game_mode: GUIDEMappingContext
 
 
-func attach_player(player: Player) -> GUI:
+func attach_player(player: Player3D) -> GUI:
 	%DebugHUD.attach_actor(player)
 	return self
 

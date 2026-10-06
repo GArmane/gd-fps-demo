@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://3eugs5lwessb"]
 
 [ext_resource type="Script" uid="uid://dr7hfejxrye0x" path="res://scenes/levels/prototype.gd" id="1_corbn"]
-[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player/player.tscn" id="1_qq37k"]
+[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player3d/player_3d.tscn" id="1_qq37k"]
 [ext_resource type="Texture2D" uid="uid://c4pkcq7dyu8kv" path="res://assets/kenney-prototype-textures/Vector/texture_08.svg" id="2_a1d61"]
 [ext_resource type="Texture2D" uid="uid://cemej5xjljfoj" path="res://assets/kenney-prototype-textures/Vector/texture_09.svg" id="3_js0vw"]
 [ext_resource type="Texture2D" uid="uid://bo5pkxiepwvrm" path="res://assets/kenney-prototype-textures/Vector/texture_10.svg" id="4_pyrxr"]
@@ -97,7 +97,7 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="World" type="Node3D" unique_id=765870677 node_paths=PackedStringArray("_player")]
 script = ExtResource("1_corbn")
-_player = NodePath("Player")
+_player = NodePath("Player3D")
 
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1103200190]
 unique_name_in_owner = true
@@ -243,6 +243,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_a7g5q")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Obstacle" unique_id=1819895154]
 shape = SubResource("ConcavePolygonShape3D_odond")
 
-[node name="Player" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
+[node name="Player3D" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
