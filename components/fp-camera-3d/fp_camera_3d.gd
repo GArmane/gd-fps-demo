@@ -1,3 +1,4 @@
+@tool
 @icon("res://addons/at-icons/node3d/video_camera.svg")
 class_name FPCamera3D extends Node3D
 
@@ -17,8 +18,15 @@ const MAX_SCREEN_SHAKE := 0.5
 @export var tilt_upper_limit := 90.0
 
 @export_category("Effects")
+@export var observer: CharacterBody3D = null:
+	set(value):
+		observer = value
+		update_configuration_warnings()
 @export_group("Run tilt")
-@export var enable_run_tilt := false
+@export var enable_run_tilt := false:
+	set(value):
+		enable_run_tilt = value
+		update_configuration_warnings()
 @export_range(0.0, 360.0) var run_pitch := 0.1
 @export_range(0.0, 360.0) var run_roll := 0.25
 @export_range(0.0, 360.0) var max_pitch := 1.0
@@ -42,10 +50,19 @@ const MAX_SCREEN_SHAKE := 0.5
 @export_group("Screen Shake")
 @export var enable_screen_shake := false
 
+@export_group("Headbob")
+@export var enable_headbob := false:
+	set(value):
+		enable_headbob = value
+		update_configuration_warnings()
+@export_range(0.0, 0.1, 0.001) var headbob_pitch := 0.05
+@export_range(0.0, 0.1, 0.001) var headbob_roll := 0.025
+@export_range(0.0, 0.04, 0.001) var headbob_up := 0.005
+@export_range(3.0, 8.0, 0.1) var headbob_frequency := 6.0
+@export_range(0.1, 1.0, 0.1) var headbob_magnitude := 0.5
+
 ## Used to adjust camera height.
 var _target_direction := Direction.NONE
-## Used to calculate run tilt.
-var _velocity := Vector3.ZERO
 ## Used to apply fall kick effect over time.
 var _fall_kick_time_factor := 0.0
 ## Damage kick pitch factor.
@@ -58,6 +75,8 @@ var _damage_kick_time_factor := 0.0
 var _weapon_kick_angles := Vector3.ZERO
 ## Used to control frequency of screen shake.
 var _screen_shake_tween: Tween = null
+## Used to control frequency of headbobing steps.
+var _step_time_factor := 0.0
 
 
 func apply_damage_kick(pitch: float, roll: float, source: Vector3) -> Vector3:
@@ -74,11 +93,6 @@ func apply_damage_kick(pitch: float, roll: float, source: Vector3) -> Vector3:
 func apply_fall_kick() -> float:
 	_fall_kick_time_factor = fall_kick_magnitude
 	return _fall_kick_time_factor
-
-
-func apply_run_tilt(velocity: Vector3) -> Vector3:
-	_velocity = velocity
-	return _velocity
 
 
 func apply_screen_shake(amount: float, seconds: float) -> void:
@@ -119,7 +133,10 @@ func _update_screen_shake(alpha: float, amount: float) -> void:
 	%Camera3D.v_offset = randf_range(-current_amount, current_amount)
 
 
+#region Engine callbacks
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	# Height movement
 	if position.y >= min_height and position.y <= max_height:
 		position.y = clampf(
@@ -132,17 +149,17 @@ func _physics_process(delta: float) -> void:
 	var angles := Vector3.ZERO
 	var offset := Vector3.ZERO
 	## Camera tilt
-	if enable_run_tilt:
+	if enable_run_tilt and observer:
 		var forward := global_transform.basis.z
 		var right := global_transform.basis.x
 
-		var forward_dot = _velocity.dot(forward)
+		var forward_dot = observer.velocity.dot(forward)
 		var forward_tilt := clampf(
 			forward_dot * deg_to_rad(run_pitch), deg_to_rad(-max_pitch), deg_to_rad(max_pitch)
 		)
 		angles.x += forward_tilt
 
-		var right_dot = _velocity.dot(right)
+		var right_dot = observer.velocity.dot(right)
 		var side_tilt := clampf(
 			right_dot * deg_to_rad(run_roll), deg_to_rad(-max_roll), deg_to_rad(max_roll)
 		)
@@ -172,5 +189,34 @@ func _physics_process(delta: float) -> void:
 		)
 		angles += _weapon_kick_angles
 
+	## Headbob
+	if enable_headbob and observer:
+		var speed = Vector2(observer.velocity.x, observer.velocity.z).length()
+		if speed > 0.1 and observer.is_on_floor():
+			_step_time_factor += delta * (speed / headbob_frequency)
+			_step_time_factor = fmod(_step_time_factor, 1.0)
+		else:
+			_step_time_factor = 0.0
+		var headbob_sin = sin(_step_time_factor * 2.0 * PI) * headbob_magnitude
+
+		angles.x -= headbob_sin * deg_to_rad(headbob_pitch) * speed
+		angles.z -= headbob_sin * deg_to_rad(headbob_roll) * speed
+		offset.y += headbob_sin * headbob_up * speed
+
 	%Camera3D.position = offset
 	%Camera3D.rotation = angles
+
+
+#endregion
+
+
+#region Editor callbacks
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = []
+	if enable_run_tilt and not observer:
+		warnings.push_back("Observer must be set for run tilt effect.")
+	if enable_headbob and not observer:
+		warnings.push_back("Observer must be set for headbob effect.")
+
+	return warnings
+#endregion
