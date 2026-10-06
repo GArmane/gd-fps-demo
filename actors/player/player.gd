@@ -135,7 +135,7 @@ func _on_falling_state_physics_processing(delta: float) -> void:
 
 func _on_falling_state_exited() -> void:
 	if _fall_time >= camera_fall_kick_threshold:
-		%FPCamera3D.trigger_fall_kick()
+		%FPCamera3D.apply_fall_kick()
 
 
 func _on_jumping_state_entered() -> void:
