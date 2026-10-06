@@ -62,7 +62,6 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 	)
 
 	velocity = Vector3(move_vec.x, velocity.y, move_vec.y)
-	%FPCamera3D.apply_run_tilt(velocity)
 	move_and_slide()
 
 

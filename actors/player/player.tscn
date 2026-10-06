@@ -47,13 +47,15 @@ _sprint_action = ExtResource("3_lsln6")
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
 mesh = SubResource("CapsuleMesh_iubkf")
 
-[node name="FPCamera3D" parent="." unique_id=277889128 instance=ExtResource("6_12xki")]
+[node name="FPCamera3D" parent="." unique_id=277889128 node_paths=PackedStringArray("observer") instance=ExtResource("6_12xki")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+observer = NodePath("..")
 enable_run_tilt = true
 enable_fall_kick = true
 enable_damage_kick = true
 enable_weapon_kick = true
+enable_headbob = true
 
 [node name="InteractionRaycast" parent="FPCamera3D" unique_id=9869564 instance=ExtResource("7_12xki")]
 unique_name_in_owner = true
