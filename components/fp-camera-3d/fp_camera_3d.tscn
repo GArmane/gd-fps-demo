@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://2e5kfjj4alnt" path="res://components/fp-camera-3d/fp_camera_3d.gd" id="1_2wns6"]
 
-[node name="FPCamera3D" type="Node3D" unique_id=277889128]
+[node name="FPCamera3D" type="Node3D" unique_id=1428740327]
 script = ExtResource("1_2wns6")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1124490583]
 unique_name_in_owner = true
+current = true
