@@ -21,10 +21,16 @@ enum Direction { NONE = 0, UP = 1, DOWN = -1 }
 @export_range(0.0, 360.0) var max_pitch := 1.0
 @export_range(0.0, 360.0) var max_roll := 2.5
 
-@export_group("Kick")
+@export_group("Fall Kick")
 @export var enable_fall_kick := false
-@export_range(0.0, 10.0) var fall_kick_strength := 0.0
-@export_range(0.1, 10.0) var fall_kick_magnitude := 0.1
+@export_range(0.0, 10.0) var fall_kick_strength := 3.0
+@export_range(0.1, 10.0) var fall_kick_magnitude := 0.3
+
+@export_group("Damage kick")
+@export var enable_damage_kick := false
+@export var ease_damage_kick := false
+@export_range(0.0, 10.0) var damage_kick_strength := 1.0
+@export_range(0.1, 10.0) var damage_kick_magnitude := 0.2
 
 ## Used to adjust camera height.
 var _target_direction := Direction.NONE
@@ -32,9 +38,26 @@ var _target_direction := Direction.NONE
 var _velocity := Vector3.ZERO
 ## Used to apply fall kick effect over time.
 var _fall_kick_time_factor := 0.0
+## Damage kick pitch factor.
+var _damage_kick_pitch := 0.0
+## Damage kick tilt factor.
+var _damage_kick_roll := 0.0
+## Used to apply damage kick effect over time.
+var _damage_kick_time_factor := 0.0
 
 
-func trigger_fall_kick() -> float:
+func apply_damage_kick(pitch: float, roll: float, source: Vector3) -> Vector3:
+	var forward: Vector3 = global_transform.basis.z
+	var right: Vector3 = global_transform.basis.x
+	var direction := global_position.direction_to(source)
+	_damage_kick_pitch = deg_to_rad(pitch) * direction.dot(forward) * damage_kick_strength
+	_damage_kick_roll = deg_to_rad(roll) * direction.dot(right) * damage_kick_strength
+	_damage_kick_time_factor = damage_kick_magnitude
+
+	return direction
+
+
+func apply_fall_kick() -> float:
 	_fall_kick_time_factor = fall_kick_magnitude
 	return _fall_kick_time_factor
 
@@ -91,6 +114,15 @@ func _physics_process(delta: float) -> void:
 		var kick_amount = kick_ratio * deg_to_rad(fall_kick_strength)
 		angles.x -= kick_amount
 		offset.y -= kick_amount
+
+	## Damage kick
+	_damage_kick_time_factor -= delta
+	if enable_damage_kick:
+		var damage_ratio = max(0.0, _damage_kick_time_factor / damage_kick_magnitude)
+		if ease_damage_kick:
+			damage_ratio = ease(damage_ratio, -2)
+		angles.x -= damage_ratio * _damage_kick_pitch
+		angles.z -= damage_ratio * _damage_kick_roll
 
 	%Camera3D.position = offset
 	%Camera3D.rotation = angles

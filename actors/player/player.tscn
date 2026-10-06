@@ -50,8 +50,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 enable_run_tilt = true
 enable_fall_kick = true
-fall_kick_strength = 3.0
-fall_kick_magnitude = 0.30000000000000004
+enable_damage_kick = true
 
 [node name="InteractionRaycast" parent="FPCamera3D" unique_id=9869564 instance=ExtResource("7_12xki")]
 unique_name_in_owner = true
