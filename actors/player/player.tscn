@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player/player.gd" id="1_ofhqr"]
 [ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="3_lsln6"]
 [ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/game-mode/move.tres" id="3_rptib"]
+[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/game-mode/fire.tres" id="3_rt46e"]
 [ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/game-mode/crouch.tres" id="3_ssdk0"]
 [ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/game-mode/jump.tres" id="4_7aotg"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
@@ -38,6 +39,7 @@ metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 collision_layer = 2
 script = ExtResource("1_ofhqr")
 _move_action = ExtResource("3_rptib")
+_fire_action = ExtResource("3_rt46e")
 _crouch_action = ExtResource("3_ssdk0")
 _jump_action = ExtResource("4_7aotg")
 _sprint_action = ExtResource("3_lsln6")
@@ -51,6 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 enable_run_tilt = true
 enable_fall_kick = true
 enable_damage_kick = true
+enable_weapon_kick = true
 
 [node name="InteractionRaycast" parent="FPCamera3D" unique_id=9869564 instance=ExtResource("7_12xki")]
 unique_name_in_owner = true
@@ -196,6 +199,7 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_grounded_state_physics_processing"]
+[connection signal="state_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_grounded_state_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Walking" to="." method="_on_walking_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Movement/Grounded/Sprinting" to="." method="_on_sprinting_state_entered"]

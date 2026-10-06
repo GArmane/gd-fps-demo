@@ -16,6 +16,7 @@ signal active
 
 @export_category("Input Actions")
 @export var _move_action: GUIDEAction
+@export var _fire_action: GUIDEAction
 @export var _crouch_action: GUIDEAction
 @export var _jump_action: GUIDEAction
 @export var _sprint_action: GUIDEAction
@@ -72,7 +73,13 @@ func _on_root_state_entered() -> void:
 
 #region Movement
 func _on_grounded_state_physics_processing(_delta: float) -> void:
-	if not is_on_floor() or _jump_action.is_triggered():
+	if not is_on_floor():
+		%StateChart.send_event("ToAirborne")
+		return
+
+
+func _on_grounded_state_processing(delta: float) -> void:
+	if _jump_action.is_triggered():
 		%StateChart.send_event("ToAirborne")
 		return
 
