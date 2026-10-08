@@ -2,6 +2,11 @@ class_name Player3D extends Actor3D
 
 signal active
 
+const FEET_ADJUSTED_HEIGHT := 0.05
+const MIN_STEP_HEIGHT := 0.1
+const MIN_MOVEMENT_LENGTH := 0.1
+const MIN_DOT_VALUE := 0.5
+
 @export_category("Camera settings")
 ## After this much time, triggers camera kick effect.
 @export var camera_fall_kick_threshold := 0.4
@@ -13,6 +18,10 @@ signal active
 @export var crouch_multiplier := 0.4
 @export var sprinting_multiplier := 1.25
 @export var jump_velocity = 5
+
+@export_category("Step settings")
+@export var step_surface_threshold := 0.3
+@export var step_height: float = 0.5
 
 @export_category("Input Actions")
 @export var _move_action: GUIDEAction
@@ -28,16 +37,98 @@ var movement_vector: Vector3:
 
 ## Store the amount of time the player has been falling.
 var _fall_time := 0.0
+var _step_status := "No collision"
 
 
 func _process(_delta: float) -> void:
+	%StateChart.set_expression_property("Is step collision:", _step_status)
 	%StateChart.set_expression_property("Interaction Target", %InteractionRaycast.target)
-	%StateChart.set_expression_property("Player Fall Time", _fall_time)
 	%StateChart.set_expression_property("Player Hitting Head", %CrouchingCheck.is_colliding())
+	%StateChart.set_expression_property("Player Fall Time", _fall_time)
 	%StateChart.set_expression_property("Player Velocity", velocity)
 	%StateChart.set_expression_property("Player Speed", speed)
 
 
+# Step climbing
+func _handle_step_climbing():
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		if _is_vertical_surface(collision):
+			var measured_height := _measure_step_height(collision)
+			if (
+				measured_height > MIN_STEP_HEIGHT
+				and measured_height <= step_height
+				and _is_valid_step_direction(collision)
+			):
+				global_position.y += measured_height
+				_step_status = "Step found! Height: " + str(measured_height)
+			else:
+				_step_status = "Step too high: " + str(measured_height)
+			break
+
+
+func _is_vertical_surface(collision: KinematicCollision3D) -> bool:
+	var normal := collision.get_normal()
+	if abs(normal.y) <= step_surface_threshold:
+		_step_status = "CollisionShape: Vertical Collision Found! " + str(normal)
+		return true
+	return _check_collision_surface(collision)
+
+
+func _check_collision_surface(collision: KinematicCollision3D) -> bool:
+	var space_state = get_world_3d().direct_space_state
+	var collision_point = collision.get_position()
+
+	var player_feet = _get_player_feet_position()
+	collision_point.y = player_feet.y
+
+	var query = PhysicsRayQueryParameters3D.create(player_feet, collision_point)
+	query.collision_mask = collision_mask
+	query.exclude = [get_rid()]
+
+	var result = space_state.intersect_ray(query)
+	if result and abs(result.normal.y) <= step_surface_threshold:
+		_step_status = "Raycast: Vertical Collision Found! " + str(result.normal)
+		return true
+	_step_status = "No Vertical Collision Detected."
+	return false
+
+
+func _get_player_feet_position() -> Vector3:
+	var feet_pos = global_position
+	feet_pos.y -= %StandingCollision.shape.height / 2
+	feet_pos.y += FEET_ADJUSTED_HEIGHT  # small buffer
+	return feet_pos
+
+
+func _measure_step_height(collision: KinematicCollision3D) -> float:
+	var space_state = get_world_3d().direct_space_state
+	var collision_point = collision.get_position()
+
+	var feet = _get_player_feet_position()
+	var head_y = global_position.y + (%StandingCollision.shape.height / 2)
+
+	var ray_start = Vector3(collision_point.x, head_y, collision_point.z)
+	var ray_end = Vector3(collision_point.x, feet.y, collision_point.z)
+
+	var query = PhysicsRayQueryParameters3D.create(ray_start, ray_end)
+	query.collision_mask = collision_mask
+	query.exclude = [get_rid()]
+
+	var result = space_state.intersect_ray(query)
+	if result:
+		return result.position.y - feet.y
+	return 0.0
+
+
+func _is_valid_step_direction(collision: KinematicCollision3D) -> bool:
+	var normal := collision.get_normal()
+	if movement_vector.length() > MIN_MOVEMENT_LENGTH:
+		return movement_vector.dot(-normal) > MIN_DOT_VALUE
+	return false
+
+
+# Movement
 func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 	# Rotate character and camera
 	var view_pos = %MouseCapture.relative_position
@@ -60,6 +151,8 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 
 	velocity = Vector3(move_vec.x, velocity.y, move_vec.y)
 	move_and_slide()
+	if is_on_floor():
+		_handle_step_climbing()
 
 
 #region State machine
@@ -163,7 +256,7 @@ func _on_jumping_state_physics_processing(delta: float) -> void:
 
 #region Posture
 func _on_standing_state_entered() -> void:
-	%FPCamera3D.move_view_to(FPCamera3D.Direction.UP)
+	%FPCamera3D.offset_view_to(FPCamera3D.Direction.UP)
 	%StandingCollision.disabled = false
 
 
@@ -179,7 +272,7 @@ func _on_standing_state_exited() -> void:
 func _on_crouching_state_entered() -> void:
 	speed *= crouch_multiplier
 	%CrouchingCollision.disabled = false
-	%FPCamera3D.move_view_to(FPCamera3D.Direction.DOWN)
+	%FPCamera3D.offset_view_to(FPCamera3D.Direction.DOWN)
 
 
 func _on_crouching_state_physics_processing(_delta: float) -> void:
