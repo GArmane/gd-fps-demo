@@ -194,7 +194,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1qj2g")
 shape = SubResource("ConcavePolygonShape3D_1qj2g")
 
 [node name="CrouchCheck" type="StaticBody3D" parent="Geometry" unique_id=326253543]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.5, 2, -10.449999)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.5, 1.5, -10.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/CrouchCheck" unique_id=2043066572]
@@ -202,6 +202,17 @@ mesh = SubResource("BoxMesh_udn88")
 surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/CrouchCheck" unique_id=1048177285]
+shape = SubResource("ConcavePolygonShape3D_corbn")
+
+[node name="ProneCheck" type="StaticBody3D" parent="Geometry" unique_id=1548901948]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 6.5, 1, -10.45)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/ProneCheck" unique_id=1977871540]
+mesh = SubResource("BoxMesh_udn88")
+surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/ProneCheck" unique_id=1998368758]
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step" type="StaticBody3D" parent="Geometry" unique_id=1187622923]
@@ -288,4 +299,3 @@ shape = SubResource("ConcavePolygonShape3D_jdskk")
 [node name="Player3D" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-step_height = 0.5
