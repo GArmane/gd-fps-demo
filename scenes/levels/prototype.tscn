@@ -205,7 +205,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step" type="StaticBody3D" parent="Geometry" unique_id=1187622923]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 0.19999999, -3.45)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 0.25, -3.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step" unique_id=1407437057]
@@ -216,7 +216,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step2" type="StaticBody3D" parent="Geometry" unique_id=855490842]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 0.7, -4.45)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 0.75, -4.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step2" unique_id=1637884311]
@@ -227,7 +227,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step3" type="StaticBody3D" parent="Geometry" unique_id=2026744141]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 1.2, -5.4500003)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 1.25, -5.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step3" unique_id=415644157]
@@ -288,3 +288,4 @@ shape = SubResource("ConcavePolygonShape3D_jdskk")
 [node name="Player3D" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+step_height = 0.5
