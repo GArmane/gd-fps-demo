@@ -26,8 +26,6 @@ var movement_vector: Vector3:
 		var input_dir := _move_action.value_axis_2d
 		return transform.basis * Vector3(input_dir.x, 0, input_dir.y).normalized()
 
-## Store movement momentum at the moment player went airborne.
-var _airborne_momentum := Vector3.ZERO
 ## Store the amount of time the player has been falling.
 var _fall_time := 0.0
 
@@ -36,7 +34,6 @@ func _process(_delta: float) -> void:
 	%StateChart.set_expression_property("Interaction Target", %InteractionRaycast.target)
 	%StateChart.set_expression_property("Player Fall Time", _fall_time)
 	%StateChart.set_expression_property("Player Hitting Head", %CrouchingCheck.is_colliding())
-	%StateChart.set_expression_property("Player Airborne Momentum", _airborne_momentum)
 	%StateChart.set_expression_property("Player Velocity", velocity)
 	%StateChart.set_expression_property("Player Speed", speed)
 
@@ -112,6 +109,7 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 
 
 func _on_sprinting_state_entered() -> void:
+	speed *= sprinting_multiplier
 	%StateChart.send_event("ToStanding")
 
 
@@ -123,18 +121,15 @@ func _on_sprinting_state_physics_processing(delta: float) -> void:
 	_update_movement(delta, movement_vector * sprinting_multiplier)
 
 
+func _on_sprinting_state_exited() -> void:
+	speed /= sprinting_multiplier
+
+
 func _on_airborne_state_entered() -> void:
-	_airborne_momentum = (
-		movement_vector * (sprinting_multiplier if _sprint_action.is_triggered() else 1.0)
-	)
 	if is_on_floor():
 		%StateChart.send_event("ToJumping")
 	else:
 		%StateChart.send_event("ToFalling")
-
-
-func _on_airborne_state_exited() -> void:
-	_airborne_momentum = Vector3.ZERO
 
 
 func _on_falling_state_entered() -> void:
@@ -145,7 +140,7 @@ func _on_falling_state_physics_processing(delta: float) -> void:
 	if is_on_floor():
 		%StateChart.send_event("ToGrounded")
 	_fall_time += delta
-	_update_movement(delta, _airborne_momentum)
+	_update_movement(delta, movement_vector)
 
 
 func _on_falling_state_exited() -> void:
@@ -160,7 +155,7 @@ func _on_jumping_state_entered() -> void:
 func _on_jumping_state_physics_processing(delta: float) -> void:
 	if velocity.y <= 0:
 		%StateChart.send_event("ToFalling")
-	_update_movement(delta, _airborne_momentum)
+	_update_movement(delta, movement_vector)
 
 
 #endregion

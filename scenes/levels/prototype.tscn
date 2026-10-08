@@ -194,7 +194,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1qj2g")
 shape = SubResource("ConcavePolygonShape3D_1qj2g")
 
 [node name="CrouchCheck" type="StaticBody3D" parent="Geometry" unique_id=326253543]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2, 10.5)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.5, 2, -10.449999)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/CrouchCheck" unique_id=2043066572]
@@ -205,7 +205,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step" type="StaticBody3D" parent="Geometry" unique_id=1187622923]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.2, 3.5)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 0.19999999, -3.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step" unique_id=1407437057]
@@ -216,7 +216,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step2" type="StaticBody3D" parent="Geometry" unique_id=855490842]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.7, 4.5)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 0.7, -4.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step2" unique_id=1637884311]
@@ -227,7 +227,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step3" type="StaticBody3D" parent="Geometry" unique_id=2026744141]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1.2, 5.5)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 1.2, -5.4500003)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step3" unique_id=415644157]
@@ -238,7 +238,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Step4" type="StaticBody3D" parent="Geometry" unique_id=165650250]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1.75, 6.5)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -11.5, 1.75, -6.4500003)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Step4" unique_id=1717694331]
@@ -249,7 +249,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_76ncn")
 shape = SubResource("ConcavePolygonShape3D_corbn")
 
 [node name="Obstacle" type="StaticBody3D" parent="Geometry" unique_id=104624472]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, 6)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 0.5, -5.95)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Obstacle" unique_id=1022268203]
@@ -260,7 +260,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_a7g5q")
 shape = SubResource("ConcavePolygonShape3D_odond")
 
 [node name="Platform" type="StaticBody3D" parent="Geometry" unique_id=721029809]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 12.5)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.5, 0.5, -12.45)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Platform" unique_id=1514456897]
@@ -273,7 +273,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, -2)
 shape = SubResource("ConcavePolygonShape3D_76ncn")
 
 [node name="Ramp" type="StaticBody3D" parent="Geometry" unique_id=1462285990]
-transform = Transform3D(1.9106859e-15, 4.371139e-08, -1, 1, -4.371139e-08, 4.2351647e-22, -4.371139e-08, -1, -4.371139e-08, 9, 1.0000001, 4)
+transform = Transform3D(-5.7320566e-15, -1.3113416e-07, 1, 1, -4.371139e-08, 4.2351647e-22, 4.371139e-08, 1, 1.3113416e-07, -9, 1.0000001, -3.95)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ramp" unique_id=1742327129]
