@@ -95,7 +95,7 @@ func apply_fall_kick() -> float:
 	return _fall_kick_time_factor
 
 
-func apply_screen_shake(amount: float, seconds: float) -> void:
+func apply_screen_shake(amount: float, seconds: float) -> Tween:
 	if _screen_shake_tween:
 		_screen_shake_tween.kill()
 
@@ -103,6 +103,8 @@ func apply_screen_shake(amount: float, seconds: float) -> void:
 	_screen_shake_tween.tween_method(_update_screen_shake.bind(amount), 0.0, 1.0, seconds).set_ease(
 		Tween.EASE_OUT
 	)
+
+	return _screen_shake_tween
 
 
 func apply_weapon_kick(pitch: float, yaw: float, roll: float) -> Vector3:
@@ -112,7 +114,7 @@ func apply_weapon_kick(pitch: float, yaw: float, roll: float) -> Vector3:
 	return _weapon_kick_angles
 
 
-func move_view_to(direction: Direction) -> Direction:
+func offset_view_to(direction: Direction) -> Direction:
 	_target_direction = direction
 	return _target_direction
 
