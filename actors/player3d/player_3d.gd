@@ -1,4 +1,4 @@
-class_name Player3D extends CharacterBody3D
+class_name Player3D extends Actor3D
 
 signal active
 
