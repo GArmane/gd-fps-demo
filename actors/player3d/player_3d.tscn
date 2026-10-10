@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="13_k67x5"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
+[ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
@@ -45,11 +46,14 @@ _jump_action = ExtResource("4_7aotg")
 _sprint_action = ExtResource("3_lsln6")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_iubkf")
 
 [node name="FPCamera3D" parent="." unique_id=277889128 node_paths=PackedStringArray("observer") instance=ExtResource("6_12xki")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+standing_height = 1.5
+crouching_height = 1.0
 observer = NodePath("..")
 enable_run_tilt = true
 enable_fall_kick = true
@@ -59,20 +63,23 @@ enable_headbob = true
 
 [node name="InteractionRaycast" parent="FPCamera3D" unique_id=9869564 instance=ExtResource("7_12xki")]
 unique_name_in_owner = true
+visible = false
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_iubkf")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="." unique_id=1505516578]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7jqdq")
 
 [node name="CrouchingCheck" type="ShapeCast3D" parent="." unique_id=884388992]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_a7g5q")
-target_position = Vector3(0, 0.5, 0)
+target_position = Vector3(0, 1, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
 
 [node name="MouseCapture" parent="." unique_id=1546859760 instance=ExtResource("7_k67x5")]
@@ -202,6 +209,10 @@ to = NodePath("../Standing")
 event = &"ToStanding"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="StepClimber3D" parent="." unique_id=2129511365 node_paths=PackedStringArray("actor") instance=ExtResource("17_ktukr")]
+unique_name_in_owner = true
+actor = NodePath("..")
 
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_processing" from="StateChart/Root/Combat" to="." method="_on_combat_state_processing"]
