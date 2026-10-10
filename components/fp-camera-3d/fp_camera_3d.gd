@@ -2,15 +2,15 @@
 @icon("res://addons/at-icons/node3d/video_camera.svg")
 class_name FPCamera3D extends Node3D
 
-enum Direction { NONE = 0, UP = 1, DOWN = -1 }
+enum Posture { CROUCHING, STANDING }
 
 const MIN_SCREEN_SHAKE := 0.05
 const MAX_SCREEN_SHAKE := 0.5
 
 @export_category("View")
 @export_group("Height")
-@export var max_height := 0.5
-@export var min_height := 0.0
+@export var standing_height := 1.5
+@export var crouching_height := 1.0
 @export var ease_speed := 2.0
 
 @export_group("View Tilt")
@@ -62,7 +62,7 @@ const MAX_SCREEN_SHAKE := 0.5
 @export_range(0.1, 1.0, 0.1) var headbob_magnitude := 0.5
 
 ## Used to adjust camera height.
-var _target_direction := Direction.NONE
+var _desired_height := standing_height
 ## Used to apply fall kick effect over time.
 var _fall_kick_time_factor := 0.0
 ## Damage kick pitch factor.
@@ -114,9 +114,9 @@ func apply_weapon_kick(pitch: float, yaw: float, roll: float) -> Vector3:
 	return _weapon_kick_angles
 
 
-func offset_view_to(direction: Direction) -> Direction:
-	_target_direction = direction
-	return _target_direction
+func offset_view_to(posture: Posture) -> float:
+	_desired_height = crouching_height if posture == Posture.CROUCHING else standing_height
+	return _desired_height
 
 
 func tilt_view(vec: Vector2) -> Vector3:
@@ -139,13 +139,9 @@ func _update_screen_shake(alpha: float, amount: float) -> void:
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
+
 	# Height movement
-	if position.y >= min_height and position.y <= max_height:
-		position.y = clampf(
-			position.y + (_target_direction * ease_speed) * delta, min_height, max_height
-		)
-	else:
-		_target_direction = Direction.NONE
+	position.y = move_toward(position.y, _desired_height, ease_speed * delta)
 
 	# Effects
 	var angles := Vector3.ZERO

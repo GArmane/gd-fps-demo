@@ -32,10 +32,6 @@ examples_paths=Array[String]([])
 replace_strings=Dictionary[String, String]({})
 copy_path="res://examples/"
 
-[display]
-
-window/size/resizable=false
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/at-icons/plugin.cfg", "res://addons/beautify_code_on_save/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/signal_lens/plugin.cfg")

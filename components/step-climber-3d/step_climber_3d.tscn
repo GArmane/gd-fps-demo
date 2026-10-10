@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bghti5w1it3qk"]
+
+[ext_resource type="Script" uid="uid://n3hj4y2yrjdt" path="res://components/step-climber-3d/step_climber_3d.gd" id="1_luhom"]
+
+[node name="StepClimber3D" type="Node3D" unique_id=2129511365]
+script = ExtResource("1_luhom")
+
+[node name="StepRayCast3D" type="RayCast3D" parent="." unique_id=1169430436]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.6)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="FrontRayCast3D" type="RayCast3D" parent="." unique_id=2047539986]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.3)
+target_position = Vector3(0, 0, -0.4)
+
+[node name="WallRayCast3D" type="RayCast3D" parent="." unique_id=713441073]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.3)
+target_position = Vector3(0, 0, -0.4)
