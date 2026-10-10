@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://kek5u6qm6ty5"]
+
+[ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_rdfa4"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://resources/weapons/pistol/fire_01.wav" id="1_wdd6c"]
+[ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://resources/weapons/pistol/pistol.glb" id="2_lt4mu"]
+
+[resource]
+script = ExtResource("1_rdfa4")
+name = "Pistol"
+damage = 25.0
+max_ammo = 12
+weapon_model = ExtResource("2_lt4mu")
+weapon_position = Vector3(0.5, -0.6, -0.545)
+fire_sounds = Array[AudioStream]([ExtResource("1_wdd6c")])
+metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

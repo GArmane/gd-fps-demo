@@ -12,11 +12,13 @@
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
 [ext_resource type="PackedScene" uid="uid://dusi46e30e3xb" path="res://components/interaction-raycast/interaction_raycast.tscn" id="7_12xki"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
-[ext_resource type="PackedScene" uid="uid://blahug3d7yute" path="res://components/mouse-capture/mouse_capture.tscn" id="7_k67x5"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
+[ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="9_n2jcp"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="13_k67x5"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
+[ext_resource type="Script" uid="uid://ris0e512nni5" path="res://components/weapon-controller/weapon_controller.gd" id="18_n2jcp"]
+[ext_resource type="Resource" uid="uid://kek5u6qm6ty5" path="res://resources/weapons/pistol/pistol.tres" id="19_8rkpr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
@@ -81,9 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_a7g5q")
 target_position = Vector3(0, 1, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
-
-[node name="MouseCapture" parent="." unique_id=1546859760 instance=ExtResource("7_k67x5")]
-unique_name_in_owner = true
+script = ExtResource("9_n2jcp")
 
 [node name="StateChart" type="Node" parent="." unique_id=1841322225]
 unique_name_in_owner = true
@@ -213,6 +213,16 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 [node name="StepClimber3D" parent="." unique_id=2129511365 node_paths=PackedStringArray("actor") instance=ExtResource("17_ktukr")]
 unique_name_in_owner = true
 actor = NodePath("..")
+
+[node name="MouseCapture" type="Node" parent="." unique_id=617456274]
+script = ExtResource("9_n2jcp")
+metadata/_custom_type_script = "uid://di1amkceydt40"
+
+[node name="WeaponController" type="Node3D" parent="." unique_id=1358725 node_paths=PackedStringArray("weapon_model_parent")]
+script = ExtResource("18_n2jcp")
+current_weapon = ExtResource("19_8rkpr")
+weapon_model_parent = NodePath("../FPCamera3D")
+metadata/_custom_type_script = "uid://ris0e512nni5"
 
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_processing" from="StateChart/Root/Combat" to="." method="_on_combat_state_processing"]
