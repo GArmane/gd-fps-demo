@@ -14,7 +14,11 @@
 sky_material = SubResource("ProceduralSkyMaterial_a1d61")
 
 [sub_resource type="Environment" id="Environment_4mojx"]
+background_mode = 2
+background_energy_multiplier = 2.0
 sky = SubResource("Sky_dovyc")
+ambient_light_source = 3
+tonemap_mode = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyrxr"]
 albedo_texture = ExtResource("2_a1d61")

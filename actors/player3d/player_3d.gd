@@ -58,7 +58,7 @@ func _process(_delta: float) -> void:
 func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 	## Store previous frame velocity to smooth collisions.
 	_previous_frame_velocity = velocity
-	## Rotate character and camera
+	## Rotate character and camera.
 	var view_direction = %MouseCapture.direction
 	rotation_degrees.y += view_direction.x
 	%FPCamera3D.tilt_view(view_direction)
@@ -93,7 +93,7 @@ func _on_root_state_entered() -> void:
 #region Combat
 func _on_combat_state_processing(_delta: float) -> void:
 	if _fire_action.is_triggered():
-		%FPCamera3D.apply_weapon_kick(1, 1, 1)
+		%WeaponController.fire()
 
 
 #endregion
@@ -216,5 +216,12 @@ func _on_crouching_state_exited() -> void:
 	speed /= crouch_multiplier
 	%CrouchingCollision.disabled = true
 
+
 #endregion
+#endregion
+
+
+#region Signal handlers
+func _on_weapon_controller_weapon_fired() -> void:
+	%FPCamera3D.apply_weapon_kick(1, 1, 1)
 #endregion

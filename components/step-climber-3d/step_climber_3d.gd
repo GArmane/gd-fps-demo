@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node3d/staircase.svg")
 class_name StepClimber3D extends Node3D
 
 const STEP_HEIGHT_OFFSET := 0.05
