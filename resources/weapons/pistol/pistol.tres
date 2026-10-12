@@ -3,12 +3,15 @@
 [ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_rdfa4"]
 [ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://resources/weapons/pistol/fire_01.wav" id="1_wdd6c"]
 [ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://resources/weapons/pistol/pistol.glb" id="2_lt4mu"]
+[ext_resource type="PackedScene" uid="uid://ykd3tov3vrsn" path="res://resources/projectiles/bullet/bullet.tscn" id="2_t3tl8"]
 
 [resource]
 script = ExtResource("1_rdfa4")
 name = "Pistol"
 damage = 25.0
 max_ammo = 12
+is_hitscan = false
 weapon_model = ExtResource("2_lt4mu")
 fire_sounds = Array[AudioStream]([ExtResource("1_wdd6c")])
+projectile = ExtResource("2_t3tl8")
 metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

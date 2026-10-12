@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://brsd54pg4ghrv" path="res://input/debug-mode/debug_action.tres" id="2_q46mf"]
 [ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://input/game-mode/game_mode.tres" id="3_hp187"]
 [ext_resource type="PackedScene" uid="uid://w2ropg6w5rgy" path="res://gui/crosshair-hud/crosshair_hud.tscn" id="4_n360k"]
+[ext_resource type="PackedScene" uid="uid://bwanyodat2qnd" path="res://gui/weapon-hud/weapon_hud.tscn" id="6_ytf3d"]
 
 [node name="GUI" type="Control" unique_id=1320514639]
 layout_mode = 3
@@ -44,3 +45,11 @@ grow_vertical = 2
 
 [node name="CrosshairHUD" parent="ReticleLayer/CenterContainer" unique_id=336513052 instance=ExtResource("4_n360k")]
 layout_mode = 2
+
+[node name="WeaponHUDLayer" type="CanvasLayer" parent="." unique_id=384375730]
+unique_name_in_owner = true
+
+[node name="WeaponHUD" parent="WeaponHUDLayer" unique_id=1235749527 instance=ExtResource("6_ytf3d")]
+unique_name_in_owner = true
+offset_right = -1152.0
+offset_bottom = -648.0

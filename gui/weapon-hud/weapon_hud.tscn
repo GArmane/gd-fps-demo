@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bwanyodat2qnd"]
+
+[ext_resource type="Script" uid="uid://70t7qvrg45r1" path="res://gui/weapon-hud/weapon_hud.gd" id="1_mo5ef"]
+
+[node name="WeaponHUD" type="Control" unique_id=1235749527]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mo5ef")
+
+[node name="AmmoCount" type="Label" parent="." unique_id=790132169]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "AMMO: 0 / 0"

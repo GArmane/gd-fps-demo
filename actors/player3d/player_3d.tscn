@@ -73,9 +73,15 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 doppler_tracking = 2
 
+[node name="HitscanOrigin" type="Marker3D" parent="FPCamera3D" unique_id=1089124087]
+
 [node name="WeaponPosition" type="Marker3D" parent="FPCamera3D" unique_id=54251466]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.6, -0.625)
+
+[node name="WeaponFireOrigin" type="Marker3D" parent="FPCamera3D" unique_id=922415018]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.4, -0.76)
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
 unique_name_in_owner = true
@@ -104,9 +110,11 @@ script = ExtResource("9_n2jcp")
 _mouse_action = ExtResource("18_8rkpr")
 metadata/_custom_type_script = "uid://di1amkceydt40"
 
-[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "weapon_pos") instance=ExtResource("12_8rkpr")]
+[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "hitscan_origin", "fire_origin", "weapon_pos") instance=ExtResource("12_8rkpr")]
 unique_name_in_owner = true
 audio_player = NodePath("../FPCamera3D/WeaponAudioPlayer")
+hitscan_origin = NodePath("../FPCamera3D/HitscanOrigin")
+fire_origin = NodePath("../FPCamera3D/WeaponFireOrigin")
 current_weapon = ExtResource("19_8rkpr")
 weapon_pos = NodePath("../FPCamera3D/WeaponPosition")
 

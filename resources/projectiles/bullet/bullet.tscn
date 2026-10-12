@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ykd3tov3vrsn"]
+
+[ext_resource type="Script" uid="uid://b3hn0m37smwnb" path="res://resources/projectiles/projectile.gd" id="1_osi5i"]
+[ext_resource type="PackedScene" uid="uid://37qnwynvlyrp" path="res://resources/projectiles/bullet/model.glb" id="1_pfw1x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iubkf"]
+size = Vector3(0.04, 0.04, 0.36)
+
+[node name="Bullet" type="Area3D" unique_id=434070128]
+script = ExtResource("1_osi5i")
+
+[node name="Model" parent="." unique_id=1090344262 instance=ExtResource("1_pfw1x")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=665057774]
+shape = SubResource("BoxShape3D_iubkf")

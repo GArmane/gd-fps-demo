@@ -39,6 +39,9 @@ var movement_vector: Vector3:
 		return (
 			transform.basis * Vector3(raw_movement_vector.x, 0, raw_movement_vector.y).normalized()
 		)
+var weapon_controller: WeaponController:
+	get():
+		return %WeaponController
 
 ## Store the amount of time the player has been falling.
 var _fall_time := 0.0

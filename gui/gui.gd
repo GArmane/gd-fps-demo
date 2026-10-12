@@ -6,6 +6,7 @@ class_name GUI extends Control
 
 func attach_player(player: Player3D) -> GUI:
 	%DebugHUD.attach_actor(player)
+	%WeaponHUD.attach_player(player)
 	return self
 
 

@@ -6,8 +6,17 @@ signal weapon_fired
 signal weapon_ready
 
 @export var audio_player: AudioStreamPlayer3D
+@export var hitscan_origin: Marker3D
+@export var fire_origin: Marker3D
 @export var current_weapon: Weapon
 @export var weapon_pos: Node3D
+
+var current_ammo: int:
+	get():
+		return _current_ammo
+var max_ammo: int:
+	get():
+		return current_weapon.max_ammo
 
 var _weap_model: Node3D
 var _current_ammo: int = 0
@@ -15,6 +24,52 @@ var _current_ammo: int = 0
 
 func fire() -> void:
 	%StateChart.send_event("ToFire")
+
+
+func _fire_hitscan() -> void:
+	assert(hitscan_origin != null, "Hitscan origin point must be assigned.")
+
+	var space_state = hitscan_origin.get_world_3d().direct_space_state
+	var from := hitscan_origin.global_position
+	var frwd := -hitscan_origin.global_transform.basis.z
+	var to := from + frwd * current_weapon.fire_range
+
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	var res := space_state.intersect_ray(query)
+
+	if res:
+		_spawn_impact_marker(res.position)
+
+
+func _fire_projectile() -> void:
+	assert(fire_origin != null, "Fire origin point must be assigned.")
+
+	var projectile := current_weapon.projectile.instantiate() as Projectile3D
+	get_tree().current_scene.add_child(projectile)
+	projectile.global_position = fire_origin.global_position
+
+	var frwd := -fire_origin.global_transform.basis.z
+	var velocity := frwd * current_weapon.proj_speed
+
+	projectile.look_at(projectile.global_position + frwd, Vector3.UP)
+	projectile.setup(velocity, current_weapon.damage)
+
+
+func _spawn_impact_marker(pos: Vector3) -> void:
+	var marker := MeshInstance3D.new()
+	var sphere := SphereMesh.new()
+	sphere.radius = 0.1
+	sphere.height = 0.2
+	marker.mesh = sphere
+
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color.RED
+	marker.set_surface_override_material(0, material)
+
+	get_tree().current_scene.add_child(marker)
+	marker.global_position = pos
+
+	get_tree().create_timer(2.0).timeout.connect(marker.queue_free)
 
 
 func _spawn_weapon_model():
@@ -43,6 +98,10 @@ func _on_ready_state_entered() -> void:
 
 
 func _on_fire_state_entered() -> void:
+	if current_weapon.is_hitscan:
+		_fire_hitscan()
+	else:
+		_fire_projectile()
 	weapon_fired.emit()
 
 

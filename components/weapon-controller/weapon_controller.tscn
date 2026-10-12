@@ -43,31 +43,31 @@ unique_name_in_owner = true
 script = ExtResource("2_ocs2b")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
-[node name="Weapon" type="Node" parent="StateChart" unique_id=1642050979]
+[node name="Root" type="Node" parent="StateChart" unique_id=1642050979]
 script = ExtResource("3_gdadt")
 initial_state = NodePath("Ready")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
-[node name="Ready" type="Node" parent="StateChart/Weapon" unique_id=147654567]
+[node name="Ready" type="Node" parent="StateChart/Root" unique_id=147654567]
 script = ExtResource("4_o02fr")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="Fire" type="Node" parent="StateChart/Weapon" unique_id=1968198709]
+[node name="Fire" type="Node" parent="StateChart/Root" unique_id=1968198709]
 script = ExtResource("4_o02fr")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="Empty" type="Node" parent="StateChart/Weapon" unique_id=1884558367]
+[node name="Empty" type="Node" parent="StateChart/Root" unique_id=1884558367]
 script = ExtResource("4_o02fr")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="ToEmpty" type="Node" parent="StateChart/Weapon" unique_id=1319283025]
+[node name="ToEmpty" type="Node" parent="StateChart/Root" unique_id=1319283025]
 script = ExtResource("5_2qgit")
 to = NodePath("../Empty")
 event = &"ToEmpty"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="ToFire" type="Node" parent="StateChart/Weapon" unique_id=1302868123]
+[node name="ToFire" type="Node" parent="StateChart/Root" unique_id=1302868123]
 script = ExtResource("5_2qgit")
 to = NodePath("../Fire")
 event = &"ToFire"
@@ -75,14 +75,14 @@ guard = SubResource("Resource_0l5ih")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="ToReady" type="Node" parent="StateChart/Weapon" unique_id=2097963362]
+[node name="ToReady" type="Node" parent="StateChart/Root" unique_id=2097963362]
 script = ExtResource("5_2qgit")
 to = NodePath("../Ready")
 event = &"ToReady"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[connection signal="state_entered" from="StateChart/Weapon/Ready" to="." method="_on_ready_state_entered"]
-[connection signal="state_entered" from="StateChart/Weapon/Fire" to="." method="_on_fire_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/Weapon/Fire" to="." method="_on_fire_state_physics_processing"]
-[connection signal="state_entered" from="StateChart/Weapon/Empty" to="." method="_on_empty_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Ready" to="." method="_on_ready_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Fire" to="." method="_on_fire_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Fire" to="." method="_on_fire_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Empty" to="." method="_on_empty_state_entered"]
