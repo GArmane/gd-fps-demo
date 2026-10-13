@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
 [ext_resource type="PackedScene" uid="uid://dusi46e30e3xb" path="res://components/interaction-raycast/interaction_raycast.tscn" id="7_12xki"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
+[ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/game-mode/reload.tres" id="7_la0rk"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="9_n2jcp"]
 [ext_resource type="PackedScene" uid="uid://bodixvfi04hc3" path="res://components/weapon-controller/weapon_controller.tscn" id="12_8rkpr"]
@@ -47,6 +48,7 @@ _fire_action = ExtResource("3_rt46e")
 _crouch_action = ExtResource("3_ssdk0")
 _jump_action = ExtResource("4_7aotg")
 _sprint_action = ExtResource("3_lsln6")
+_reload_action = ExtResource("7_la0rk")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -110,12 +112,12 @@ script = ExtResource("9_n2jcp")
 _mouse_action = ExtResource("18_8rkpr")
 metadata/_custom_type_script = "uid://di1amkceydt40"
 
-[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "hitscan_origin", "fire_origin", "weapon_pos") instance=ExtResource("12_8rkpr")]
+[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "fire_origin", "hitscan_origin", "weapon_pos") instance=ExtResource("12_8rkpr")]
 unique_name_in_owner = true
 audio_player = NodePath("../FPCamera3D/WeaponAudioPlayer")
-hitscan_origin = NodePath("../FPCamera3D/HitscanOrigin")
-fire_origin = NodePath("../FPCamera3D/WeaponFireOrigin")
 current_weapon = ExtResource("19_8rkpr")
+fire_origin = NodePath("../FPCamera3D/WeaponFireOrigin")
+hitscan_origin = NodePath("../FPCamera3D/HitscanOrigin")
 weapon_pos = NodePath("../FPCamera3D/WeaponPosition")
 
 [node name="StateChart" type="Node" parent="." unique_id=1841322225]

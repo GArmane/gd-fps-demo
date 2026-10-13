@@ -30,9 +30,44 @@ script = ExtResource("8_ijk65")
 guard = SubResource("Resource_3yqky")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
+[sub_resource type="Resource" id="Resource_vo8v0"]
+script = ExtResource("7_mvwp2")
+state = NodePath("../Reload")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_ay1cy"]
+script = ExtResource("8_ijk65")
+guard = SubResource("Resource_vo8v0")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
 [sub_resource type="Resource" id="Resource_0l5ih"]
 script = ExtResource("9_1x0bb")
-guards = Array[ExtResource("6_3yqky")]([SubResource("Resource_mvwp2"), SubResource("Resource_ijk65")])
+guards = Array[ExtResource("6_3yqky")]([SubResource("Resource_mvwp2"), SubResource("Resource_ijk65"), SubResource("Resource_ay1cy")])
+metadata/_custom_type_script = "uid://bxprlw40wl0c3"
+
+[sub_resource type="Resource" id="Resource_adxdq"]
+script = ExtResource("7_mvwp2")
+state = NodePath("../Fire")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_fxw1s"]
+script = ExtResource("8_ijk65")
+guard = SubResource("Resource_adxdq")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
+[sub_resource type="Resource" id="Resource_c6vv1"]
+script = ExtResource("7_mvwp2")
+state = NodePath("../Reload")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_ok2m1"]
+script = ExtResource("8_ijk65")
+guard = SubResource("Resource_c6vv1")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
+[sub_resource type="Resource" id="Resource_la0rk"]
+script = ExtResource("9_1x0bb")
+guards = Array[ExtResource("6_3yqky")]([SubResource("Resource_fxw1s"), SubResource("Resource_ok2m1")])
 metadata/_custom_type_script = "uid://bxprlw40wl0c3"
 
 [node name="WeaponController" type="Node" unique_id=1481991468]
@@ -60,6 +95,10 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 script = ExtResource("4_o02fr")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
+[node name="Reload" type="Node" parent="StateChart/Root" unique_id=290154818]
+script = ExtResource("4_o02fr")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
 [node name="ToEmpty" type="Node" parent="StateChart/Root" unique_id=1319283025]
 script = ExtResource("5_2qgit")
 to = NodePath("../Empty")
@@ -82,7 +121,18 @@ event = &"ToReady"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[node name="ToReload" type="Node" parent="StateChart/Root" unique_id=1796634639]
+script = ExtResource("5_2qgit")
+to = NodePath("../Reload")
+event = &"ToReload"
+guard = SubResource("Resource_la0rk")
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
 [connection signal="state_entered" from="StateChart/Root/Ready" to="." method="_on_ready_state_entered"]
 [connection signal="state_entered" from="StateChart/Root/Fire" to="." method="_on_fire_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Fire" to="." method="_on_fire_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Empty" to="." method="_on_empty_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Reload" to="." method="_on_reload_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Reload" to="." method="_on_reload_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Reload" to="." method="_on_reload_state_physics_processing"]

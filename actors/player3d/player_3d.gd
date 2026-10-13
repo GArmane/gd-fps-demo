@@ -30,6 +30,7 @@ const STEP_ADJUSTED_HEIGHT := 0.02
 @export var _crouch_action: GUIDEAction
 @export var _jump_action: GUIDEAction
 @export var _sprint_action: GUIDEAction
+@export var _reload_action: GUIDEAction
 
 var raw_movement_vector: Vector2:
 	get():
@@ -97,6 +98,8 @@ func _on_root_state_entered() -> void:
 func _on_combat_state_processing(_delta: float) -> void:
 	if _fire_action.is_triggered():
 		%WeaponController.fire()
+	if _reload_action.is_triggered():
+		%WeaponController.reload()
 
 
 #endregion
