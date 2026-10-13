@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bqe85uqbc5ovn"]
+
+[ext_resource type="PackedScene" uid="uid://ykd3tov3vrsn" path="res://resources/projectiles/bullet.tscn" id="1_pvl82"]
+[ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_vg15r"]
+[ext_resource type="Script" uid="uid://ca5x41dypsu0h" path="res://resources/attack_behaviours/projectile_behaviour.gd" id="2_6kv78"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="3_6kv78"]
+[ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/models/pistol.glb" id="3_xnurk"]
+
+[sub_resource type="Resource" id="Resource_vg15r"]
+script = ExtResource("2_6kv78")
+muzzle_velocity = 300.0
+projectile_model = ExtResource("1_pvl82")
+damage = 20.0
+sounds = Array[AudioStream]([ExtResource("3_6kv78")])
+metadata/_custom_type_script = "uid://ca5x41dypsu0h"
+
+[resource]
+script = ExtResource("1_vg15r")
+name = "Ballistic Pistol"
+description = "Weapon that shoots projectiles."
+model = ExtResource("3_xnurk")
+attack_behaviour = SubResource("Resource_vg15r")
+metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

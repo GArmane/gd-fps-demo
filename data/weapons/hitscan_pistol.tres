@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://heej1mhjmcar"]
+
+[ext_resource type="Script" uid="uid://ctmfwvwjtlokh" path="res://resources/attack_behaviours/hitscan_behaviour.gd" id="1_esw4u"]
+[ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_pcxs7"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="2_ic41b"]
+[ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/models/pistol.glb" id="2_jkp5r"]
+
+[sub_resource type="Resource" id="Resource_pcxs7"]
+script = ExtResource("1_esw4u")
+max_range = 50.0
+damage = 20.0
+sounds = Array[AudioStream]([ExtResource("2_ic41b")])
+metadata/_custom_type_script = "uid://ctmfwvwjtlokh"
+
+[resource]
+script = ExtResource("1_pcxs7")
+name = "Hitscan Pistol"
+description = "A weapon that uses hitscans."
+model = ExtResource("2_jkp5r")
+attack_behaviour = SubResource("Resource_pcxs7")
+metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

@@ -18,9 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://bodixvfi04hc3" path="res://components/weapon-controller/weapon_controller.tscn" id="12_8rkpr"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="13_k67x5"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
+[ext_resource type="Resource" uid="uid://bqe85uqbc5ovn" path="res://data/weapons/ballistic_pistol.tres" id="14_la0rk"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
 [ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/game-mode/mouse_vec.tres" id="18_8rkpr"]
-[ext_resource type="Resource" uid="uid://kek5u6qm6ty5" path="res://resources/weapons/pistol/pistol.tres" id="19_8rkpr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
@@ -115,7 +115,7 @@ metadata/_custom_type_script = "uid://di1amkceydt40"
 [node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "fire_origin", "hitscan_origin", "weapon_pos") instance=ExtResource("12_8rkpr")]
 unique_name_in_owner = true
 audio_player = NodePath("../FPCamera3D/WeaponAudioPlayer")
-current_weapon = ExtResource("19_8rkpr")
+current_weapon = ExtResource("14_la0rk")
 fire_origin = NodePath("../FPCamera3D/WeaponFireOrigin")
 hitscan_origin = NodePath("../FPCamera3D/HitscanOrigin")
 weapon_pos = NodePath("../FPCamera3D/WeaponPosition")

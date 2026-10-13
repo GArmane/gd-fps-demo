@@ -2,8 +2,9 @@
 class_name Weapon extends Resource
 
 @export var name: String
-@export var damage: float
-@export var max_ammo: int
-@export var weapon_model: PackedScene
-@export var fire_sounds: Array[AudioStream]
-@export var reload_time: float
+@export_multiline() var description: String
+@export var model: PackedScene
+## TODO move to ammo behaviour
+@export var max_ammo: int = 12
+
+@export var attack_behaviour: AttackBehaviour
