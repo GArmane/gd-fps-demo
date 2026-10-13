@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BallisticWeapon" format=3 uid="uid://kek5u6qm6ty5"]
 
 [ext_resource type="Script" uid="uid://db84gnkpot10e" path="res://resources/weapons/ballistic_weapon.gd" id="1_rdfa4"]
-[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://resources/weapons/pistol/fire_01.wav" id="1_wdd6c"]
-[ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://resources/weapons/pistol/pistol.glb" id="2_lt4mu"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="1_wdd6c"]
+[ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/models/pistol.glb" id="2_lt4mu"]
 [ext_resource type="PackedScene" uid="uid://ykd3tov3vrsn" path="res://resources/projectiles/bullet/bullet.tscn" id="2_t3tl8"]
 
 [resource]

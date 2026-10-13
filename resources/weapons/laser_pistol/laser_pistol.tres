@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="HitscanWeapon" format=3 uid="uid://xtbs4m56mi5b"]
 
 [ext_resource type="Script" uid="uid://xr2vwrgrfl3a" path="res://resources/weapons/hitscan_weapon.gd" id="1_7pk2m"]
-[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://resources/weapons/pistol/fire_01.wav" id="1_wdd6c"]
-[ext_resource type="PackedScene" uid="uid://c2m501y75kf53" path="res://resources/weapons/laser_pistol/laser_pistol.glb" id="2_buon5"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="1_wdd6c"]
+[ext_resource type="PackedScene" uid="uid://c2m501y75kf53" path="res://assets/models/laser_pistol.glb" id="2_buon5"]
 
 [resource]
 script = ExtResource("1_7pk2m")

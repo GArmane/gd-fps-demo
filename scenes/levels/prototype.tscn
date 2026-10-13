@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dr7hfejxrye0x" path="res://scenes/levels/prototype.gd" id="1_corbn"]
 [ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player3d/player_3d.tscn" id="1_qq37k"]
-[ext_resource type="Texture2D" uid="uid://cvhdh565i4wkb" path="res://assets/kenney-prototype-textures/PNG/Light/texture_08.png" id="2_a1d61"]
-[ext_resource type="Texture2D" uid="uid://bltd1n6wog3hy" path="res://assets/kenney-prototype-textures/PNG/Orange/texture_05.png" id="3_corbn"]
-[ext_resource type="Texture2D" uid="uid://cu1ag8o2qa8i4" path="res://assets/kenney-prototype-textures/PNG/Orange/texture_06.png" id="4_js0vw"]
-[ext_resource type="Texture2D" uid="uid://025sr4vowq1p" path="res://assets/kenney-prototype-textures/PNG/Orange/texture_10.png" id="5_pyrxr"]
-[ext_resource type="Texture2D" uid="uid://ci44xl8gy8oj1" path="res://assets/kenney-prototype-textures/PNG/Orange/texture_09.png" id="6_1qj2g"]
+[ext_resource type="Texture2D" uid="uid://cvhdh565i4wkb" path="res://assets/textures/kenney-prototype-textures/PNG/Light/texture_08.png" id="2_a1d61"]
+[ext_resource type="Texture2D" uid="uid://bltd1n6wog3hy" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_05.png" id="3_corbn"]
+[ext_resource type="Texture2D" uid="uid://cu1ag8o2qa8i4" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_06.png" id="4_js0vw"]
+[ext_resource type="Texture2D" uid="uid://025sr4vowq1p" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_10.png" id="5_pyrxr"]
+[ext_resource type="Texture2D" uid="uid://ci44xl8gy8oj1" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_09.png" id="6_1qj2g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 
