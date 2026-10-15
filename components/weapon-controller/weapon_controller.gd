@@ -45,7 +45,9 @@ func _ready() -> void:
 
 #region State chart
 func _on_firing_state_physics_processing(_delta: float) -> void:
-	current_weapon.loading_behaviour.unload()
+	if not current_weapon.loading_behaviour.execute():
+		%StateChart.send_event("ToEmpty")
+		return
 	current_weapon.attack_behaviour.execute(attack_origin, audio_player)
 	%StateChart.send_event("ToLoading")
 
