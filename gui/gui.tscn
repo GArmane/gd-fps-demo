@@ -48,6 +48,7 @@ layout_mode = 2
 
 [node name="WeaponHUDLayer" type="CanvasLayer" parent="." unique_id=384375730]
 unique_name_in_owner = true
+visible = false
 
 [node name="WeaponHUD" parent="WeaponHUDLayer" unique_id=1235749527 instance=ExtResource("6_ytf3d")]
 unique_name_in_owner = true

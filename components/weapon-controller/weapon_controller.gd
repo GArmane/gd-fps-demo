@@ -1,43 +1,36 @@
 @icon("res://addons/at-icons/node/gun.svg")
 class_name WeaponController extends Node
 
-signal weapon_empty
-signal weapon_fired
-signal weapon_ready
-signal weapon_reload_started
-signal weapon_reload_finished
-
 @export var audio_player: AudioStreamPlayer3D
 @export var current_weapon: Weapon
-@export var fire_origin: Marker3D
-@export var hitscan_origin: Marker3D
-@export var weapon_pos: Node3D
-
-var current_ammo: int:
-	get():
-		return _current_ammo
-var max_ammo: int:
-	get():
-		return current_weapon.max_ammo
+@export var attack_origin: Marker3D
+@export var weapon_origin: Node3D
 
 var _weap_model: Node3D
-var _current_ammo: int = 0
 
 
-func fire() -> void:
-	%StateChart.send_event("ToFire")
+#region Public methods
+func attack() -> void:
+	%StateChart.send_event("ToFiring")
 
 
 func reload() -> void:
-	%StateChart.send_event("ToReload")
+	%StateChart.send_event("ToReloading")
 
 
+#endregion
+
+
+#region Private methods
 func _spawn_weapon_model():
 	if _weap_model:
 		_weap_model.queue_free()
 
 	_weap_model = current_weapon.model.instantiate()
-	weapon_pos.add_child(_weap_model)
+	weapon_origin.add_child(_weap_model)
+
+
+#endregion
 
 
 #region Engine callbacks
@@ -45,45 +38,54 @@ func _ready() -> void:
 	if not current_weapon:
 		return
 	_spawn_weapon_model()
-	_current_ammo = current_weapon.max_ammo
 
 
 #endregion
 
 
-#region State machine
-func _on_ready_state_entered() -> void:
-	weapon_ready.emit()
+#region State chart
+func _on_firing_state_physics_processing(_delta: float) -> void:
+	current_weapon.loading_behaviour.unload()
+	current_weapon.attack_behaviour.execute(attack_origin, audio_player)
+	%StateChart.send_event("ToLoading")
 
 
-func _on_fire_state_entered() -> void:
-	current_weapon.attack_behaviour.execute(fire_origin, audio_player)
-	weapon_fired.emit()
-
-
-func _on_fire_state_physics_processing(_delta: float) -> void:
-	_current_ammo -= 1
-
-	if _current_ammo <= 0:
+func _on_loading_state_physics_processing(_delta: float) -> void:
+	if current_weapon.ammo_behaviour.is_empty():
 		%StateChart.send_event("ToEmpty")
-	else:
-		%StateChart.send_event("ToReady")
+		return
+	if not current_weapon.loading_behaviour.is_loaded():
+		current_weapon.ammo_behaviour.consume()
+		current_weapon.loading_behaviour.load_()
+	%StateChart.send_event("ToReady")
 
 
-func _on_empty_state_entered() -> void:
-	weapon_empty.emit()
+func _on_reloading_state_physics_processing(_delta: float) -> void:
+	if not current_weapon.ammo_behaviour.reload():
+		return
+	%StateChart.send_event("ToLoading")
 
 
-func _on_reload_state_entered() -> void:
-	weapon_reload_started.emit()
-	get_tree().create_timer(current_weapon.reload_time).timeout.connect(
-		func():
-			_current_ammo = max_ammo
-			%StateChart.send_event("ToReady")
+#endregion
+
+
+func _on_ready_state_entered() -> void:
+	var mag := current_weapon.ammo_behaviour as MagazineBehaviour
+	var chb := current_weapon.loading_behaviour as ClosedChamberBehaviour
+	var is_loaded := chb.is_loaded()
+	print(
+		"DEBUG: AMMO: {0} | CHAMBER: {1} | MAGS: {2}".format(
+			[mag.current_mag, is_loaded, str(mag.magazines)]
+		)
 	)
 
 
-func _on_reload_state_exited() -> void:
-	weapon_reload_finished.emit()
-
-#endregion
+func _on_empty_state_entered() -> void:
+	var mag := current_weapon.ammo_behaviour as MagazineBehaviour
+	var chb := current_weapon.loading_behaviour as ClosedChamberBehaviour
+	var is_loaded := chb.is_loaded()
+	print(
+		"DEBUG: AMMO: {0} | CHAMBER: {1} | MAGS: {2}".format(
+			[mag.current_mag, is_loaded, str(mag.magazines)]
+		)
+	)

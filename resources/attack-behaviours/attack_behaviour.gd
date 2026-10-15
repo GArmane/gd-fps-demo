@@ -1,5 +1,5 @@
 @abstract
-@icon("res://addons/at-icons/node/tag.svg")
+@icon("res://addons/at-icons/node/bullseye.svg")
 class_name AttackBehaviour extends Resource
 
 @export var damage: float

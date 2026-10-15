@@ -1,4 +1,4 @@
-@icon("res://addons/at-icons/node/tag.svg")
+@icon("res://addons/at-icons/node/bullseye.svg")
 class_name ProjectileBehaviour extends AttackBehaviour
 
 @export var muzzle_velocity: float

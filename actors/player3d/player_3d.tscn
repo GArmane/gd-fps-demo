@@ -75,15 +75,13 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 doppler_tracking = 2
 
-[node name="HitscanOrigin" type="Marker3D" parent="FPCamera3D" unique_id=1089124087]
-
-[node name="WeaponPosition" type="Marker3D" parent="FPCamera3D" unique_id=54251466]
+[node name="WeaponOrigin" type="Marker3D" parent="FPCamera3D" unique_id=54251466]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.6, -0.625)
 
-[node name="WeaponFireOrigin" type="Marker3D" parent="FPCamera3D" unique_id=922415018]
+[node name="AttackOrigin" type="Marker3D" parent="FPCamera3D" unique_id=922415018]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.4, -0.76)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.4, -1.5)
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
 unique_name_in_owner = true
@@ -112,13 +110,12 @@ script = ExtResource("9_n2jcp")
 _mouse_action = ExtResource("18_8rkpr")
 metadata/_custom_type_script = "uid://di1amkceydt40"
 
-[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "fire_origin", "hitscan_origin", "weapon_pos") instance=ExtResource("12_8rkpr")]
+[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "attack_origin", "weapon_origin") instance=ExtResource("12_8rkpr")]
 unique_name_in_owner = true
 audio_player = NodePath("../FPCamera3D/WeaponAudioPlayer")
 current_weapon = ExtResource("14_la0rk")
-fire_origin = NodePath("../FPCamera3D/WeaponFireOrigin")
-hitscan_origin = NodePath("../FPCamera3D/HitscanOrigin")
-weapon_pos = NodePath("../FPCamera3D/WeaponPosition")
+attack_origin = NodePath("../FPCamera3D/AttackOrigin")
+weapon_origin = NodePath("../FPCamera3D/WeaponOrigin")
 
 [node name="StateChart" type="Node" parent="." unique_id=1841322225]
 unique_name_in_owner = true
@@ -245,7 +242,6 @@ event = &"ToStanding"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[connection signal="weapon_fired" from="WeaponController" to="." method="_on_weapon_controller_weapon_fired"]
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_processing" from="StateChart/Root/Combat" to="." method="_on_combat_state_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_grounded_state_physics_processing"]

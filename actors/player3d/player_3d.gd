@@ -97,7 +97,7 @@ func _on_root_state_entered() -> void:
 #region Combat
 func _on_combat_state_processing(_delta: float) -> void:
 	if _fire_action.is_triggered():
-		%WeaponController.fire()
+		%WeaponController.attack()
 	if _reload_action.is_triggered():
 		%WeaponController.reload()
 

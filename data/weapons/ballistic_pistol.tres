@@ -2,22 +2,37 @@
 
 [ext_resource type="PackedScene" uid="uid://ykd3tov3vrsn" path="res://resources/projectiles/bullet.tscn" id="1_pvl82"]
 [ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_vg15r"]
-[ext_resource type="Script" uid="uid://ca5x41dypsu0h" path="res://resources/attack_behaviours/projectile_behaviour.gd" id="2_6kv78"]
+[ext_resource type="Script" uid="uid://dheykilg64kk4" path="res://resources/ammo-behaviours/magazine_behaviour.gd" id="1_xnurk"]
+[ext_resource type="Script" uid="uid://ca5x41dypsu0h" path="res://resources/attack-behaviours/projectile_behaviour.gd" id="3_1qmgg"]
 [ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="3_6kv78"]
 [ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/models/pistol.glb" id="3_xnurk"]
+[ext_resource type="Script" uid="uid://bbflpbgdddbr" path="res://resources/firing-behaviours/closed_chamber_behaviour.gd" id="5_1qmgg"]
+
+[sub_resource type="Resource" id="Resource_3yqky"]
+script = ExtResource("1_xnurk")
+current_mag = 12
+magazines = Array[int]([12, 12, 12])
+metadata/_custom_type_script = "uid://dheykilg64kk4"
 
 [sub_resource type="Resource" id="Resource_vg15r"]
-script = ExtResource("2_6kv78")
+script = ExtResource("3_1qmgg")
 muzzle_velocity = 300.0
 projectile_model = ExtResource("1_pvl82")
 damage = 20.0
 sounds = Array[AudioStream]([ExtResource("3_6kv78")])
 metadata/_custom_type_script = "uid://ca5x41dypsu0h"
 
+[sub_resource type="Resource" id="Resource_la0rk"]
+script = ExtResource("5_1qmgg")
+loaded = true
+metadata/_custom_type_script = "uid://bbflpbgdddbr"
+
 [resource]
 script = ExtResource("1_vg15r")
 name = "Ballistic Pistol"
 description = "Weapon that shoots projectiles."
 model = ExtResource("3_xnurk")
+ammo_behaviour = SubResource("Resource_3yqky")
 attack_behaviour = SubResource("Resource_vg15r")
+loading_behaviour = SubResource("Resource_la0rk")
 metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

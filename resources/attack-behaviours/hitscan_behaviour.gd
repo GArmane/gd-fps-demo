@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/bullseye.svg")
 class_name HitscanBehaviour extends AttackBehaviour
 
 @export var max_range: float
