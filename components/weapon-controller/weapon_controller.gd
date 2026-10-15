@@ -44,6 +44,17 @@ func _ready() -> void:
 
 
 #region State chart
+func _on_ready_state_entered() -> void:
+	var mag := current_weapon.ammo_behaviour as MagazineBehaviour
+	var chb := current_weapon.loading_behaviour as ClosedChamberBehaviour
+	var is_loaded := chb.is_loaded()
+	print(
+		"DEBUG: AMMO: {0} | CHAMBER: {1} | MAGS: {2}".format(
+			[mag.current_mag, is_loaded, str(mag.magazines)]
+		)
+	)
+
+
 func _on_firing_state_physics_processing(_delta: float) -> void:
 	if not current_weapon.loading_behaviour.execute():
 		%StateChart.send_event("ToEmpty")
@@ -68,20 +79,6 @@ func _on_reloading_state_physics_processing(_delta: float) -> void:
 	%StateChart.send_event("ToLoading")
 
 
-#endregion
-
-
-func _on_ready_state_entered() -> void:
-	var mag := current_weapon.ammo_behaviour as MagazineBehaviour
-	var chb := current_weapon.loading_behaviour as ClosedChamberBehaviour
-	var is_loaded := chb.is_loaded()
-	print(
-		"DEBUG: AMMO: {0} | CHAMBER: {1} | MAGS: {2}".format(
-			[mag.current_mag, is_loaded, str(mag.magazines)]
-		)
-	)
-
-
 func _on_empty_state_entered() -> void:
 	var mag := current_weapon.ammo_behaviour as MagazineBehaviour
 	var chb := current_weapon.loading_behaviour as ClosedChamberBehaviour
@@ -91,3 +88,4 @@ func _on_empty_state_entered() -> void:
 			[mag.current_mag, is_loaded, str(mag.magazines)]
 		)
 	)
+#endregion

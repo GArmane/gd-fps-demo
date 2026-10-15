@@ -21,8 +21,12 @@ func is_empty() -> bool:
 func reload() -> bool:
 	if magazines.is_empty():
 		return false
-	var new_mag: int = magazines.pop_front()
+
+	var new_mag_idx := magazines.find_custom(func(x): return x != 0)
+	if new_mag_idx == -1:
+		return false
+
 	var old_mag := current_mag
-	current_mag = new_mag
+	current_mag = magazines.pop_at(new_mag_idx)
 	magazines.push_back(old_mag)
 	return true
