@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="2_ic41b"]
 [ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/models/pistol.glb" id="2_jkp5r"]
 [ext_resource type="Script" uid="uid://bbflpbgdddbr" path="res://resources/firing-behaviours/closed_chamber_behaviour.gd" id="4_vbgw5"]
+[ext_resource type="Script" uid="uid://bl0yraqvl01b4" path="res://resources/recoil-behaviours/random_recoil_behaviour.gd" id="6_k7lmt"]
 
 [sub_resource type="Resource" id="Resource_1qmgg"]
 script = ExtResource("1_ic41b")
@@ -24,6 +25,11 @@ metadata/_custom_type_script = "uid://ctmfwvwjtlokh"
 script = ExtResource("4_vbgw5")
 metadata/_custom_type_script = "uid://bbflpbgdddbr"
 
+[sub_resource type="Resource" id="Resource_waqi8"]
+script = ExtResource("6_k7lmt")
+accuracy = 100.0
+metadata/_custom_type_script = "uid://bl0yraqvl01b4"
+
 [resource]
 script = ExtResource("1_pcxs7")
 name = "Hitscan Pistol"
@@ -32,4 +38,5 @@ model = ExtResource("2_jkp5r")
 ammo_behaviour = SubResource("Resource_1qmgg")
 attack_behaviour = SubResource("Resource_pcxs7")
 loading_behaviour = SubResource("Resource_rgxu4")
+recoil_behaviour = SubResource("Resource_waqi8")
 metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

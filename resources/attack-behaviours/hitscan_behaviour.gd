@@ -4,11 +4,10 @@ class_name HitscanBehaviour extends AttackBehaviour
 @export var max_range: float
 
 
-func execute(origin: Node3D, audio_player: AudioStreamPlayer3D) -> void:
+func execute(origin: Node3D, recoil: Vector3, audio_player: AudioStreamPlayer3D) -> void:
 	var space_state = origin.get_world_3d().direct_space_state
 	var from := origin.global_position
-	var frwd := -origin.global_transform.basis.z
-	var to: Vector3 = from + frwd * max_range
+	var to: Vector3 = from + recoil * max_range
 
 	var query := PhysicsRayQueryParameters3D.create(from, to)
 	var res := space_state.intersect_ray(query)

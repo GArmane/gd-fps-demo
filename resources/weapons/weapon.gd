@@ -8,3 +8,4 @@ class_name Weapon extends Resource
 @export var ammo_behaviour: AmmoBehaviour
 @export var attack_behaviour: AttackBehaviour
 @export var loading_behaviour: LoadingBehaviour
+@export var recoil_behaviour: RecoilBehaviour
