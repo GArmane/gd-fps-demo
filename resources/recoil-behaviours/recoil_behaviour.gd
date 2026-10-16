@@ -2,4 +2,4 @@
 @abstract
 class_name RecoilBehaviour extends Resource
 
-@abstract func get_deviation(origin: Node3D) -> Vector3
+@abstract func get_recoil(origin: Node3D) -> Vector3

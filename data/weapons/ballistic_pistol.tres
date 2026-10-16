@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/models/pistol.glb" id="3_xnurk"]
 [ext_resource type="Script" uid="uid://bbflpbgdddbr" path="res://resources/firing-behaviours/closed_chamber_behaviour.gd" id="5_1qmgg"]
 [ext_resource type="Script" uid="uid://bl0yraqvl01b4" path="res://resources/recoil-behaviours/random_recoil_behaviour.gd" id="7_rgxu4"]
+[ext_resource type="Script" uid="uid://dkhjdrlignymc" path="res://resources/spread-behaviours/single_pattern_behaviour.gd" id="9_waqi8"]
 
 [sub_resource type="Resource" id="Resource_3yqky"]
 script = ExtResource("1_xnurk")
@@ -33,6 +34,10 @@ script = ExtResource("7_rgxu4")
 accuracy = 100.0
 metadata/_custom_type_script = "uid://bl0yraqvl01b4"
 
+[sub_resource type="Resource" id="Resource_ky445"]
+script = ExtResource("9_waqi8")
+metadata/_custom_type_script = "uid://dkhjdrlignymc"
+
 [resource]
 script = ExtResource("1_vg15r")
 name = "Ballistic Pistol"
@@ -42,4 +47,5 @@ ammo_behaviour = SubResource("Resource_3yqky")
 attack_behaviour = SubResource("Resource_vg15r")
 loading_behaviour = SubResource("Resource_la0rk")
 recoil_behaviour = SubResource("Resource_fxw1s")
+spread_behaviour = SubResource("Resource_ky445")
 metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

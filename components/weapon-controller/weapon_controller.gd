@@ -59,8 +59,9 @@ func _on_firing_state_physics_processing(_delta: float) -> void:
 	if not current_weapon.loading_behaviour.execute():
 		%StateChart.send_event("ToEmpty")
 		return
-	var recoil := current_weapon.recoil_behaviour.get_deviation(attack_origin)
-	current_weapon.attack_behaviour.execute(attack_origin, recoil, audio_player)
+	var recoil := current_weapon.recoil_behaviour.get_recoil(attack_origin)
+	var spread := current_weapon.spread_behaviour.get_spread_pattern(recoil)
+	current_weapon.attack_behaviour.execute(attack_origin, spread, audio_player)
 	%StateChart.send_event("ToLoading")
 
 

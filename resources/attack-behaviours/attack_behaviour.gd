@@ -5,7 +5,8 @@ class_name AttackBehaviour extends Resource
 @export var damage: float
 @export var sounds: Array[AudioStream] = []
 
-@abstract func execute(origin: Node3D, recoil: Vector3, audio_player: AudioStreamPlayer3D) -> void
+@abstract
+func execute(origin: Node3D, directions: Array[Vector3], audio_player: AudioStreamPlayer3D) -> void
 
 
 func _play_sound(audio_player: AudioStreamPlayer3D) -> void:
