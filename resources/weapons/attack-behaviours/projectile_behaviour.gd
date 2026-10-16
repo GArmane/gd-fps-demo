@@ -1,6 +1,6 @@
-@icon("res://addons/at-icons/node/bullseye.svg")
 class_name ProjectileBehaviour extends AttackBehaviour
 
+@export var muzzle_node_path: String
 @export var muzzle_velocity: float
 @export var projectile_model: PackedScene
 

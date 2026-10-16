@@ -6,6 +6,7 @@ class_name GUI extends Control
 
 func attach_player(player: Player3D) -> GUI:
 	%DebugHUD.attach_actor(player)
+	%WeaponHUD.attach_actor(player)
 	return self
 
 
@@ -25,7 +26,9 @@ func _on_debug_action_triggered() -> void:
 
 func _on_game_mode_enabled():
 	%ReticleLayer.visible = true
+	%WeaponHUDLayer.visible = true
 
 
 func _on_game_mode_disabled():
 	%ReticleLayer.visible = false
+	%WeaponHUDLayer.visible = false

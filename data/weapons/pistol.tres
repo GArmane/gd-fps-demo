@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://vxyfdg5oqjvj"]
+
+[ext_resource type="PackedScene" uid="uid://bpyc05upq0hnk" path="res://scenes/weapons/pistol.tscn" id="1_a40w6"]
+[ext_resource type="PackedScene" uid="uid://ykd3tov3vrsn" path="res://scenes/projectiles/bullet.tscn" id="1_cii1l"]
+[ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_ihp4e"]
+[ext_resource type="Script" uid="uid://bhid08or8uyis" path="res://resources/weapons/attack-behaviours/projectile_behaviour.gd" id="1_o8lbu"]
+[ext_resource type="Script" uid="uid://drasunuvdjs26" path="res://resources/weapons/ammo-behaviours/ammo_count_behaviour.gd" id="1_wkg85"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="2_6ryra"]
+[ext_resource type="Script" uid="uid://cfrv54nlq66h3" path="res://resources/weapons/recoil-behaviours/random_recoil_patern.gd" id="6_ldxvb"]
+[ext_resource type="Script" uid="uid://dyqc77fvci1gs" path="res://resources/weapons/spread-behaviour/single_spread_pattern.gd" id="8_iejlt"]
+
+[sub_resource type="Resource" id="Resource_la0rk"]
+script = ExtResource("1_wkg85")
+current_ammo = 17
+max_ammo = 17
+spare_ammo = 51
+metadata/_custom_type_script = "uid://drasunuvdjs26"
+
+[sub_resource type="Resource" id="Resource_a40w6"]
+script = ExtResource("1_o8lbu")
+muzzle_node_path = "Muzzle"
+muzzle_velocity = 377.0
+projectile_model = ExtResource("1_cii1l")
+damage = 20.0
+sounds = Array[AudioStream]([ExtResource("2_6ryra")])
+metadata/_custom_type_script = "uid://bhid08or8uyis"
+
+[sub_resource type="Resource" id="Resource_3yqky"]
+script = ExtResource("6_ldxvb")
+accuracy = 75.0
+metadata/_custom_type_script = "uid://cfrv54nlq66h3"
+
+[sub_resource type="Resource" id="Resource_1x0bb"]
+script = ExtResource("8_iejlt")
+metadata/_custom_type_script = "uid://dyqc77fvci1gs"
+
+[resource]
+script = ExtResource("1_ihp4e")
+model = ExtResource("1_a40w6")
+name = "Pistol"
+description = "A basic pistol."
+attack_behaviour = SubResource("Resource_a40w6")
+ammo_behaviour = SubResource("Resource_la0rk")
+recoil_behaviour = SubResource("Resource_3yqky")
+spread_behaviour = SubResource("Resource_1x0bb")
+metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bodixvfi04hc3" path="res://components/weapon-controller/weapon_controller.tscn" id="12_8rkpr"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="13_k67x5"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
-[ext_resource type="Resource" uid="uid://heej1mhjmcar" path="res://data/weapons/hitscan_pistol.tres" id="14_la0rk"]
+[ext_resource type="Resource" uid="uid://vxyfdg5oqjvj" path="res://data/weapons/pistol.tres" id="14_la0rk"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
 [ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/game-mode/mouse_vec.tres" id="18_8rkpr"]
 
@@ -79,9 +79,8 @@ doppler_tracking = 2
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.6, -0.625)
 
-[node name="AttackOrigin" type="Marker3D" parent="FPCamera3D" unique_id=922415018]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.4, -1.5)
+[node name="CenterAim" type="Marker3D" parent="FPCamera3D" unique_id=1828058822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
 unique_name_in_owner = true
@@ -110,12 +109,12 @@ script = ExtResource("9_n2jcp")
 _mouse_action = ExtResource("18_8rkpr")
 metadata/_custom_type_script = "uid://di1amkceydt40"
 
-[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "attack_origin", "weapon_origin") instance=ExtResource("12_8rkpr")]
+[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "weapon_origin", "center_aim") instance=ExtResource("12_8rkpr")]
 unique_name_in_owner = true
 audio_player = NodePath("../FPCamera3D/WeaponAudioPlayer")
 current_weapon = ExtResource("14_la0rk")
-attack_origin = NodePath("../FPCamera3D/AttackOrigin")
 weapon_origin = NodePath("../FPCamera3D/WeaponOrigin")
+center_aim = NodePath("../FPCamera3D/CenterAim")
 
 [node name="StateChart" type="Node" parent="." unique_id=1841322225]
 unique_name_in_owner = true
