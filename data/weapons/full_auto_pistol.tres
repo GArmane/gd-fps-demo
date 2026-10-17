@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://b5kqhhp7fq5qs"]
+
+[ext_resource type="Script" uid="uid://d2sfxp0gb5bre" path="res://resources/weapons/weapon.gd" id="1_2pb4d"]
+[ext_resource type="Script" uid="uid://vpan6lg4it07" path="res://resources/weapons/action_behaviour.gd" id="1_78lyc"]
+[ext_resource type="Script" uid="uid://drasunuvdjs26" path="res://resources/weapons/ammo-behaviours/ammo_count_behaviour.gd" id="2_4rt3r"]
+[ext_resource type="PackedScene" uid="uid://ykd3tov3vrsn" path="res://scenes/projectiles/bullet.tscn" id="3_3ii0j"]
+[ext_resource type="Script" uid="uid://bhid08or8uyis" path="res://resources/weapons/attack-behaviours/projectile_behaviour.gd" id="4_7p10x"]
+[ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="5_7rnse"]
+[ext_resource type="PackedScene" uid="uid://bpyc05upq0hnk" path="res://scenes/weapons/pistol.tscn" id="6_68vfp"]
+[ext_resource type="Script" uid="uid://cfrv54nlq66h3" path="res://resources/weapons/recoil-behaviours/random_recoil_patern.gd" id="7_7sxwe"]
+[ext_resource type="Script" uid="uid://dyqc77fvci1gs" path="res://resources/weapons/spread-behaviours/single_spread_pattern.gd" id="9_djhd0"]
+
+[sub_resource type="Resource" id="Resource_grmjn"]
+script = ExtResource("1_78lyc")
+type = 1
+cycle_time = 20.0
+metadata/_custom_type_script = "uid://vpan6lg4it07"
+
+[sub_resource type="Resource" id="Resource_la0rk"]
+script = ExtResource("2_4rt3r")
+current_ammo = 33
+max_ammo = 33
+spare_ammo = 132
+reload_time = 3.0
+metadata/_custom_type_script = "uid://drasunuvdjs26"
+
+[sub_resource type="Resource" id="Resource_a40w6"]
+script = ExtResource("4_7p10x")
+muzzle_node_path = "Muzzle"
+muzzle_velocity = 377.0
+projectile_model = ExtResource("3_3ii0j")
+damage = 20.0
+sounds = Array[AudioStream]([ExtResource("5_7rnse")])
+metadata/_custom_type_script = "uid://bhid08or8uyis"
+
+[sub_resource type="Resource" id="Resource_3yqky"]
+script = ExtResource("7_7sxwe")
+accuracy = 50.0
+metadata/_custom_type_script = "uid://cfrv54nlq66h3"
+
+[sub_resource type="Resource" id="Resource_1x0bb"]
+script = ExtResource("9_djhd0")
+metadata/_custom_type_script = "uid://dyqc77fvci1gs"
+
+[resource]
+script = ExtResource("1_2pb4d")
+model = ExtResource("6_68vfp")
+name = "Full Auto Pistol"
+description = "A basic full auto pistol."
+action_behaviour = SubResource("Resource_grmjn")
+attack_behaviour = SubResource("Resource_a40w6")
+ammo_behaviour = SubResource("Resource_la0rk")
+recoil_behaviour = SubResource("Resource_3yqky")
+spread_behaviour = SubResource("Resource_1x0bb")
+metadata/_custom_type_script = "uid://d2sfxp0gb5bre"

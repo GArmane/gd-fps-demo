@@ -61,10 +61,14 @@ func _on_trigger_pulled_state_entered() -> void:
 #endregion
 #region Action states
 func _on_action_cycling_state_entered() -> void:
-	await get_tree().create_timer(1 / current_weapon.attack_behaviour.attack_rate).timeout
+	if current_weapon.action_behaviour.cycle_time:
+		await get_tree().create_timer(1 / current_weapon.action_behaviour.cycle_time).timeout
 	if current_weapon.ammo_behaviour.consume():
 		%StateChart.send_event("ToChamberChambered")
 	%StateChart.send_event("ToActionReady")
+	if current_weapon.action_behaviour.type == ActionBehaviour.ActionType.FULL_AUTO:
+		if get_node("StateChart/ParallelState/Weapon/Trigger/Pulled").active:
+			%StateChart.send_event("ToChamberFiring")
 
 
 #endregion

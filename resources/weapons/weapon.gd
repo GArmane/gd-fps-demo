@@ -5,6 +5,7 @@ class_name Weapon extends Resource
 @export var name: String
 @export_multiline() var description: String
 
+@export var action_behaviour: ActionBehaviour
 @export var attack_behaviour: AttackBehaviour
 @export var ammo_behaviour: AmmoBehaviour
 @export var recoil_behaviour: RecoilBehaviour
