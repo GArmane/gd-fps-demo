@@ -39,4 +39,4 @@ func is_empty() -> bool:
 
 
 func is_full() -> bool:
-	return current_ammo > max_ammo
+	return current_ammo >= max_ammo

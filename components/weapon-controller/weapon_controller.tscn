@@ -3,135 +3,157 @@
 [ext_resource type="Script" uid="uid://ris0e512nni5" path="res://components/weapon-controller/weapon_controller.gd" id="1_u8cjr"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_ocs2b"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_gdadt"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="3_o02fr"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_q3vbn"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_gdadt"]
-[ext_resource type="Script" uid="uid://c6l0181f4ytps" path="res://addons/godot_state_charts/guard.gd" id="6_qkrfd"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_3yqky"]
-[ext_resource type="Script" uid="uid://duv2yyvlunsi8" path="res://addons/godot_state_charts/any_of_guard.gd" id="8_mvwp2"]
 
-[sub_resource type="Resource" id="Resource_3yqky"]
+[sub_resource type="Resource" id="Resource_od5mm"]
 script = ExtResource("7_3yqky")
-state = NodePath("../Firing")
+state = NodePath("../../../../Operator/Idle")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_qkrfd"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Cooldown")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_ijk65"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Reloading")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_la0rk"]
-script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_3yqky"), SubResource("Resource_qkrfd"), SubResource("Resource_ijk65")])
-metadata/_custom_type_script = "uid://duv2yyvlunsi8"
-
-[sub_resource type="Resource" id="Resource_ay1cy"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Ready")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_io2r1"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Empty")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_mvwp2"]
-script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_ay1cy"), SubResource("Resource_io2r1")])
-metadata/_custom_type_script = "uid://duv2yyvlunsi8"
-
-[sub_resource type="Resource" id="Resource_1x0bb"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Firing")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_0l5ih"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Reloading")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_vo8v0"]
-script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_1x0bb"), SubResource("Resource_0l5ih")])
-metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
 [node name="WeaponController" type="Node" unique_id=1481991468]
 script = ExtResource("1_u8cjr")
 
-[node name="StateChart" type="Node" parent="." unique_id=881409636]
+[node name="StateChart" type="Node" parent="." unique_id=838563126]
 unique_name_in_owner = true
 script = ExtResource("2_ocs2b")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
-[node name="Root" type="Node" parent="StateChart" unique_id=1642050979]
+[node name="ParallelState" type="Node" parent="StateChart" unique_id=1682994813]
+script = ExtResource("3_o02fr")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="Operator" type="Node" parent="StateChart/ParallelState" unique_id=1931557370]
+script = ExtResource("3_gdadt")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Idle" type="Node" parent="StateChart/ParallelState/Operator" unique_id=1174186371]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToOperatorReload" type="Node" parent="StateChart/ParallelState/Operator/Idle" unique_id=13932326]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Reload")
+event = &"ToOperatorReload"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Reload" type="Node" parent="StateChart/ParallelState/Operator" unique_id=2039892033]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToOperatorIdle" type="Node" parent="StateChart/ParallelState/Operator/Reload" unique_id=18161721]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Idle")
+event = &"ToOperatorIdle"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Weapon" type="Node" parent="StateChart/ParallelState" unique_id=66004190]
+script = ExtResource("3_o02fr")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="Trigger" type="Node" parent="StateChart/ParallelState/Weapon" unique_id=2051933765]
+script = ExtResource("3_gdadt")
+initial_state = NodePath("Released")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Released" type="Node" parent="StateChart/ParallelState/Weapon/Trigger" unique_id=819607219]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToTriggerPulled" type="Node" parent="StateChart/ParallelState/Weapon/Trigger/Released" unique_id=828242304]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Pulled")
+event = &"ToTriggerPulled"
+guard = SubResource("Resource_od5mm")
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Pulled" type="Node" parent="StateChart/ParallelState/Weapon/Trigger" unique_id=173224932]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToReleased" type="Node" parent="StateChart/ParallelState/Weapon/Trigger/Pulled" unique_id=309743088]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Released")
+event = &"ToTriggerReleased"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Action" type="Node" parent="StateChart/ParallelState/Weapon" unique_id=1991502806]
 script = ExtResource("3_gdadt")
 initial_state = NodePath("Ready")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
-[node name="Ready" type="Node" parent="StateChart/Root" unique_id=216964274]
+[node name="Ready" type="Node" parent="StateChart/ParallelState/Weapon/Action" unique_id=177200916]
 script = ExtResource("4_q3vbn")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="ToFiring" type="Node" parent="StateChart/Root/Ready" unique_id=807536304]
+[node name="ToActionCycling" type="Node" parent="StateChart/ParallelState/Weapon/Action/Ready" unique_id=1468875939]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Cycling")
+event = &"ToActionCycling"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Cycling" type="Node" parent="StateChart/ParallelState/Weapon/Action" unique_id=203306127]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToActionReady" type="Node" parent="StateChart/ParallelState/Weapon/Action/Cycling" unique_id=1249726600]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Ready")
+event = &"ToActionReady"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Reload" type="Node" parent="StateChart/ParallelState/Weapon/Action" unique_id=219470026]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Chamber" type="Node" parent="StateChart/ParallelState/Weapon" unique_id=573580624]
+script = ExtResource("3_gdadt")
+initial_state = NodePath("Chambered")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Empty" type="Node" parent="StateChart/ParallelState/Weapon/Chamber" unique_id=755726250]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToChambered" type="Node" parent="StateChart/ParallelState/Weapon/Chamber/Empty" unique_id=1404063459]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Chambered")
+event = &"ToChamberChambered"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Chambered" type="Node" parent="StateChart/ParallelState/Weapon/Chamber" unique_id=11349998]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToFiring" type="Node" parent="StateChart/ParallelState/Weapon/Chamber/Chambered" unique_id=558745758]
 script = ExtResource("5_gdadt")
 to = NodePath("../../Firing")
-event = &"ToFiring"
+event = &"ToChamberFiring"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Firing" type="Node" parent="StateChart/Root" unique_id=874576500]
+[node name="Firing" type="Node" parent="StateChart/ParallelState/Weapon/Chamber" unique_id=39207010]
 script = ExtResource("4_q3vbn")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="ToCooldown" type="Node" parent="StateChart/Root/Firing" unique_id=537981381]
+[node name="ToChamberEmpty" type="Node" parent="StateChart/ParallelState/Weapon/Chamber/Firing" unique_id=1788891454]
 script = ExtResource("5_gdadt")
-to = NodePath("../../Cooldown")
-event = &"ToCooldown"
+to = NodePath("../../Empty")
+event = &"ToChamberEmpty"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Cooldown" type="Node" parent="StateChart/Root" unique_id=519245352]
-script = ExtResource("4_q3vbn")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="Reloading" type="Node" parent="StateChart/Root" unique_id=745478832]
-script = ExtResource("4_q3vbn")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="Empty" type="Node" parent="StateChart/Root" unique_id=27212172]
-script = ExtResource("4_q3vbn")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="ToReady" type="Node" parent="StateChart/Root" unique_id=1854435395]
-script = ExtResource("5_gdadt")
-to = NodePath("../Ready")
-event = &"ToReady"
-guard = SubResource("Resource_la0rk")
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="ToReloading" type="Node" parent="StateChart/Root" unique_id=234381627]
-script = ExtResource("5_gdadt")
-to = NodePath("../Reloading")
-event = &"ToReloading"
-guard = SubResource("Resource_mvwp2")
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="ToEmpty" type="Node" parent="StateChart/Root" unique_id=1807663287]
-script = ExtResource("5_gdadt")
-to = NodePath("../Empty")
-event = &"ToEmpty"
-guard = SubResource("Resource_vo8v0")
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[connection signal="state_entered" from="StateChart/Root/Ready" to="." method="_on_ready_state_entered"]
-[connection signal="state_processing" from="StateChart/Root/Firing" to="." method="_on_firing_state_processing"]
-[connection signal="state_entered" from="StateChart/Root/Cooldown" to="." method="_on_cooldown_state_entered"]
-[connection signal="state_processing" from="StateChart/Root/Reloading" to="." method="_on_reloading_state_processing"]
-[connection signal="state_entered" from="StateChart/Root/Empty" to="." method="_on_empty_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/Operator/Reload" to="." method="_on_operator_reload_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/Weapon/Trigger/Pulled" to="." method="_on_trigger_pulled_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/Weapon/Action/Cycling" to="." method="_on_action_cycling_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/Weapon/Chamber/Firing" to="." method="_on_chamber_firing_state_entered"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://scenes/actors/player3d/player_3d.gd" id="1_ofhqr"]
 [ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/move-mode/sprint.tres" id="3_lsln6"]
 [ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/move-mode/move.tres" id="3_rptib"]
-[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/weapon-mode/fire.tres" id="3_rt46e"]
+[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/weapon-mode/trigger_pull.tres" id="3_rt46e"]
 [ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/move-mode/crouch.tres" id="3_ssdk0"]
 [ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/move-mode/jump.tres" id="4_7aotg"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
@@ -12,7 +12,8 @@
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
 [ext_resource type="PackedScene" uid="uid://dusi46e30e3xb" path="res://components/interaction-raycast/interaction_raycast.tscn" id="7_12xki"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
-[ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/weapon-mode/reload.tres" id="7_la0rk"]
+[ext_resource type="Resource" uid="uid://xu04it52aedw" path="res://input/weapon-mode/trigger_release.tres" id="7_ed50n"]
+[ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/weapon-mode/reload_press.tres" id="7_la0rk"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="9_n2jcp"]
 [ext_resource type="PackedScene" uid="uid://bodixvfi04hc3" path="res://components/weapon-controller/weapon_controller.tscn" id="12_8rkpr"]
@@ -47,7 +48,8 @@ _move_action = ExtResource("3_rptib")
 _crouch_action = ExtResource("3_ssdk0")
 _jump_action = ExtResource("4_7aotg")
 _sprint_action = ExtResource("3_lsln6")
-_fire_action = ExtResource("3_rt46e")
+_trigger_pull = ExtResource("3_rt46e")
+_trigger_release = ExtResource("7_ed50n")
 _reload_action = ExtResource("7_la0rk")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
@@ -243,7 +245,7 @@ delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
-[connection signal="state_processing" from="StateChart/Root/Combat" to="." method="_on_combat_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Combat" to="." method="_on_combat_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_grounded_state_physics_processing"]
 [connection signal="state_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_grounded_state_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="." method="_on_idle_state_physics_processing"]

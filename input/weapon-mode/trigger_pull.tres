@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_47rs7")
-name = &"Fire"
+name = &"Trigger Pull"
 metadata/_custom_type_script = "uid://cluhc11vixkf1"

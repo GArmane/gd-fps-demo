@@ -2,6 +2,8 @@
 @icon("res://addons/at-icons/node/ammunition.svg")
 class_name AmmoBehaviour extends Resource
 
+@export var reload_time: float
+
 @abstract func consume(qtd: int = 1) -> int
 @abstract func reload() -> bool
 

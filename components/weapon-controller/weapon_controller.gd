@@ -11,12 +11,16 @@ var _weap_muzzl: Node3D
 
 
 #region Public methods
-func attack():
-	%StateChart.send_event("ToFiring")
+func trigger_pull():
+	%StateChart.send_event("ToTriggerPulled")
 
 
-func reload():
-	%StateChart.send_event("ToReloading")
+func trigger_release():
+	%StateChart.send_event("ToTriggerReleased")
+
+
+func reload_triggered():
+	%StateChart.send_event("ToOperatorReload")
 
 
 #endregion
@@ -37,42 +41,42 @@ func _ready() -> void:
 
 
 #region State chart
-func _on_ready_state_entered() -> void:
-	current_weapon.ammo_behaviour.emit_changed()
+#region Operator branch
+func _on_operator_reload_state_entered() -> void:
+	if current_weapon.ammo_behaviour.has_reserve() and not current_weapon.ammo_behaviour.is_full():
+		await get_tree().create_timer(current_weapon.ammo_behaviour.reload_time).timeout
+		current_weapon.ammo_behaviour.reload()
+		if get_node("StateChart/ParallelState/Weapon/Chamber/Empty").active:
+			%StateChart.send_event("ToActionCycling")
+	%StateChart.send_event("ToOperatorIdle")
 
 
-func _on_firing_state_processing(_delta: float) -> void:
-	var shots_fired: Array[Vector3] = []
-	for shot in current_weapon.ammo_behaviour.consume():
-		var recoil := current_weapon.recoil_behaviour.get_recoil(_weap_model)
-		var spread := current_weapon.spread_behaviour.get_spread_pattern(recoil)
-		shots_fired.append_array(spread)
-
-	current_weapon.attack_behaviour.execute(_weap_muzzl, shots_fired, audio_player)
-	if current_weapon.ammo_behaviour.is_empty():
-		%StateChart.send_event("ToEmpty")
-	else:
-		%StateChart.send_event("ToCooldown")
+#endregion
+#region Weapon branch
+#region Trigger states
+func _on_trigger_pulled_state_entered() -> void:
+	%StateChart.send_event("ToChamberFiring")
 
 
-func _on_cooldown_state_entered() -> void:
-	(
-		get_tree()
-		. create_timer(1 / current_weapon.attack_behaviour.attack_rate, false, true)
-		. timeout
-		. connect(%StateChart.send_event.bind("ToReady"))
-	)
+#endregion
+#region Action states
+func _on_action_cycling_state_entered() -> void:
+	await get_tree().create_timer(1 / current_weapon.attack_behaviour.attack_rate).timeout
+	if current_weapon.ammo_behaviour.consume():
+		%StateChart.send_event("ToChamberChambered")
+	%StateChart.send_event("ToActionReady")
 
 
-func _on_reloading_state_processing(_delta: float) -> void:
-	current_weapon.ammo_behaviour.reload()
-	if current_weapon.ammo_behaviour.is_empty():
-		%StateChart.send_event("ToEmpty")
-	else:
-		%StateChart.send_event("ToReady")
+#endregion
+#region Chamber states
+func _on_chamber_firing_state_entered() -> void:
+	var recoil := current_weapon.recoil_behaviour.get_recoil(_weap_model)
+	var spread := current_weapon.spread_behaviour.get_spread_pattern(recoil)
 
+	current_weapon.attack_behaviour.execute(_weap_muzzl, spread, audio_player)
+	%StateChart.send_event("ToChamberEmpty")
+	%StateChart.send_event("ToActionCycling")
 
-func _on_empty_state_entered() -> void:
-	current_weapon.ammo_behaviour.emit_changed()
-
+#endregion
+#endregion
 #endregion
