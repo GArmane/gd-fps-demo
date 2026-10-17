@@ -11,17 +11,14 @@ var _weap_muzzl: Node3D
 
 
 #region Public methods
-func attack() -> void:
+func attack():
 	%StateChart.send_event("ToFiring")
 
 
-func reload() -> void:
+func reload():
 	%StateChart.send_event("ToReloading")
 
 
-#endregion
-
-#region Private methods
 #endregion
 
 
@@ -58,12 +55,21 @@ func _on_firing_state_processing(_delta: float) -> void:
 		%StateChart.send_event("ToReady")
 
 
+func _on_cooldown_state_entered() -> void:
+	get_tree().create_timer(0.1, false, true).timeout.connect(
+		%StateChart.send_event.bind("ToReady")
+	)
+
+
 func _on_reloading_state_processing(_delta: float) -> void:
-	if not current_weapon.ammo_behaviour.reload():
-		%StateChart.send_event("ToPreviousState")
-		return
-	%StateChart.send_event("ToReady")
+	current_weapon.ammo_behaviour.reload()
+	if current_weapon.ammo_behaviour.is_empty():
+		%StateChart.send_event("ToEmpty")
+	else:
+		%StateChart.send_event("ToReady")
 
 
 func _on_empty_state_entered() -> void:
 	current_weapon.ammo_behaviour.emit_changed()
+
+#endregion

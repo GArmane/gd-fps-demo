@@ -1,25 +1,22 @@
 [gd_resource type="Resource" script_class="GUIDEMappingContext" format=3 uid="uid://cbbtl5mcbr67"]
 
 [ext_resource type="Script" uid="uid://cpplm41b5bt6m" path="res://addons/guide/guide_action_mapping.gd" id="1_0pol1"]
-[ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/game-mode/move.tres" id="2_6x4li"]
+[ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/move-mode/move.tres" id="2_6x4li"]
 [ext_resource type="Script" uid="uid://mtx1unc2aqn7" path="res://addons/guide/guide_input_mapping.gd" id="3_mmvjt"]
 [ext_resource type="Script" uid="uid://cw71o87tvdx3q" path="res://addons/guide/inputs/guide_input_key.gd" id="4_q6d2s"]
 [ext_resource type="Script" uid="uid://bl8rjl4oaldje" path="res://addons/guide/modifiers/guide_modifier.gd" id="5_ce0b8"]
 [ext_resource type="Script" uid="uid://ckggy40lm0vjc" path="res://addons/guide/modifiers/guide_modifier_negate.gd" id="6_cwppc"]
 [ext_resource type="Script" uid="uid://bm5gjgadon6hb" path="res://addons/guide/modifiers/guide_modifier_input_swizzle.gd" id="7_82epi"]
 [ext_resource type="Script" uid="uid://x74mnwgr08a7" path="res://addons/guide/triggers/guide_trigger.gd" id="8_d81ln"]
-[ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/game-mode/jump.tres" id="9_mmvjt"]
+[ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/move-mode/jump.tres" id="9_mmvjt"]
 [ext_resource type="Script" uid="uid://b52rqq28tuqpg" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="10_teaac"]
 [ext_resource type="Script" uid="uid://dsa1dnifd6w32" path="res://addons/guide/guide_mapping_context.gd" id="11_4r0d7"]
-[ext_resource type="Resource" uid="uid://be146lb73a8yl" path="res://input/game-mode/pause.tres" id="11_6x4li"]
-[ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="11_mmvjt"]
-[ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/game-mode/crouch.tres" id="13_q6d2s"]
-[ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/game-mode/mouse_vec.tres" id="14_cwppc"]
+[ext_resource type="Resource" uid="uid://be146lb73a8yl" path="res://input/move-mode/pause.tres" id="11_6x4li"]
+[ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/move-mode/sprint.tres" id="11_mmvjt"]
+[ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/move-mode/crouch.tres" id="13_q6d2s"]
+[ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/move-mode/mouse_vec.tres" id="14_cwppc"]
 [ext_resource type="Script" uid="uid://dh0hf08e0yit5" path="res://addons/guide/inputs/guide_input_mouse_axis_2d.gd" id="15_82epi"]
 [ext_resource type="Script" uid="uid://bjm4myqxg4phm" path="res://addons/guide/modifiers/guide_modifier_scale.gd" id="16_82epi"]
-[ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/game-mode/reload.tres" id="16_teaac"]
-[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/game-mode/fire.tres" id="17_d81ln"]
-[ext_resource type="Script" uid="uid://vgjlx6p007lp" path="res://addons/guide/inputs/guide_input_mouse_button.gd" id="18_57v2y"]
 
 [sub_resource type="Resource" id="Resource_egfbn"]
 script = ExtResource("4_q6d2s")
@@ -136,40 +133,6 @@ script = ExtResource("1_0pol1")
 action = ExtResource("13_q6d2s")
 input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_oegkm")])
 
-[sub_resource type="Resource" id="Resource_myvn5"]
-script = ExtResource("18_57v2y")
-
-[sub_resource type="Resource" id="Resource_bea4o"]
-script = ExtResource("10_teaac")
-
-[sub_resource type="Resource" id="Resource_fdqkn"]
-script = ExtResource("3_mmvjt")
-input = SubResource("Resource_myvn5")
-triggers = Array[ExtResource("8_d81ln")]([SubResource("Resource_bea4o")])
-
-[sub_resource type="Resource" id="Resource_vmh68"]
-script = ExtResource("1_0pol1")
-action = ExtResource("17_d81ln")
-input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_fdqkn")])
-metadata/_guide_input_mappings_collapsed = false
-
-[sub_resource type="Resource" id="Resource_v721f"]
-script = ExtResource("4_q6d2s")
-key = 82
-
-[sub_resource type="Resource" id="Resource_p30jk"]
-script = ExtResource("10_teaac")
-
-[sub_resource type="Resource" id="Resource_fbda8"]
-script = ExtResource("3_mmvjt")
-input = SubResource("Resource_v721f")
-triggers = Array[ExtResource("8_d81ln")]([SubResource("Resource_p30jk")])
-
-[sub_resource type="Resource" id="Resource_bvcs2"]
-script = ExtResource("1_0pol1")
-action = ExtResource("16_teaac")
-input_mappings = Array[ExtResource("3_mmvjt")]([SubResource("Resource_fbda8")])
-
 [sub_resource type="Resource" id="Resource_82epi"]
 script = ExtResource("15_82epi")
 
@@ -194,6 +157,6 @@ metadata/_guide_input_mappings_collapsed = false
 [resource]
 script = ExtResource("11_4r0d7")
 display_name = "Game Mode"
-mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8"), SubResource("Resource_vmh68"), SubResource("Resource_bvcs2"), SubResource("Resource_k0d5b")])
+mappings = Array[ExtResource("1_0pol1")]([SubResource("Resource_odpa8"), SubResource("Resource_mmvjt"), SubResource("Resource_qk616"), SubResource("Resource_57v2y"), SubResource("Resource_xbet8"), SubResource("Resource_k0d5b")])
 metadata/_custom_type_script = "uid://dsa1dnifd6w32"
 metadata/_guide_action_mappings_collapsed = false

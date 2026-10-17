@@ -3,17 +3,9 @@ extends Node
 var _gui_scene = preload("res://gui/gui.tscn")
 var _current_gui: GUI
 
-#region GUIDE input modes
-var _debug_mode: GUIDEMappingContext = preload("res://input/debug-mode/debug_mode.tres")
-var _game_mode: GUIDEMappingContext = preload("res://input/game-mode/game_mode.tres")
-#endregion
-
 var current_gui: GUI:
 	get():
 		return _current_gui
-
-#region Engine callbacks
-#endregion
 
 
 #region Game public API
@@ -37,6 +29,18 @@ func quit():
 	scene_tree.quit()
 
 
+func switch_input_game_modes(
+	enable_modes: Array[GUIDEMappingContext],
+	disable_modes: Array[GUIDEMappingContext],
+):
+	disable_modes.map(func(mode): GUIDE.disable_mapping_context(mode))
+	enable_modes.map(func(mode): GUIDE.enable_mapping_context(mode))
+
+
+#endregion
+
+
+#region Private methods
 func _change_level(level_path: String) -> void:
 	# Pause current scene so it can finish any process leftover.
 	var scene_tree = get_tree()
@@ -51,22 +55,9 @@ func _change_level(level_path: String) -> void:
 	scene_tree.paused = false
 	await scene_tree.process_frame
 
-
 #endregion
 
-
-#region Input modes handling
-func switch_to_game_mode():
-	_switch_input_game_modes([_debug_mode, _game_mode], [])
-	get_tree().paused = false
-
-
-func _switch_input_game_modes(
-	enable_modes: Array[GUIDEMappingContext],
-	disable_modes: Array[GUIDEMappingContext],
-):
-	disable_modes.map(func(mode): GUIDE.disable_mapping_context(mode))
-	enable_modes.map(func(mode): GUIDE.enable_mapping_context(mode))
+#region Engine callbacks
 #endregion
 
 #region Signal handlers

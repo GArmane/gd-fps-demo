@@ -8,41 +8,50 @@
 [ext_resource type="Script" uid="uid://c6l0181f4ytps" path="res://addons/godot_state_charts/guard.gd" id="6_qkrfd"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_3yqky"]
 [ext_resource type="Script" uid="uid://duv2yyvlunsi8" path="res://addons/godot_state_charts/any_of_guard.gd" id="8_mvwp2"]
-[ext_resource type="Script" uid="uid://b4dwolbvt8our" path="res://addons/godot_state_charts/history_state.gd" id="9_3yqky"]
 
-[sub_resource type="Resource" id="Resource_fxw1s"]
+[sub_resource type="Resource" id="Resource_3yqky"]
 script = ExtResource("7_3yqky")
 state = NodePath("../Firing")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
-[sub_resource type="Resource" id="Resource_adxdq"]
+[sub_resource type="Resource" id="Resource_ijk65"]
 script = ExtResource("7_3yqky")
 state = NodePath("../Reloading")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_la0rk"]
 script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_fxw1s"), SubResource("Resource_adxdq")])
+guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_3yqky"), SubResource("Resource_ijk65")])
 metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
-[sub_resource type="Resource" id="Resource_qkrfd"]
+[sub_resource type="Resource" id="Resource_ay1cy"]
 script = ExtResource("7_3yqky")
 state = NodePath("../Ready")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
-[sub_resource type="Resource" id="Resource_ijk65"]
-script = ExtResource("7_3yqky")
-state = NodePath("../Ready")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_1x0bb"]
+[sub_resource type="Resource" id="Resource_io2r1"]
 script = ExtResource("7_3yqky")
 state = NodePath("../Empty")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_mvwp2"]
 script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_ijk65"), SubResource("Resource_1x0bb")])
+guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_ay1cy"), SubResource("Resource_io2r1")])
+metadata/_custom_type_script = "uid://duv2yyvlunsi8"
+
+[sub_resource type="Resource" id="Resource_qkrfd"]
+script = ExtResource("7_3yqky")
+state = NodePath("../Firing")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_0l5ih"]
+script = ExtResource("7_3yqky")
+state = NodePath("../Reloading")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_vo8v0"]
+script = ExtResource("8_mvwp2")
+guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_qkrfd"), SubResource("Resource_0l5ih")])
 metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
 [node name="WeaponController" type="Node" unique_id=1481991468]
@@ -58,14 +67,16 @@ script = ExtResource("3_gdadt")
 initial_state = NodePath("Ready")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
-[node name="PreviousState" type="Node" parent="StateChart/Root" unique_id=949541743]
-script = ExtResource("9_3yqky")
-default_state = NodePath("../Ready")
-metadata/_custom_type_script = "uid://b4dwolbvt8our"
-
 [node name="Ready" type="Node" parent="StateChart/Root" unique_id=216964274]
 script = ExtResource("4_q3vbn")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToFiring" type="Node" parent="StateChart/Root/Ready" unique_id=807536304]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Firing")
+event = &"ToFiring"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="Firing" type="Node" parent="StateChart/Root" unique_id=874576500]
 script = ExtResource("4_q3vbn")
@@ -87,21 +98,6 @@ guard = SubResource("Resource_la0rk")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="ToFiring" type="Node" parent="StateChart/Root" unique_id=807536304]
-script = ExtResource("5_gdadt")
-to = NodePath("../Firing")
-event = &"ToFiring"
-guard = SubResource("Resource_qkrfd")
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="ToEmpty" type="Node" parent="StateChart/Root" unique_id=1807663287]
-script = ExtResource("5_gdadt")
-to = NodePath("../Empty")
-event = &"ToEmpty"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
 [node name="ToReloading" type="Node" parent="StateChart/Root" unique_id=234381627]
 script = ExtResource("5_gdadt")
 to = NodePath("../Reloading")
@@ -110,10 +106,11 @@ guard = SubResource("Resource_mvwp2")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="ToPreviousState" type="Node" parent="StateChart/Root" unique_id=1450926791]
+[node name="ToEmpty" type="Node" parent="StateChart/Root" unique_id=1807663287]
 script = ExtResource("5_gdadt")
-to = NodePath("../PreviousState")
-event = &"ToPreviousState"
+to = NodePath("../Empty")
+event = &"ToEmpty"
+guard = SubResource("Resource_vo8v0")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 

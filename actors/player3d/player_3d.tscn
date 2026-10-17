@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://dcovavjcffyyq"]
 
 [ext_resource type="Script" uid="uid://cra0mtyqke21s" path="res://actors/player3d/player_3d.gd" id="1_ofhqr"]
-[ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/game-mode/sprint.tres" id="3_lsln6"]
-[ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/game-mode/move.tres" id="3_rptib"]
-[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/game-mode/fire.tres" id="3_rt46e"]
-[ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/game-mode/crouch.tres" id="3_ssdk0"]
-[ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/game-mode/jump.tres" id="4_7aotg"]
+[ext_resource type="Resource" uid="uid://c08bbcj2gjoop" path="res://input/move-mode/sprint.tres" id="3_lsln6"]
+[ext_resource type="Resource" uid="uid://c733h7i0ma1x1" path="res://input/move-mode/move.tres" id="3_rptib"]
+[ext_resource type="Resource" uid="uid://qutmscbhi1na" path="res://input/weapon-mode/fire.tres" id="3_rt46e"]
+[ext_resource type="Resource" uid="uid://dri5aket7pmvy" path="res://input/move-mode/crouch.tres" id="3_ssdk0"]
+[ext_resource type="Resource" uid="uid://bf14bejt1d6x2" path="res://input/move-mode/jump.tres" id="4_7aotg"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_48hux"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_extwr"]
 [ext_resource type="PackedScene" uid="uid://b3bs0y5jtxqt2" path="res://components/fp-camera-3d/fp_camera_3d.tscn" id="6_12xki"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_j58rd"]
 [ext_resource type="PackedScene" uid="uid://dusi46e30e3xb" path="res://components/interaction-raycast/interaction_raycast.tscn" id="7_12xki"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_arksy"]
-[ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/game-mode/reload.tres" id="7_la0rk"]
+[ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/weapon-mode/reload.tres" id="7_la0rk"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="9_n2jcp"]
 [ext_resource type="PackedScene" uid="uid://bodixvfi04hc3" path="res://components/weapon-controller/weapon_controller.tscn" id="12_8rkpr"]
@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
 [ext_resource type="Resource" uid="uid://vxyfdg5oqjvj" path="res://data/weapons/pistol.tres" id="14_la0rk"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
-[ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/game-mode/mouse_vec.tres" id="18_8rkpr"]
+[ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/move-mode/mouse_vec.tres" id="18_8rkpr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
@@ -44,10 +44,10 @@ metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 collision_layer = 2
 script = ExtResource("1_ofhqr")
 _move_action = ExtResource("3_rptib")
-_fire_action = ExtResource("3_rt46e")
 _crouch_action = ExtResource("3_ssdk0")
 _jump_action = ExtResource("4_7aotg")
 _sprint_action = ExtResource("3_lsln6")
+_fire_action = ExtResource("3_rt46e")
 _reload_action = ExtResource("7_la0rk")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
@@ -73,6 +73,7 @@ visible = false
 [node name="WeaponAudioPlayer" type="AudioStreamPlayer3D" parent="FPCamera3D" unique_id=1846442724]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+max_polyphony = 8
 doppler_tracking = 2
 
 [node name="WeaponOrigin" type="Marker3D" parent="FPCamera3D" unique_id=54251466]
@@ -125,7 +126,7 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 script = ExtResource("5_extwr")
 metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
 
-[node name="Combat" type="Node" parent="StateChart/Root" unique_id=35814359]
+[node name="Combat" type="Node" parent="StateChart/Root" unique_id=1857447452]
 script = ExtResource("7_arksy")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 

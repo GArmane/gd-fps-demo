@@ -24,12 +24,14 @@ const STEP_ADJUSTED_HEIGHT := 0.02
 @export var max_step_threshold := 0.3
 @export var max_step_height := 0.5
 
-@export_category("Input Actions")
+@export_category("Move actions")
 @export var _move_action: GUIDEAction
-@export var _fire_action: GUIDEAction
 @export var _crouch_action: GUIDEAction
 @export var _jump_action: GUIDEAction
 @export var _sprint_action: GUIDEAction
+
+@export_category("Combat actions")
+@export var _fire_action: GUIDEAction
 @export var _reload_action: GUIDEAction
 
 var raw_movement_vector: Vector2:
@@ -230,4 +232,5 @@ func _on_crouching_state_exited() -> void:
 #region Signal handlers
 func _on_weapon_controller_weapon_fired() -> void:
 	%FPCamera3D.apply_weapon_kick(1, 1, 1)
+
 #endregion

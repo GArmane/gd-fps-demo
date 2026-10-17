@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://drasunuvdjs26" path="res://resources/weapons/ammo-behaviours/ammo_count_behaviour.gd" id="1_wkg85"]
 [ext_resource type="AudioStream" uid="uid://6x3j7dcoyijv" path="res://assets/audio/weap_fire_01.wav" id="2_6ryra"]
 [ext_resource type="Script" uid="uid://cfrv54nlq66h3" path="res://resources/weapons/recoil-behaviours/random_recoil_patern.gd" id="6_ldxvb"]
-[ext_resource type="Script" uid="uid://dyqc77fvci1gs" path="res://resources/weapons/spread-behaviour/single_spread_pattern.gd" id="8_iejlt"]
+[ext_resource type="Script" uid="uid://dyqc77fvci1gs" path="res://resources/weapons/spread-behaviours/single_spread_pattern.gd" id="8_iejlt"]
 
 [sub_resource type="Resource" id="Resource_la0rk"]
 script = ExtResource("1_wkg85")
