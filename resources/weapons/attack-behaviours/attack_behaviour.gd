@@ -4,6 +4,11 @@ class_name AttackBehaviour extends Resource
 
 @export var damage: float
 @export var sounds: Array[AudioStream] = []
+# TODO abstract attack rate into a behaviour or configurable state chart?
+@export var attack_rate: float:
+	set(value):
+		assert(value >= 0.0, "value should not be negative")
+		attack_rate = value
 
 @abstract
 func execute(origin: Node3D, directions: Array[Vector3], audio_player: AudioStreamPlayer3D) -> void

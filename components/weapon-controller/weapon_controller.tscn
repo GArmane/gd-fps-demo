@@ -14,6 +14,11 @@ script = ExtResource("7_3yqky")
 state = NodePath("../Firing")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
+[sub_resource type="Resource" id="Resource_qkrfd"]
+script = ExtResource("7_3yqky")
+state = NodePath("../Cooldown")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
 [sub_resource type="Resource" id="Resource_ijk65"]
 script = ExtResource("7_3yqky")
 state = NodePath("../Reloading")
@@ -21,7 +26,7 @@ metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_la0rk"]
 script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_3yqky"), SubResource("Resource_ijk65")])
+guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_3yqky"), SubResource("Resource_qkrfd"), SubResource("Resource_ijk65")])
 metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
 [sub_resource type="Resource" id="Resource_ay1cy"]
@@ -39,7 +44,7 @@ script = ExtResource("8_mvwp2")
 guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_ay1cy"), SubResource("Resource_io2r1")])
 metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
-[sub_resource type="Resource" id="Resource_qkrfd"]
+[sub_resource type="Resource" id="Resource_1x0bb"]
 script = ExtResource("7_3yqky")
 state = NodePath("../Firing")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
@@ -51,7 +56,7 @@ metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_vo8v0"]
 script = ExtResource("8_mvwp2")
-guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_qkrfd"), SubResource("Resource_0l5ih")])
+guards = Array[ExtResource("6_qkrfd")]([SubResource("Resource_1x0bb"), SubResource("Resource_0l5ih")])
 metadata/_custom_type_script = "uid://duv2yyvlunsi8"
 
 [node name="WeaponController" type="Node" unique_id=1481991468]
@@ -79,6 +84,17 @@ delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="Firing" type="Node" parent="StateChart/Root" unique_id=874576500]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToCooldown" type="Node" parent="StateChart/Root/Firing" unique_id=537981381]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Cooldown")
+event = &"ToCooldown"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Cooldown" type="Node" parent="StateChart/Root" unique_id=519245352]
 script = ExtResource("4_q3vbn")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
@@ -116,5 +132,6 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_entered" from="StateChart/Root/Ready" to="." method="_on_ready_state_entered"]
 [connection signal="state_processing" from="StateChart/Root/Firing" to="." method="_on_firing_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Cooldown" to="." method="_on_cooldown_state_entered"]
 [connection signal="state_processing" from="StateChart/Root/Reloading" to="." method="_on_reloading_state_processing"]
 [connection signal="state_entered" from="StateChart/Root/Empty" to="." method="_on_empty_state_entered"]

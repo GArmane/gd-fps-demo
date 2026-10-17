@@ -52,12 +52,15 @@ func _on_firing_state_processing(_delta: float) -> void:
 	if current_weapon.ammo_behaviour.is_empty():
 		%StateChart.send_event("ToEmpty")
 	else:
-		%StateChart.send_event("ToReady")
+		%StateChart.send_event("ToCooldown")
 
 
 func _on_cooldown_state_entered() -> void:
-	get_tree().create_timer(0.1, false, true).timeout.connect(
-		%StateChart.send_event.bind("ToReady")
+	(
+		get_tree()
+		. create_timer(1 / current_weapon.attack_behaviour.attack_rate, false, true)
+		. timeout
+		. connect(%StateChart.send_event.bind("ToReady"))
 	)
 
 
