@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://3eugs5lwessb"]
 
 [ext_resource type="Script" uid="uid://dr7hfejxrye0x" path="res://scenes/levels/prototype.gd" id="1_corbn"]
-[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://actors/player3d/player_3d.tscn" id="1_qq37k"]
+[ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://scenes/actors/player3d/player_3d.tscn" id="1_qq37k"]
 [ext_resource type="Texture2D" uid="uid://cvhdh565i4wkb" path="res://assets/textures/kenney-prototype-textures/PNG/Light/texture_08.png" id="2_a1d61"]
 [ext_resource type="Resource" uid="uid://2eofreoljb3h" path="res://input/debug-mode/debug_mode.tres" id="2_jdskk"]
 [ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://input/move-mode/move_mode.tres" id="3_aeoad"]
