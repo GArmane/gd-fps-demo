@@ -13,7 +13,7 @@
 [sub_resource type="Resource" id="Resource_grmjn"]
 script = ExtResource("1_78lyc")
 type = 1
-cycle_time = 20.0
+cycle_time = 10.0
 metadata/_custom_type_script = "uid://vpan6lg4it07"
 
 [sub_resource type="Resource" id="Resource_la0rk"]
