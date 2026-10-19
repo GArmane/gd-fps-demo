@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dr7hfejxrye0x" path="res://scenes/levels/prototype.gd" id="1_corbn"]
 [ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://scenes/actors/player3d/player_3d.tscn" id="1_qq37k"]
-[ext_resource type="Texture2D" uid="uid://cvhdh565i4wkb" path="res://assets/textures/kenney-prototype-textures/PNG/Light/texture_08.png" id="2_a1d61"]
 [ext_resource type="Resource" uid="uid://2eofreoljb3h" path="res://input/debug-mode/debug_mode.tres" id="2_jdskk"]
 [ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://input/move-mode/move_mode.tres" id="3_aeoad"]
 [ext_resource type="Texture2D" uid="uid://bltd1n6wog3hy" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_05.png" id="3_corbn"]
@@ -11,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cu1ag8o2qa8i4" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_06.png" id="4_js0vw"]
 [ext_resource type="Texture2D" uid="uid://025sr4vowq1p" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_10.png" id="5_pyrxr"]
 [ext_resource type="Texture2D" uid="uid://ci44xl8gy8oj1" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_09.png" id="6_1qj2g"]
+[ext_resource type="Texture2D" uid="uid://bo5pkxiepwvrm" path="res://assets/textures/kenney-prototype-textures/Vector/texture_10.svg" id="6_aeoad"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 
@@ -22,10 +22,9 @@ background_mode = 2
 background_energy_multiplier = 2.0
 sky = SubResource("Sky_dovyc")
 ambient_light_source = 3
-tonemap_mode = 4
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyrxr"]
-albedo_texture = ExtResource("2_a1d61")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bengm"]
+albedo_texture = ExtResource("6_aeoad")
 uv1_triplanar = true
 uv2_triplanar = true
 
@@ -88,7 +87,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(32, 1, 32)
-material = SubResource("StandardMaterial3D_pyrxr")
+material = SubResource("StandardMaterial3D_bengm")
 
 [node name="Stairs" type="Node3D" parent="Geometry" unique_id=395662943]
 
@@ -162,6 +161,30 @@ material = SubResource("StandardMaterial3D_f1k6i")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1, -10.5)
 use_collision = true
 size = Vector3(13, 2, 5)
+material = SubResource("StandardMaterial3D_mx1cl")
+
+[node name="NorthWall" type="CSGBox3D" parent="Geometry" unique_id=1188570274]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.5, 3, 0)
+use_collision = true
+size = Vector3(32, 6, 1)
+material = SubResource("StandardMaterial3D_mx1cl")
+
+[node name="WestWall" type="CSGBox3D" parent="Geometry" unique_id=971330862]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.033778667, 3, -16)
+use_collision = true
+size = Vector3(32, 6, 1)
+material = SubResource("StandardMaterial3D_mx1cl")
+
+[node name="SouthWall" type="CSGBox3D" parent="Geometry" unique_id=1422672767]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.5, 3, 0)
+use_collision = true
+size = Vector3(32, 6, 1)
+material = SubResource("StandardMaterial3D_mx1cl")
+
+[node name="SouthWall2" type="CSGBox3D" parent="Geometry" unique_id=50566126]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 3, 16.5)
+use_collision = true
+size = Vector3(32, 6, 1)
 material = SubResource("StandardMaterial3D_mx1cl")
 
 [node name="CrouchCheck" type="CSGBox3D" parent="Geometry" unique_id=2034702770]
