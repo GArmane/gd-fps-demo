@@ -20,7 +20,7 @@ func trigger_release():
 
 
 func reload_triggered():
-	%StateChart.send_event("ToOperatorReload")
+	%StateChart.send_event("ToReloading")
 
 
 #endregion
@@ -41,14 +41,14 @@ func _ready() -> void:
 
 
 #region State chart
-#region Operator branch
-func _on_operator_reload_state_entered() -> void:
+#region Weapon branch
+func _on_reloading_state_entered() -> void:
 	if current_weapon.ammo_behaviour.has_reserve() and not current_weapon.ammo_behaviour.is_full():
 		await get_tree().create_timer(current_weapon.ammo_behaviour.reload_time).timeout
 		current_weapon.ammo_behaviour.reload()
-		if get_node("StateChart/ParallelState/Weapon/Chamber/Empty").active:
+		if $StateChart/Weapon/Operational/Chamber/Empty.active:
 			%StateChart.send_event("ToActionCycling")
-	%StateChart.send_event("ToOperatorIdle")
+	%StateChart.send_event("ToOperational")
 
 
 #endregion
