@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="Weapon" type="Node" parent="StateChart" unique_id=288925170]
 script = ExtResource("3_gdadt")
-initial_state = NodePath("Operational")
+initial_state = NodePath("Unoperational")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [node name="Operational" type="Node" parent="StateChart/Weapon" unique_id=320230714]
@@ -130,6 +130,13 @@ guard = SubResource("Resource_iubkf")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[node name="ToSwitching" type="Node" parent="StateChart/Weapon/Operational" unique_id=1189131170]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Switching")
+event = &"ToSwitching"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
 [node name="Reloading" type="Node" parent="StateChart/Weapon" unique_id=1391728538]
 script = ExtResource("4_q3vbn")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
@@ -138,6 +145,28 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 script = ExtResource("5_gdadt")
 to = NodePath("../../Operational")
 event = &"ToOperational"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Switching" type="Node" parent="StateChart/Weapon" unique_id=1898223338]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToOperational" type="Node" parent="StateChart/Weapon/Switching" unique_id=1150141237]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Operational")
+event = &"ToOperational"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Unoperational" type="Node" parent="StateChart/Weapon" unique_id=2037840348]
+script = ExtResource("4_q3vbn")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToSwitching" type="Node" parent="StateChart/Weapon/Unoperational" unique_id=1340751817]
+script = ExtResource("5_gdadt")
+to = NodePath("../../Switching")
+event = &"ToSwitching"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 

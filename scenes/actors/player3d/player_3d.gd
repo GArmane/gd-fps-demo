@@ -35,6 +35,11 @@ const STEP_ADJUSTED_HEIGHT := 0.02
 @export var _trigger_release: GUIDEAction
 @export var _reload_action: GUIDEAction
 
+@export_category("Inventory")
+@export var _inventory: PlayerInventory
+@export var _select_semi_auto_pistol: GUIDEAction
+@export var _select_full_auto_pistol: GUIDEAction
+
 var raw_movement_vector: Vector2:
 	get():
 		return _move_action.value_axis_2d
@@ -102,6 +107,12 @@ func _on_combat_state_entered() -> void:
 	_trigger_pull.triggered.connect(%WeaponController.trigger_pull)
 	_trigger_release.triggered.connect(%WeaponController.trigger_release)
 	_reload_action.triggered.connect(%WeaponController.reload_triggered)
+	_select_semi_auto_pistol.triggered.connect(
+		%WeaponController.switch_weapon.bind(_inventory.semi_auto_pistol)
+	)
+	_select_full_auto_pistol.triggered.connect(
+		%WeaponController.switch_weapon.bind(_inventory.full_auto_pistol)
+	)
 
 
 #endregion

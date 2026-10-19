@@ -1,6 +1,8 @@
 @icon("res://addons/at-icons/node/gun.svg")
 class_name WeaponController extends Node
 
+signal weapon_switched(previous: Weapon, new: Weapon)
+
 @export var audio_player: AudioStreamPlayer3D
 @export var current_weapon: Weapon
 @export var weapon_origin: Node3D
@@ -23,20 +25,31 @@ func reload_triggered():
 	%StateChart.send_event("ToReloading")
 
 
-#endregion
-
-
-#region Engine callbacks
-func _ready() -> void:
-	if not current_weapon:
+func switch_weapon(data: WeaponUnlock):
+	if data.weapon == current_weapon or not data.unlocked:
 		return
+	%StateChart.send_event("ToSwitching")
 
-	_weap_model = current_weapon.model.instantiate()
+	var previous_weapon := current_weapon
+	var new_weapon := data.weapon
+	if _weap_model:
+		##TODO: Fake weapon switching delay. Create an effect.
+		_weap_model.queue_free()
+		await get_tree().create_timer(2).timeout
+
+	_weap_model = new_weapon.model.instantiate()
 	weapon_origin.add_child(_weap_model)
 	_weap_model.look_at(center_aim.global_position, Vector3.UP)
-	_weap_muzzl = _weap_model.get_node(current_weapon.attack_behaviour.muzzle_node_path)
+	_weap_muzzl = _weap_model.get_node(new_weapon.attack_behaviour.muzzle_node_path)
+
+	current_weapon = new_weapon
+	weapon_switched.emit(previous_weapon, current_weapon)
+	%StateChart.send_event("ToOperational")
 
 
+#endregion
+
+#region Engine callbacks
 #endregion
 
 
@@ -67,7 +80,7 @@ func _on_action_cycling_state_entered() -> void:
 		%StateChart.send_event("ToChamberChambered")
 	%StateChart.send_event("ToActionReady")
 	if current_weapon.action_behaviour.type == ActionBehaviour.ActionType.FULL_AUTO:
-		if get_node("StateChart/ParallelState/Weapon/Trigger/Pulled").active:
+		if $StateChart/Weapon/Operational/Trigger/Pulled.active:
 			%StateChart.send_event("ToChamberFiring")
 
 

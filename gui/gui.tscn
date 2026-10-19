@@ -52,5 +52,4 @@ visible = false
 
 [node name="WeaponHUD" parent="WeaponHUDLayer" unique_id=1235749527 instance=ExtResource("6_ytf3d")]
 unique_name_in_owner = true
-offset_right = -1152.0
-offset_bottom = -648.0
+mouse_filter = 2

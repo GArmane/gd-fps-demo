@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="PlayerInventory" format=3 uid="uid://cg7h7fnrslti0"]
+
+[ext_resource type="Script" uid="uid://bhvi8c5v86dye" path="res://resources/inventory/player_inventory.gd" id="1_67wve"]
+[ext_resource type="Script" uid="uid://d3dlx3fqmbtbs" path="res://resources/inventory/weapon_unlock.gd" id="1_pqxw4"]
+[ext_resource type="Resource" uid="uid://b5kqhhp7fq5qs" path="res://data/weapons/full_auto_pistol.tres" id="2_dis0f"]
+[ext_resource type="Resource" uid="uid://vxyfdg5oqjvj" path="res://data/weapons/semi_auto_pistol.tres" id="4_xcyx3"]
+
+[sub_resource type="Resource" id="Resource_f5obh"]
+script = ExtResource("1_pqxw4")
+weapon = ExtResource("2_dis0f")
+unlocked = true
+current_ammo = 33
+spare_ammo = 132
+metadata/_custom_type_script = "uid://d3dlx3fqmbtbs"
+
+[sub_resource type="Resource" id="Resource_53ofa"]
+script = ExtResource("1_pqxw4")
+weapon = ExtResource("4_xcyx3")
+unlocked = true
+current_ammo = 17
+spare_ammo = 51
+metadata/_custom_type_script = "uid://d3dlx3fqmbtbs"
+
+[resource]
+script = ExtResource("1_67wve")
+semi_auto_pistol = SubResource("Resource_53ofa")
+full_auto_pistol = SubResource("Resource_f5obh")
+metadata/_custom_type_script = "uid://bhvi8c5v86dye"

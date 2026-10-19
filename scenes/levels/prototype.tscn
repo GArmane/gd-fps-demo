@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://025sr4vowq1p" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_10.png" id="5_pyrxr"]
 [ext_resource type="Texture2D" uid="uid://ci44xl8gy8oj1" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_09.png" id="6_1qj2g"]
 [ext_resource type="Texture2D" uid="uid://bo5pkxiepwvrm" path="res://assets/textures/kenney-prototype-textures/Vector/texture_10.svg" id="6_aeoad"]
+[ext_resource type="Resource" uid="uid://b3s1xx3lhjkyf" path="res://input/inventory-mode/inventory-mode.tres" id="6_hhhrn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 
@@ -71,6 +72,7 @@ _debug_mode = ExtResource("2_jdskk")
 _move_mode = ExtResource("3_aeoad")
 _pause_mode = ExtResource("4_aeoad")
 _weapon_mode = ExtResource("4_hhhrn")
+_inventory_mode = ExtResource("6_hhhrn")
 
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1103200190]
 unique_name_in_owner = true
