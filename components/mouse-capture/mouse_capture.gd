@@ -1,5 +1,5 @@
 @icon("res://addons/at-icons/node/cursor.svg")
-class_name MouseCapture extends Component
+class_name MouseCapture extends Node
 
 @export var _mouse_action: GUIDEAction
 

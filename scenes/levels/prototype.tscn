@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ci44xl8gy8oj1" path="res://assets/textures/kenney-prototype-textures/PNG/Orange/texture_09.png" id="6_1qj2g"]
 [ext_resource type="Texture2D" uid="uid://bo5pkxiepwvrm" path="res://assets/textures/kenney-prototype-textures/Vector/texture_10.svg" id="6_aeoad"]
 [ext_resource type="Resource" uid="uid://b3s1xx3lhjkyf" path="res://input/inventory-mode/inventory-mode.tres" id="6_hhhrn"]
+[ext_resource type="PackedScene" uid="uid://sid2owsleq6o" path="res://scenes/pickups/weapon_pickup.tscn" id="12_f1k6i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 
@@ -201,6 +202,13 @@ use_collision = true
 size = Vector3(3, 1.3000001, 3)
 material = SubResource("StandardMaterial3D_2gkmf")
 
+[node name="Pickups" type="Node3D" parent="." unique_id=260416214]
+metadata/_edit_lock_ = true
+
+[node name="WeaponPickup" parent="Pickups" unique_id=1189702920 instance=ExtResource("12_f1k6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, -5)
+
 [node name="Player3D" parent="." unique_id=1812465745 instance=ExtResource("1_qq37k")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+metadata/_edit_lock_ = true

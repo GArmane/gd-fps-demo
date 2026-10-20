@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://sid2owsleq6o"]
+
+[ext_resource type="Script" uid="uid://b362b25iw8f7" path="res://scenes/pickups/weapon_pickup.gd" id="1_08ttg"]
+[ext_resource type="PackedScene" uid="uid://3x8648tk61w3" path="res://components/item_display/item_display.tscn" id="2_owlvl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_08ttg"]
+
+[node name="WeaponPickup" type="Area3D" unique_id=2011720672]
+script = ExtResource("1_08ttg")
+
+[node name="ItemDisplay" parent="." unique_id=2036273831 instance=ExtResource("2_owlvl")]
+unique_name_in_owner = true
+rotation_speed = 90.0
+float_speed = 2.0
+float_height = 0.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1666838094]
+shape = SubResource("SphereShape3D_08ttg")

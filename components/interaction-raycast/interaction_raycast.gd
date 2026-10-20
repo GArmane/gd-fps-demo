@@ -1,4 +1,4 @@
-extends RayCast3D
+class_name InteractionRaycast extends RayCast3D
 
 var target: Node
 

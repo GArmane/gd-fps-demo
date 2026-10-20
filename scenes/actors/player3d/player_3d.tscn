@@ -24,12 +24,16 @@
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
 [ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/move-mode/mouse_vec.tres" id="18_8rkpr"]
+[ext_resource type="PackedScene" uid="uid://b66a2q5j8inp6" path="res://components/interaction-area/interaction-area.tscn" id="18_sqouy"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iubkf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_iubkf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7jqdq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a7g5q"]
+size = Vector3(1.5, 1, 1.5)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_a7g5q"]
 
@@ -99,6 +103,12 @@ shape = SubResource("SphereShape3D_iubkf")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7jqdq")
+
+[node name="InteractionArea" parent="." unique_id=603028289 instance=ExtResource("18_sqouy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=892971894]
+shape = SubResource("BoxShape3D_a7g5q")
 
 [node name="CrouchingCheck" type="ShapeCast3D" parent="." unique_id=884388992]
 unique_name_in_owner = true
