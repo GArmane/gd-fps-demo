@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://sid2owsleq6o"]
 
 [ext_resource type="Script" uid="uid://b362b25iw8f7" path="res://scenes/pickups/weapon_pickup.gd" id="1_08ttg"]
-[ext_resource type="PackedScene" uid="uid://3x8648tk61w3" path="res://components/item_display/item_display.tscn" id="2_owlvl"]
+[ext_resource type="PackedScene" uid="uid://3x8648tk61w3" path="res://components/item-display/item_display.tscn" id="2_owlvl"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_08ttg"]
 
