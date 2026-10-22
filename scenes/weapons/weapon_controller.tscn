@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://cpmee10v6du3t"]
+
+[ext_resource type="Script" uid="uid://d0pybbioecfvw" path="res://scenes/weapons/weapon_controller.gd" id="1_3fhnr"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_raqla"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_ivp75"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="4_gg03m"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_7bkj2"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_cdjq1"]
+
+[node name="WeaponController" type="Node" unique_id=633674798]
+script = ExtResource("1_3fhnr")
+
+[node name="StateChart" type="Node" parent="." unique_id=1896671391]
+unique_name_in_owner = true
+script = ExtResource("2_raqla")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Weapon" type="Node" parent="StateChart" unique_id=2074320901]
+script = ExtResource("3_ivp75")
+initial_state = NodePath("Operational")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Operational" type="Node" parent="StateChart/Weapon" unique_id=1930496438]
+script = ExtResource("4_gg03m")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="Trigger" type="Node" parent="StateChart/Weapon/Operational" unique_id=645213100]
+script = ExtResource("3_ivp75")
+initial_state = NodePath("Released")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Released" type="Node" parent="StateChart/Weapon/Operational/Trigger" unique_id=284846239]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToTriggerPulled" type="Node" parent="StateChart/Weapon/Operational/Trigger/Released" unique_id=506678446]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Pulled")
+event = &"ToTriggerPulled"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Pulled" type="Node" parent="StateChart/Weapon/Operational/Trigger" unique_id=727383892]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToTriggerReleased" type="Node" parent="StateChart/Weapon/Operational/Trigger/Pulled" unique_id=1270165267]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Released")
+event = &"ToTriggerReleased"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Action" type="Node" parent="StateChart/Weapon/Operational" unique_id=1114336106]
+script = ExtResource("3_ivp75")
+initial_state = NodePath("Ready")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Ready" type="Node" parent="StateChart/Weapon/Operational/Action" unique_id=83053022]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToActionCycling" type="Node" parent="StateChart/Weapon/Operational/Action/Ready" unique_id=387468991]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Cycling")
+event = &"ToActionCycling"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Cycling" type="Node" parent="StateChart/Weapon/Operational/Action" unique_id=329312615]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToActionReady" type="Node" parent="StateChart/Weapon/Operational/Action/Cycling" unique_id=2010461793]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Ready")
+event = &"ToActionReady"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Chamber" type="Node" parent="StateChart/Weapon/Operational" unique_id=841539806]
+script = ExtResource("3_ivp75")
+initial_state = NodePath("Chambered")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Empty" type="Node" parent="StateChart/Weapon/Operational/Chamber" unique_id=948406405]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToChamberChambered" type="Node" parent="StateChart/Weapon/Operational/Chamber/Empty" unique_id=1669279779]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Chambered")
+event = &"ToChamberChambered"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Chambered" type="Node" parent="StateChart/Weapon/Operational/Chamber" unique_id=422974829]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToChamberFiring" type="Node" parent="StateChart/Weapon/Operational/Chamber/Chambered" unique_id=488647738]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Firing")
+event = &"ToChamberFiring"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Firing" type="Node" parent="StateChart/Weapon/Operational/Chamber" unique_id=1662512895]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToChamberEmpty" type="Node" parent="StateChart/Weapon/Operational/Chamber/Firing" unique_id=962295451]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Empty")
+event = &"ToChamberEmpty"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="ToWeaponReloading" type="Node" parent="StateChart/Weapon/Operational" unique_id=1637012459]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Reloading")
+event = &"ToWeaponReloading"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Reloading" type="Node" parent="StateChart/Weapon" unique_id=369517328]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToWeaponOperational" type="Node" parent="StateChart/Weapon/Reloading" unique_id=1263790035]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Operational")
+event = &"ToWeaponOperational"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[connection signal="state_entered" from="StateChart/Weapon/Operational/Trigger/Pulled" to="." method="_on_trigger_pulled_state_entered"]
+[connection signal="state_entered" from="StateChart/Weapon/Operational/Action/Cycling" to="." method="_on_action_cycling_state_entered"]
+[connection signal="state_entered" from="StateChart/Weapon/Operational/Chamber/Firing" to="." method="_on_chamber_firing_state_entered"]
+[connection signal="state_entered" from="StateChart/Weapon/Reloading" to="." method="_on_weapon_reloading_state_entered"]
