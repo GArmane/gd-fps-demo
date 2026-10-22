@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BallisticPellets" format=3 uid="uid://75p1e1k3yuxm"]
+
+[ext_resource type="PackedScene" uid="uid://37qnwynvlyrp" path="res://assets/projectiles/bullet.glb" id="1_jo1h3"]
+[ext_resource type="Script" uid="uid://cibdpydw2suiu" path="res://scripts/projectiles/ballistic_pellets.gd" id="2_lq3cd"]
+
+[resource]
+script = ExtResource("2_lq3cd")
+base_spread_x = 0.1
+base_spread_y = 0.1
+pellet_count = 8
+model = ExtResource("1_jo1h3")
+name = "Shotgun Shell"
+description = "A basic shotgun shell that spreads pellets over an area."
+base_damage = 76
+base_velocity = 350.0
+metadata/_custom_type_script = "uid://cibdpydw2suiu"

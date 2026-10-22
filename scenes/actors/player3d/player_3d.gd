@@ -7,6 +7,7 @@ const MIN_STEP_HEIGHT := 0.0
 const MIN_MOVEMENT_LENGTH := 0.1
 const MIN_DOT_VALUE := 0.5
 const STEP_ADJUSTED_HEIGHT := 0.02
+const INITIAL_WEAPON := preload("res://resources/weapons/semi_auto_pistol.tres")
 
 @export_category("Camera settings")
 ## After this much time, triggers camera kick effect.
@@ -36,7 +37,6 @@ const STEP_ADJUSTED_HEIGHT := 0.02
 @export var _reload_action: GUIDEAction
 
 @export_category("Inventory")
-@export var _inventory: PlayerInventory
 @export var _select_semi_auto_pistol: GUIDEAction
 @export var _select_full_auto_pistol: GUIDEAction
 
@@ -100,19 +100,16 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 #region State machine
 func _on_root_state_entered() -> void:
 	active.emit()
+	%WeaponController.setup(INITIAL_WEAPON, %WeaponOrigin, %HipfireAimPoint)
 
 
 #region Combat
 func _on_combat_state_entered() -> void:
-	_trigger_pull.triggered.connect(%WeaponController.trigger_pull)
-	_trigger_release.triggered.connect(%WeaponController.trigger_release)
-	_reload_action.triggered.connect(%WeaponController.reload_triggered)
-	_select_semi_auto_pistol.triggered.connect(
-		%WeaponController.switch_weapon.bind(_inventory.semi_auto_pistol)
-	)
-	_select_full_auto_pistol.triggered.connect(
-		%WeaponController.switch_weapon.bind(_inventory.full_auto_pistol)
-	)
+	_trigger_pull.triggered.connect(%WeaponController.pull_trigger)
+	_trigger_release.triggered.connect(%WeaponController.release_trigger)
+	_reload_action.triggered.connect(%WeaponController.reload_weapon)
+	_select_semi_auto_pistol.triggered.connect(func(): pass)
+	_select_full_auto_pistol.triggered.connect(func(): pass)
 
 
 #endregion

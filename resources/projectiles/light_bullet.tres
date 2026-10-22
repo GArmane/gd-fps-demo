@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BallisticProjectile" format=3 uid="uid://cto87pns0w1w"]
+
+[ext_resource type="PackedScene" uid="uid://37qnwynvlyrp" path="res://assets/projectiles/bullet.glb" id="1_30piq"]
+[ext_resource type="Script" uid="uid://w823miv6afmp" path="res://scripts/projectiles/ballistic_projectile.gd" id="2_30piq"]
+
+[resource]
+script = ExtResource("2_30piq")
+model = ExtResource("1_30piq")
+name = "Light Bullet"
+description = "A low-caliber bullet."
+base_damage = 20
+base_velocity = 365.0
+metadata/_custom_type_script = "uid://w823miv6afmp"

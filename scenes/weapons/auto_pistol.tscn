@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://7etmcge5i15n"]
+
+[ext_resource type="PackedScene" uid="uid://ca1mv38wv5dc" path="res://assets/weapons/pistol/pistol.glb" id="1_y2xoh"]
+
+[node name="Model" type="Node3D" unique_id=1570753996]
+
+[node name="Meshes" parent="." unique_id=1855024067 instance=ExtResource("1_y2xoh")]
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=718761815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275, -0.6)

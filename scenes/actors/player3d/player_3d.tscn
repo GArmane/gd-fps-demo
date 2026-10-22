@@ -16,12 +16,11 @@
 [ext_resource type="Resource" uid="uid://bxyrrgh4xb55b" path="res://input/weapon-mode/reload_press.tres" id="7_la0rk"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="9_n2jcp"]
-[ext_resource type="Resource" uid="uid://cg7h7fnrslti0" path="res://data/inventory/default_player_inventory.tres" id="9_sqouy"]
 [ext_resource type="Resource" uid="uid://c83rwrixeucom" path="res://input/inventory-mode/select_semi_auto_pistol.tres" id="10_3wsq1"]
 [ext_resource type="Resource" uid="uid://croh151jy14xa" path="res://input/inventory-mode/select_full_auto_pistol.tres" id="11_dy4gw"]
-[ext_resource type="PackedScene" uid="uid://bodixvfi04hc3" path="res://components/weapon-controller/weapon_controller.tscn" id="12_8rkpr"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="13_k67x5"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
+[ext_resource type="PackedScene" uid="uid://cpmee10v6du3t" path="res://scenes/weapons/weapon_controller.tscn" id="17_bgqsi"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
 [ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/move-mode/mouse_vec.tres" id="18_8rkpr"]
 [ext_resource type="PackedScene" uid="uid://b66a2q5j8inp6" path="res://components/interaction-area/interaction-area.tscn" id="18_sqouy"]
@@ -57,7 +56,6 @@ _sprint_action = ExtResource("3_lsln6")
 _trigger_pull = ExtResource("3_rt46e")
 _trigger_release = ExtResource("7_ed50n")
 _reload_action = ExtResource("7_la0rk")
-_inventory = ExtResource("9_sqouy")
 _select_semi_auto_pistol = ExtResource("10_3wsq1")
 _select_full_auto_pistol = ExtResource("11_dy4gw")
 
@@ -91,7 +89,8 @@ doppler_tracking = 2
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.6, -0.625)
 
-[node name="CenterAim" type="Marker3D" parent="FPCamera3D" unique_id=1828058822]
+[node name="HipfireAimPoint" type="Marker3D" parent="FPCamera3D" unique_id=1828058822]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1828060137]
@@ -106,6 +105,7 @@ shape = SubResource("CapsuleShape3D_7jqdq")
 
 [node name="InteractionArea" parent="." unique_id=603028289 instance=ExtResource("18_sqouy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=892971894]
 shape = SubResource("BoxShape3D_a7g5q")
@@ -127,11 +127,8 @@ script = ExtResource("9_n2jcp")
 _mouse_action = ExtResource("18_8rkpr")
 metadata/_custom_type_script = "uid://di1amkceydt40"
 
-[node name="WeaponController" parent="." unique_id=1481991468 node_paths=PackedStringArray("audio_player", "weapon_origin", "center_aim") instance=ExtResource("12_8rkpr")]
+[node name="WeaponController" parent="." unique_id=633674798 instance=ExtResource("17_bgqsi")]
 unique_name_in_owner = true
-audio_player = NodePath("../FPCamera3D/WeaponAudioPlayer")
-weapon_origin = NodePath("../FPCamera3D/WeaponOrigin")
-center_aim = NodePath("../FPCamera3D/CenterAim")
 
 [node name="StateChart" type="Node" parent="." unique_id=1841322225]
 unique_name_in_owner = true

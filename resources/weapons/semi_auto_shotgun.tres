@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://cifhqjqgaforr"]
+
+[ext_resource type="Script" uid="uid://d004e81y2ym8j" path="res://scripts/weapons/weapon_resource.gd" id="1_fynjn"]
+[ext_resource type="Script" uid="uid://cay4em7ks0jdv" path="res://scripts/weapons/action_behaviour.gd" id="1_kocjg"]
+[ext_resource type="Script" uid="uid://b7dv3af00kuf3" path="res://scripts/weapons/ammo-behaviours/ammo_counter_behaviour.gd" id="2_u3oke"]
+[ext_resource type="Resource" uid="uid://75p1e1k3yuxm" path="res://resources/projectiles/shell_bullet.tres" id="3_uxyod"]
+[ext_resource type="Script" uid="uid://djbnxboef68l8" path="res://scripts/weapons/attack-behaviours/projectile_attack_behaviour.gd" id="4_o4b3p"]
+[ext_resource type="PackedScene" uid="uid://7etmcge5i15n" path="res://scenes/weapons/auto_pistol.tscn" id="5_iv83s"]
+[ext_resource type="Script" uid="uid://bn188xw32hwal" path="res://scripts/weapons/recoi_behaviour.gd" id="6_hwylo"]
+
+[sub_resource type="Resource" id="Resource_1i04y"]
+script = ExtResource("1_kocjg")
+cycle_time = 4.0
+metadata/_custom_type_script = "uid://cay4em7ks0jdv"
+
+[sub_resource type="Resource" id="Resource_3o252"]
+script = ExtResource("2_u3oke")
+max_ammo_per_mag = 4
+units_consumed_per_shot = 1
+reload_time = 4.0
+metadata/_custom_type_script = "uid://b7dv3af00kuf3"
+
+[sub_resource type="Resource" id="Resource_t3hnx"]
+script = ExtResource("4_o4b3p")
+bullet_resource = ExtResource("3_uxyod")
+metadata/_custom_type_script = "uid://djbnxboef68l8"
+
+[sub_resource type="Resource" id="Resource_eu4ap"]
+script = ExtResource("6_hwylo")
+accuracy = 85.0
+metadata/_custom_type_script = "uid://bn188xw32hwal"
+
+[resource]
+script = ExtResource("1_fynjn")
+model = ExtResource("5_iv83s")
+name = "Semi Auto Shotgun"
+description = "Boom chik chik"
+muzzle_node_path = "Muzzle"
+action_behaviour = SubResource("Resource_1i04y")
+attack_behaviour = SubResource("Resource_t3hnx")
+ammo_behaviour = SubResource("Resource_3o252")
+recoil_behaviour = SubResource("Resource_eu4ap")
+metadata/_custom_type_script = "uid://d004e81y2ym8j"

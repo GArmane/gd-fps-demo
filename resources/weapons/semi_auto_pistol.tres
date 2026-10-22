@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://0jnxqamyhblw"]
+
+[ext_resource type="Script" uid="uid://d004e81y2ym8j" path="res://scripts/weapons/weapon_resource.gd" id="1_8qhh2"]
+[ext_resource type="Script" uid="uid://cay4em7ks0jdv" path="res://scripts/weapons/action_behaviour.gd" id="1_56rip"]
+[ext_resource type="Script" uid="uid://b7dv3af00kuf3" path="res://scripts/weapons/ammo-behaviours/ammo_counter_behaviour.gd" id="1_houu3"]
+[ext_resource type="Resource" uid="uid://cto87pns0w1w" path="res://resources/projectiles/light_bullet.tres" id="3_ij8h7"]
+[ext_resource type="PackedScene" uid="uid://7etmcge5i15n" path="res://scenes/weapons/auto_pistol.tscn" id="4_bkawj"]
+[ext_resource type="Script" uid="uid://djbnxboef68l8" path="res://scripts/weapons/attack-behaviours/projectile_attack_behaviour.gd" id="4_gwnlv"]
+[ext_resource type="Script" uid="uid://bn188xw32hwal" path="res://scripts/weapons/recoi_behaviour.gd" id="5_bkawj"]
+
+[sub_resource type="Resource" id="Resource_kgo57"]
+script = ExtResource("1_56rip")
+cycle_time = 10.0
+metadata/_custom_type_script = "uid://cay4em7ks0jdv"
+
+[sub_resource type="Resource" id="Resource_blqi8"]
+script = ExtResource("1_houu3")
+max_ammo_per_mag = 17
+units_consumed_per_shot = 1
+reload_time = 1.5
+metadata/_custom_type_script = "uid://b7dv3af00kuf3"
+
+[sub_resource type="Resource" id="Resource_bgqsi"]
+script = ExtResource("4_gwnlv")
+bullet_resource = ExtResource("3_ij8h7")
+metadata/_custom_type_script = "uid://djbnxboef68l8"
+
+[sub_resource type="Resource" id="Resource_4d8qb"]
+script = ExtResource("5_bkawj")
+accuracy = 75.0
+metadata/_custom_type_script = "uid://bn188xw32hwal"
+
+[resource]
+script = ExtResource("1_8qhh2")
+model = ExtResource("4_bkawj")
+name = "Semi Auto Pistol"
+description = "A basic semi-auto pistol."
+muzzle_node_path = "Muzzle"
+action_behaviour = SubResource("Resource_kgo57")
+attack_behaviour = SubResource("Resource_bgqsi")
+ammo_behaviour = SubResource("Resource_blqi8")
+recoil_behaviour = SubResource("Resource_4d8qb")
+metadata/_custom_type_script = "uid://d004e81y2ym8j"

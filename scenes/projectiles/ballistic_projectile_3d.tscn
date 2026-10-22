@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dc8a3h4fqbwck"]
+
+[ext_resource type="Script" uid="uid://ce1ppefqls7m4" path="res://scenes/projectiles/ballistic_projectile_3d.gd" id="1_acmhy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iubkf"]
+radius = 0.25
+height = 1.0
+
+[node name="BallisticProjectile3D" type="Area3D" unique_id=387458224]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_acmhy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1784098937]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_iubkf")
