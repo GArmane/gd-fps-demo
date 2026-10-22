@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponInventory" format=3 uid="uid://cgr6gaqmdx5ss"]
+
+[ext_resource type="Script" uid="uid://biyrfths6hs1m" path="res://scripts/weapon-inventory/weapon_inventory.gd" id="1_dyb7f"]
+[ext_resource type="Script" uid="uid://d2y341digpjrf" path="res://scripts/weapon-inventory/weapon_slot.gd" id="2_1eb7w"]
+[ext_resource type="Resource" uid="uid://0jnxqamyhblw" path="res://resources/weapons/semi_auto_pistol.tres" id="4_ueele"]
+[ext_resource type="Resource" uid="uid://cifhqjqgaforr" path="res://resources/weapons/semi_auto_shotgun.tres" id="5_wvhg5"]
+
+[sub_resource type="Resource" id="Resource_iubkf"]
+script = ExtResource("2_1eb7w")
+weapon = ExtResource("4_ueele")
+unlocked = true
+metadata/_custom_type_script = "uid://d2y341digpjrf"
+
+[sub_resource type="Resource" id="Resource_sfw5m"]
+script = ExtResource("2_1eb7w")
+weapon = ExtResource("5_wvhg5")
+unlocked = true
+metadata/_custom_type_script = "uid://d2y341digpjrf"
+
+[resource]
+script = ExtResource("1_dyb7f")
+slots = Dictionary[String, ExtResource("2_1eb7w")]({
+"SAPistol": SubResource("Resource_iubkf"),
+"SAShotgun": SubResource("Resource_sfw5m")
+})
+metadata/_custom_type_script = "uid://biyrfths6hs1m"

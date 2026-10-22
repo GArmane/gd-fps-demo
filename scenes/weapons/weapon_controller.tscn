@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="Weapon" type="Node" parent="StateChart" unique_id=2074320901]
 script = ExtResource("3_ivp75")
-initial_state = NodePath("Operational")
+initial_state = NodePath("Unarmed")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [node name="Operational" type="Node" parent="StateChart/Weapon" unique_id=1930496438]
@@ -123,17 +123,30 @@ event = &"ToWeaponReloading"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[node name="ToWeaponUnarmed" type="Node" parent="StateChart/Weapon/Operational" unique_id=628522860]
+script = ExtResource("6_cdjq1")
+to = NodePath("../../Unarmed")
+event = &"ToWeaponUnarmed"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
 [node name="Reloading" type="Node" parent="StateChart/Weapon" unique_id=369517328]
 script = ExtResource("5_7bkj2")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="ToWeaponOperational" type="Node" parent="StateChart/Weapon/Reloading" unique_id=1263790035]
+[node name="Unarmed" type="Node" parent="StateChart/Weapon" unique_id=180632477]
+script = ExtResource("5_7bkj2")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToWeaponOperational" type="Node" parent="StateChart/Weapon" unique_id=787745822]
 script = ExtResource("6_cdjq1")
-to = NodePath("../../Operational")
+to = NodePath("../Operational")
 event = &"ToWeaponOperational"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[connection signal="state_entered" from="StateChart/Weapon/Operational" to="." method="_on_weapon_operational_state_entered"]
+[connection signal="state_exited" from="StateChart/Weapon/Operational" to="." method="_on_operational_state_exited"]
 [connection signal="state_entered" from="StateChart/Weapon/Operational/Trigger/Pulled" to="." method="_on_trigger_pulled_state_entered"]
 [connection signal="state_entered" from="StateChart/Weapon/Operational/Action/Cycling" to="." method="_on_action_cycling_state_entered"]
 [connection signal="state_entered" from="StateChart/Weapon/Operational/Chamber/Firing" to="." method="_on_chamber_firing_state_entered"]

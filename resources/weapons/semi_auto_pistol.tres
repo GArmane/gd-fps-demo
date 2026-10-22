@@ -36,6 +36,7 @@ model = ExtResource("4_bkawj")
 name = "Semi Auto Pistol"
 description = "A basic semi-auto pistol."
 muzzle_node_path = "Muzzle"
+equipping_time = 1.0
 action_behaviour = SubResource("Resource_kgo57")
 attack_behaviour = SubResource("Resource_bgqsi")
 ammo_behaviour = SubResource("Resource_blqi8")

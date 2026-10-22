@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://c83rwrixeucom" path="res://input/inventory-mode/select_semi_auto_pistol.tres" id="2_iueyf"]
 [ext_resource type="Script" uid="uid://dsa1dnifd6w32" path="res://addons/guide/guide_mapping_context.gd" id="2_nibop"]
 [ext_resource type="Script" uid="uid://mtx1unc2aqn7" path="res://addons/guide/guide_input_mapping.gd" id="3_mhcj5"]
-[ext_resource type="Resource" uid="uid://croh151jy14xa" path="res://input/inventory-mode/select_full_auto_pistol.tres" id="4_p8l1y"]
+[ext_resource type="Resource" uid="uid://croh151jy14xa" path="res://input/inventory-mode/select_semi_auto_shotgun.tres" id="4_p8l1y"]
 [ext_resource type="Script" uid="uid://cw71o87tvdx3q" path="res://addons/guide/inputs/guide_input_key.gd" id="4_qq6m6"]
 [ext_resource type="Script" uid="uid://bl8rjl4oaldje" path="res://addons/guide/modifiers/guide_modifier.gd" id="5_lgjdj"]
 [ext_resource type="Script" uid="uid://x74mnwgr08a7" path="res://addons/guide/triggers/guide_trigger.gd" id="6_3woh8"]

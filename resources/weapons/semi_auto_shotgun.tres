@@ -36,6 +36,7 @@ model = ExtResource("5_iv83s")
 name = "Semi Auto Shotgun"
 description = "Boom chik chik"
 muzzle_node_path = "Muzzle"
+equipping_time = 2.0
 action_behaviour = SubResource("Resource_1i04y")
 attack_behaviour = SubResource("Resource_t3hnx")
 ammo_behaviour = SubResource("Resource_3o252")

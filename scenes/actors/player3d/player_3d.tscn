@@ -17,11 +17,12 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_rptib"]
 [ext_resource type="Script" uid="uid://di1amkceydt40" path="res://components/mouse-capture/mouse_capture.gd" id="9_n2jcp"]
 [ext_resource type="Resource" uid="uid://c83rwrixeucom" path="res://input/inventory-mode/select_semi_auto_pistol.tres" id="10_3wsq1"]
-[ext_resource type="Resource" uid="uid://croh151jy14xa" path="res://input/inventory-mode/select_full_auto_pistol.tres" id="11_dy4gw"]
+[ext_resource type="Resource" uid="uid://croh151jy14xa" path="res://input/inventory-mode/select_semi_auto_shotgun.tres" id="11_dy4gw"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="13_k67x5"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="14_12xki"]
 [ext_resource type="PackedScene" uid="uid://cpmee10v6du3t" path="res://scenes/weapons/weapon_controller.tscn" id="17_bgqsi"]
 [ext_resource type="PackedScene" uid="uid://bghti5w1it3qk" path="res://components/step-climber-3d/step_climber_3d.tscn" id="17_ktukr"]
+[ext_resource type="PackedScene" uid="uid://dhaxyf2p7sjyn" path="res://components/weapon-inventory/weapon_inventory.tscn" id="18_3wsq1"]
 [ext_resource type="Resource" uid="uid://np6lxr3oejg0" path="res://input/move-mode/mouse_vec.tres" id="18_8rkpr"]
 [ext_resource type="PackedScene" uid="uid://b66a2q5j8inp6" path="res://components/interaction-area/interaction-area.tscn" id="18_sqouy"]
 
@@ -57,7 +58,7 @@ _trigger_pull = ExtResource("3_rt46e")
 _trigger_release = ExtResource("7_ed50n")
 _reload_action = ExtResource("7_la0rk")
 _select_semi_auto_pistol = ExtResource("10_3wsq1")
-_select_full_auto_pistol = ExtResource("11_dy4gw")
+_select_semi_auto_shotgn = ExtResource("11_dy4gw")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=1937715355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -128,6 +129,9 @@ _mouse_action = ExtResource("18_8rkpr")
 metadata/_custom_type_script = "uid://di1amkceydt40"
 
 [node name="WeaponController" parent="." unique_id=633674798 instance=ExtResource("17_bgqsi")]
+unique_name_in_owner = true
+
+[node name="WeaponInventory" parent="." unique_id=1998153971 instance=ExtResource("18_3wsq1")]
 unique_name_in_owner = true
 
 [node name="StateChart" type="Node" parent="." unique_id=1841322225]

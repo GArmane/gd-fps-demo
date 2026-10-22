@@ -1,8 +1,7 @@
 class_name WeaponController extends Node
 
-const INITIAL_MAGS := 3
-
-signal weapon_ready
+signal weapon_equiped
+signal weapon_unequiped
 
 @export_category("Resource")
 @export var _resource: WeaponResource
@@ -22,30 +21,6 @@ var _weap_muzzl: Node3D
 
 
 #region Public methods
-func setup(resource: WeaponResource, weapon_origin: Node3D, hipfire_aim_point: Node3D) -> void:
-	_resource = resource
-	_action_behaviour = _resource.action_behaviour
-	_attack_behaviour = _resource.attack_behaviour
-	_ammo_behaviour = _resource.ammo_behaviour
-	_recoil_behaviour = _resource.recoil_behaviour
-
-	if is_instance_of(_ammo_behaviour, AmmoCounterBehaviour):
-		_ammo_state = AmmoState.new(
-			_ammo_behaviour.max_ammo_per_mag,
-			_ammo_behaviour.max_ammo_per_mag,
-			_ammo_behaviour.max_ammo_per_mag * INITIAL_MAGS
-		)
-	else:
-		assert(false, "ammo initialization not implemented")
-
-	_weap_model = _resource.model.instantiate()
-	_weap_muzzl = _weap_model.get_node(_resource.muzzle_node_path)
-	weapon_origin.add_child(_weap_model)
-	_weap_model.look_at(hipfire_aim_point.global_position, Vector3.UP)
-
-	weapon_ready.emit()
-
-
 func pull_trigger():
 	%StateChart.send_event("ToTriggerPulled")
 
@@ -58,10 +33,42 @@ func reload_weapon():
 	%StateChart.send_event("ToWeaponReloading")
 
 
+func switch_to_weapon(
+	resource: WeaponResource, state: AmmoState, weapon_origin: Node3D, hipfire_aim_point: Node3D
+):
+	%StateChart.send_event("ToWeaponUnarmed")
+
+	if _weap_model:
+		_weap_model.queue_free()
+	##TODO: Real weapon switching effect.
+	await get_tree().create_timer(resource.equipping_time).timeout
+
+	_resource = resource
+	_action_behaviour = _resource.action_behaviour
+	_attack_behaviour = _resource.attack_behaviour
+	_ammo_behaviour = _resource.ammo_behaviour
+	_recoil_behaviour = _resource.recoil_behaviour
+	_ammo_state = state
+	_weap_model = _resource.model.instantiate()
+	_weap_muzzl = _weap_model.get_node(_resource.muzzle_node_path)
+	weapon_origin.add_child(_weap_model)
+	_weap_model.look_at(hipfire_aim_point.global_position, Vector3.UP)
+
+	%StateChart.send_event("ToWeaponOperational")
+
+
 #endregion
 
 
 #region State chart
+func _on_weapon_operational_state_entered() -> void:
+	weapon_equiped.emit()
+
+
+func _on_operational_state_exited() -> void:
+	weapon_unequiped.emit()
+
+
 func _on_trigger_pulled_state_entered() -> void:
 	%StateChart.send_event("ToChamberFiring")
 
@@ -93,4 +100,5 @@ func _on_weapon_reloading_state_entered() -> void:
 		if $StateChart/Weapon/Operational/Chamber/Empty.active:
 			%StateChart.send_event("ToActionCycling")
 	%StateChart.send_event("ToWeaponOperational")
+
 #endregion

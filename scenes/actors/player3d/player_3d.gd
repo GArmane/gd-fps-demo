@@ -7,7 +7,11 @@ const MIN_STEP_HEIGHT := 0.0
 const MIN_MOVEMENT_LENGTH := 0.1
 const MIN_DOT_VALUE := 0.5
 const STEP_ADJUSTED_HEIGHT := 0.02
-const INITIAL_WEAPON := preload("res://resources/weapons/semi_auto_pistol.tres")
+const INITIAL_INVENTORY := preload(
+	"res://resources/weapon_inventory/player_starting_inventory.tres"
+)
+const SEMI_AUTO_PISTOL := "SAPistol"
+const SEMI_AUTO_SHOTGN := "SAShotgun"
 
 @export_category("Camera settings")
 ## After this much time, triggers camera kick effect.
@@ -38,7 +42,7 @@ const INITIAL_WEAPON := preload("res://resources/weapons/semi_auto_pistol.tres")
 
 @export_category("Inventory")
 @export var _select_semi_auto_pistol: GUIDEAction
-@export var _select_full_auto_pistol: GUIDEAction
+@export var _select_semi_auto_shotgn: GUIDEAction
 
 var raw_movement_vector: Vector2:
 	get():
@@ -48,6 +52,9 @@ var movement_vector: Vector3:
 		return (
 			transform.basis * Vector3(raw_movement_vector.x, 0, raw_movement_vector.y).normalized()
 		)
+var weapon_inventory: WeaponInventoryComponent:
+	get():
+		return %WeaponInventory
 var weapon_controller: WeaponController:
 	get():
 		return %WeaponController
@@ -97,10 +104,22 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 		velocity = _previous_frame_velocity
 
 
+func _switch_weapons(key: String) -> void:
+	var slot: WeaponSlot = %WeaponInventory.get_weapon(key)
+	if not slot.unlocked:
+		return
+	if not slot.ammo_state:
+		slot.ammo_state = AmmoState.from_weapon_resource(slot.weapon)
+	%WeaponController.switch_to_weapon(
+		slot.weapon, slot.ammo_state, %WeaponOrigin, %HipfireAimPoint
+	)
+
+
 #region State machine
 func _on_root_state_entered() -> void:
+	%WeaponInventory.load(INITIAL_INVENTORY)
+	_switch_weapons(SEMI_AUTO_PISTOL)
 	active.emit()
-	%WeaponController.setup(INITIAL_WEAPON, %WeaponOrigin, %HipfireAimPoint)
 
 
 #region Combat
@@ -108,8 +127,8 @@ func _on_combat_state_entered() -> void:
 	_trigger_pull.triggered.connect(%WeaponController.pull_trigger)
 	_trigger_release.triggered.connect(%WeaponController.release_trigger)
 	_reload_action.triggered.connect(%WeaponController.reload_weapon)
-	_select_semi_auto_pistol.triggered.connect(func(): pass)
-	_select_full_auto_pistol.triggered.connect(func(): pass)
+	_select_semi_auto_pistol.triggered.connect(_switch_weapons.bind(SEMI_AUTO_PISTOL))
+	_select_semi_auto_shotgn.triggered.connect(_switch_weapons.bind(SEMI_AUTO_SHOTGN))
 
 
 #endregion
