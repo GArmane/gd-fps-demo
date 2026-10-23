@@ -17,7 +17,11 @@ func attach_actor(player: Player3D):
 			ammo_state.changed.connect(upd_func)
 			upd_func.call_deferred()
 	)
-	weapon_controller.weapon_unequiped.connect(_clear_text)
+	weapon_controller.weapon_unequiped.connect(
+		func():
+			weapon_controller.ammo_state.changed.disconnect(_update_text)
+			_clear_text()
+	)
 
 
 func _clear_text():
