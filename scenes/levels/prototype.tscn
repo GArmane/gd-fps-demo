@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dr7hfejxrye0x" path="res://scenes/levels/prototype.gd" id="1_corbn"]
 [ext_resource type="PackedScene" uid="uid://dcovavjcffyyq" path="res://scenes/actors/player3d/player_3d.tscn" id="1_qq37k"]
-[ext_resource type="Resource" uid="uid://2eofreoljb3h" path="res://input/debug-mode/debug_mode.tres" id="2_jdskk"]
-[ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://input/move-mode/move_mode.tres" id="3_aeoad"]
+[ext_resource type="Resource" uid="uid://2eofreoljb3h" path="res://resources/input/debug-mode/debug_mode.tres" id="2_jdskk"]
+[ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://resources/input/move-mode/move_mode.tres" id="3_aeoad"]
 [ext_resource type="Texture2D" uid="uid://bltd1n6wog3hy" path="res://assets/props/kenney-prototype/PNG/Orange/texture_05.png" id="3_corbn"]
-[ext_resource type="Resource" uid="uid://bg7eucmhyny70" path="res://input/pause-mode/pause_mode.tres" id="4_aeoad"]
-[ext_resource type="Resource" uid="uid://dhh83c8tetscp" path="res://input/weapon-mode/weapon_mode.tres" id="4_hhhrn"]
+[ext_resource type="Resource" uid="uid://bg7eucmhyny70" path="res://resources/input/pause-mode/pause_mode.tres" id="4_aeoad"]
+[ext_resource type="Resource" uid="uid://dhh83c8tetscp" path="res://resources/input/weapon-mode/weapon_mode.tres" id="4_hhhrn"]
 [ext_resource type="Texture2D" uid="uid://cu1ag8o2qa8i4" path="res://assets/props/kenney-prototype/PNG/Orange/texture_06.png" id="4_js0vw"]
 [ext_resource type="Texture2D" uid="uid://025sr4vowq1p" path="res://assets/props/kenney-prototype/PNG/Orange/texture_10.png" id="5_pyrxr"]
 [ext_resource type="Texture2D" uid="uid://ci44xl8gy8oj1" path="res://assets/props/kenney-prototype/PNG/Orange/texture_09.png" id="6_1qj2g"]
 [ext_resource type="Texture2D" uid="uid://bo5pkxiepwvrm" path="res://assets/props/kenney-prototype/Vector/texture_10.svg" id="6_aeoad"]
-[ext_resource type="Resource" uid="uid://b3s1xx3lhjkyf" path="res://input/inventory-mode/inventory-mode.tres" id="6_hhhrn"]
+[ext_resource type="Resource" uid="uid://b3s1xx3lhjkyf" path="res://resources/input/inventory-mode/inventory-mode.tres" id="6_hhhrn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a1d61"]
 

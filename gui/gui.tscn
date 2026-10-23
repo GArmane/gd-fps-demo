@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cg54neqpn2ngr" path="res://gui/gui.gd" id="1_yw5qc"]
 [ext_resource type="PackedScene" uid="uid://dtrbumde42yyn" path="res://gui/debug-hud/debug_hud.tscn" id="2_ioifv"]
-[ext_resource type="Resource" uid="uid://brsd54pg4ghrv" path="res://input/debug-mode/debug_action.tres" id="2_q46mf"]
-[ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://input/move-mode/move_mode.tres" id="3_hp187"]
+[ext_resource type="Resource" uid="uid://brsd54pg4ghrv" path="res://resources/input/debug-mode/debug_action.tres" id="2_q46mf"]
+[ext_resource type="Resource" uid="uid://cbbtl5mcbr67" path="res://resources/input/move-mode/move_mode.tres" id="3_hp187"]
 [ext_resource type="PackedScene" uid="uid://w2ropg6w5rgy" path="res://gui/crosshair-hud/crosshair_hud.tscn" id="4_n360k"]
 [ext_resource type="PackedScene" uid="uid://bwanyodat2qnd" path="res://gui/weapon-hud/weapon_hud.tscn" id="6_ytf3d"]
 
