@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3bs0y5jtxqt2"]
 
-[ext_resource type="Script" uid="uid://2e5kfjj4alnt" path="res://components/fp-camera-3d/fp_camera_3d.gd" id="1_2wns6"]
+[ext_resource type="Script" uid="uid://2e5kfjj4alnt" path="res://scenes/components/fp-camera-3d/fp_camera_3d.gd" id="1_2wns6"]
 
 [node name="FPCamera3D" type="Node3D" unique_id=1428740327]
 script = ExtResource("1_2wns6")

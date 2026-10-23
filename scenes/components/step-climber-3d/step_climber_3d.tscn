@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bghti5w1it3qk"]
 
-[ext_resource type="Script" uid="uid://n3hj4y2yrjdt" path="res://components/step-climber-3d/step_climber_3d.gd" id="1_luhom"]
+[ext_resource type="Script" uid="uid://n3hj4y2yrjdt" path="res://scenes/components/step-climber-3d/step_climber_3d.gd" id="1_luhom"]
 
 [node name="StepClimber3D" type="Node3D" unique_id=2129511365]
 script = ExtResource("1_luhom")
