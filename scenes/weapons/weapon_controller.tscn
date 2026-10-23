@@ -145,8 +145,6 @@ event = &"ToWeaponOperational"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[connection signal="state_entered" from="StateChart/Weapon/Operational" to="." method="_on_weapon_operational_state_entered"]
-[connection signal="state_exited" from="StateChart/Weapon/Operational" to="." method="_on_operational_state_exited"]
 [connection signal="state_entered" from="StateChart/Weapon/Operational/Trigger/Pulled" to="." method="_on_trigger_pulled_state_entered"]
 [connection signal="state_entered" from="StateChart/Weapon/Operational/Action/Cycling" to="." method="_on_action_cycling_state_entered"]
 [connection signal="state_entered" from="StateChart/Weapon/Operational/Chamber/Firing" to="." method="_on_chamber_firing_state_entered"]

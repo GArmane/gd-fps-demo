@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://c87o5e2weslw6"]
+
+[ext_resource type="Script" uid="uid://d004e81y2ym8j" path="res://scripts/weapons/weapon_resource.gd" id="1_c0rnk"]
+[ext_resource type="Script" uid="uid://cay4em7ks0jdv" path="res://scripts/weapons/action_behaviour.gd" id="1_dggia"]
+[ext_resource type="Script" uid="uid://b7dv3af00kuf3" path="res://scripts/weapons/ammo-behaviours/ammo_counter_behaviour.gd" id="2_ys2y7"]
+[ext_resource type="Resource" uid="uid://cto87pns0w1w" path="res://resources/projectiles/light_bullet.tres" id="3_wwuao"]
+[ext_resource type="Script" uid="uid://djbnxboef68l8" path="res://scripts/weapons/attack-behaviours/projectile_attack_behaviour.gd" id="4_c4qrx"]
+[ext_resource type="PackedScene" uid="uid://okuq5k3wmqqe" path="res://scenes/weapons/rifle.tscn" id="5_df8ie"]
+[ext_resource type="Script" uid="uid://bn188xw32hwal" path="res://scripts/weapons/recoi_behaviour.gd" id="6_un8b1"]
+
+[sub_resource type="Resource" id="Resource_fwyd3"]
+script = ExtResource("1_dggia")
+fire_mode = 1
+cycle_time = 10.0
+metadata/_custom_type_script = "uid://cay4em7ks0jdv"
+
+[sub_resource type="Resource" id="Resource_b0yaa"]
+script = ExtResource("2_ys2y7")
+max_ammo_per_mag = 30
+units_consumed_per_shot = 1
+reload_time = 1.75
+metadata/_custom_type_script = "uid://b7dv3af00kuf3"
+
+[sub_resource type="Resource" id="Resource_cme0y"]
+script = ExtResource("4_c4qrx")
+bullet_resource = ExtResource("3_wwuao")
+metadata/_custom_type_script = "uid://djbnxboef68l8"
+
+[sub_resource type="Resource" id="Resource_0lkds"]
+script = ExtResource("6_un8b1")
+accuracy = 90.0
+metadata/_custom_type_script = "uid://bn188xw32hwal"
+
+[resource]
+script = ExtResource("1_c0rnk")
+model = ExtResource("5_df8ie")
+name = "AKG-47"
+description = " An Assault Rifle"
+muzzle_node_path = "Muzzle"
+equipping_time = 2.0
+action_behaviour = SubResource("Resource_fwyd3")
+attack_behaviour = SubResource("Resource_cme0y")
+ammo_behaviour = SubResource("Resource_b0yaa")
+recoil_behaviour = SubResource("Resource_0lkds")
+metadata/_custom_type_script = "uid://d004e81y2ym8j"

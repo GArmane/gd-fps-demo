@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://okuq5k3wmqqe"]
+
+[ext_resource type="PackedScene" uid="uid://15brtgd5m5dk" path="res://assets/weapons/rifle/axl-47.glb" id="1_6kub0"]
+
+[node name="Rifle" type="Node3D" unique_id=1582761040]
+
+[node name="Model" parent="." unique_id=1338925955 instance=ExtResource("1_6kub0")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=2037707561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, -0.76)

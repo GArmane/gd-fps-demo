@@ -37,6 +37,7 @@ func switch_to_weapon(
 	resource: WeaponResource, state: AmmoState, weapon_origin: Node3D, hipfire_aim_point: Node3D
 ):
 	%StateChart.send_event("ToWeaponUnarmed")
+	weapon_unequiped.emit()
 
 	if _weap_model:
 		_weap_model.queue_free()
@@ -55,18 +56,12 @@ func switch_to_weapon(
 	_weap_model.look_at(hipfire_aim_point.global_position, Vector3.UP)
 
 	%StateChart.send_event("ToWeaponOperational")
+	weapon_equiped.emit()
 
 
 #endregion
 
-
 #region State chart
-func _on_weapon_operational_state_entered() -> void:
-	weapon_equiped.emit()
-
-
-func _on_operational_state_exited() -> void:
-	weapon_unequiped.emit()
 
 
 func _on_trigger_pulled_state_entered() -> void:

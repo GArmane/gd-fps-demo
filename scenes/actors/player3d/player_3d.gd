@@ -12,6 +12,7 @@ const INITIAL_INVENTORY := preload(
 )
 const SEMI_AUTO_PISTOL := "SAPistol"
 const SEMI_AUTO_SHOTGN := "SAShotgun"
+const FULL_AUTO_RIFLE := "AutoRifle"
 
 @export_category("Camera settings")
 ## After this much time, triggers camera kick effect.
@@ -43,6 +44,7 @@ const SEMI_AUTO_SHOTGN := "SAShotgun"
 @export_category("Inventory")
 @export var _select_semi_auto_pistol: GUIDEAction
 @export var _select_semi_auto_shotgn: GUIDEAction
+@export var _select_full_auto_rifle: GUIDEAction
 
 var raw_movement_vector: Vector2:
 	get():
@@ -129,6 +131,7 @@ func _on_combat_state_entered() -> void:
 	_reload_action.triggered.connect(%WeaponController.reload_weapon)
 	_select_semi_auto_pistol.triggered.connect(_switch_weapons.bind(SEMI_AUTO_PISTOL))
 	_select_semi_auto_shotgn.triggered.connect(_switch_weapons.bind(SEMI_AUTO_SHOTGN))
+	_select_full_auto_rifle.triggered.connect(_switch_weapons.bind(FULL_AUTO_RIFLE))
 
 
 #endregion
