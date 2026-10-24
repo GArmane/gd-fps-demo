@@ -90,7 +90,7 @@ doppler_tracking = 2
 
 [node name="WeaponOrigin" type="Marker3D" parent="FPCamera3D" unique_id=54251466]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.6, -0.625)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, -0.18, -0.38)
 
 [node name="HipfireAimPoint" type="Marker3D" parent="FPCamera3D" unique_id=1828058822]
 unique_name_in_owner = true
