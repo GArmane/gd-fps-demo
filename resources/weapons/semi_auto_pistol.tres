@@ -15,6 +15,7 @@ metadata/_custom_type_script = "uid://cay4em7ks0jdv"
 
 [sub_resource type="Resource" id="Resource_blqi8"]
 script = ExtResource("1_houu3")
+initial_mags = 1
 max_ammo_per_mag = 17
 units_consumed_per_shot = 1
 reload_time = 1.5

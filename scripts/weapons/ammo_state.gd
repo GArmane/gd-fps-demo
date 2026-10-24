@@ -1,7 +1,5 @@
 class_name AmmoState extends Resource
 
-const INITIAL_MAGS := 3
-
 @export var current_ammo: int:
 	set(value):
 		assert(value >= 0, "current ammo should be positive or zero")
@@ -33,7 +31,7 @@ static func from_weapon_resource(weapon: WeaponResource) -> AmmoState:
 		return AmmoState.new(
 			ammo_behaviour.max_ammo_per_mag,
 			ammo_behaviour.max_ammo_per_mag,
-			ammo_behaviour.max_ammo_per_mag * INITIAL_MAGS
+			ammo_behaviour.max_ammo_per_mag * ammo_behaviour.initial_mags
 		)
 	assert(false, "ammo initialization not implemented")
 	return null

@@ -6,6 +6,12 @@
 [ext_resource type="Resource" uid="uid://0jnxqamyhblw" path="res://resources/weapons/semi_auto_pistol.tres" id="4_ueele"]
 [ext_resource type="Resource" uid="uid://c87o5e2weslw6" path="res://resources/weapons/rifle.tres" id="5_1eb7w"]
 
+[sub_resource type="Resource" id="Resource_lbead"]
+script = ExtResource("2_1eb7w")
+weapon = ExtResource("5_1eb7w")
+unlocked = true
+metadata/_custom_type_script = "uid://d2y341digpjrf"
+
 [sub_resource type="Resource" id="Resource_iubkf"]
 script = ExtResource("2_1eb7w")
 weapon = ExtResource("4_ueele")
@@ -15,12 +21,6 @@ metadata/_custom_type_script = "uid://d2y341digpjrf"
 [sub_resource type="Resource" id="Resource_sfw5m"]
 script = ExtResource("2_1eb7w")
 weapon = ExtResource("4_dyb7f")
-unlocked = true
-metadata/_custom_type_script = "uid://d2y341digpjrf"
-
-[sub_resource type="Resource" id="Resource_lbead"]
-script = ExtResource("2_1eb7w")
-weapon = ExtResource("5_1eb7w")
 unlocked = true
 metadata/_custom_type_script = "uid://d2y341digpjrf"
 

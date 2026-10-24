@@ -1,5 +1,9 @@
 class_name AmmoCounterBehaviour extends AmmoBehaviour
 
+@export var initial_mags: int:
+	set(value):
+		assert(value >= 0, "initial mags should be positive or zero")
+		initial_mags = value
 @export var max_ammo_per_mag: int:
 	set(value):
 		assert(value >= 0, "max ammo per magazine should be positive or zero")
