@@ -1,4 +1,4 @@
-class_name ItemDisplayComponent extends Node3D
+class_name ItemDisplay extends Node3D
 
 @export_category("Display")
 @export var display_object: Node3D

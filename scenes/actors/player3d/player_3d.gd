@@ -10,9 +10,9 @@ const STEP_ADJUSTED_HEIGHT := 0.02
 const INITIAL_INVENTORY := preload(
 	"res://resources/weapon_inventory/player_starting_inventory.tres"
 )
-const SEMI_AUTO_PISTOL := "SAPistol"
-const SEMI_AUTO_SHOTGN := "SAShotgun"
-const FULL_AUTO_RIFLE := "AutoRifle"
+const SEMI_AUTO_PISTOL := preload("res://resources/weapons/semi_auto_pistol.tres")
+const SEMI_AUTO_SHOTGN := preload("res://resources/weapons/shotgun.tres")
+const FULL_AUTO_RIFLE := preload("res://resources/weapons/rifle.tres")
 
 @export_category("Camera settings")
 ## After this much time, triggers camera kick effect.
@@ -106,12 +106,10 @@ func _update_movement(delta: float, direction := Vector3.ZERO) -> void:
 		velocity = _previous_frame_velocity
 
 
-func _switch_weapons(key: String) -> void:
-	var slot: WeaponSlot = %WeaponInventory.get_weapon(key)
-	if not slot.unlocked:
+func _switch_weapons(weapon: WeaponResource) -> void:
+	var slot: WeaponSlot = %WeaponInventory.get_by_resource(weapon)
+	if not slot:
 		return
-	if not slot.ammo_state:
-		slot.ammo_state = AmmoState.from_weapon_resource(slot.weapon)
 	%WeaponController.switch_to_weapon(
 		slot.weapon, slot.ammo_state, %WeaponOrigin, %HipfireAimPoint
 	)
@@ -262,5 +260,10 @@ func _on_crouching_state_exited() -> void:
 #region Signal handlers
 func _on_weapon_controller_weapon_fired() -> void:
 	%FPCamera3D.apply_weapon_kick(1, 1, 1)
+
+
+## TODO: only working for WeaponPickups and such, should generalize further.
+func _on_interaction_area_item_iteracted_with(item: WeaponResource) -> void:
+	%WeaponInventory.add_or_refill(item)
 
 #endregion

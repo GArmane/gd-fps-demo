@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://ds6xfep3ugci8"]
+
+[ext_resource type="Script" uid="uid://chn558nkjikn0" path="res://scenes/components/pickups/weapon_pickup.gd" id="1_gscjt"]
+[ext_resource type="PackedScene" uid="uid://3x8648tk61w3" path="res://scenes/components/item-display/item_display.tscn" id="2_bdu4v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iubkf"]
+
+[node name="Pickup" type="Area3D" unique_id=2146642021]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_gscjt")
+
+[node name="ItemDisplay" parent="." unique_id=2036273831 instance=ExtResource("2_bdu4v")]
+unique_name_in_owner = true
+rotation_speed = 25.0
+float_speed = 1.0
+float_height = 0.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1310432989]
+shape = SubResource("BoxShape3D_iubkf")

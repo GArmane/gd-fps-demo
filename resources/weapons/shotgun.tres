@@ -36,6 +36,7 @@ script = ExtResource("1_fynjn")
 model = ExtResource("5_kocjg")
 name = "Semi Auto Shotgun"
 description = "Boom chik chik"
+identifier = "SAShotgun"
 muzzle_node_path = "Muzzle"
 equipping_time = 2.0
 action_behaviour = SubResource("Resource_1i04y")

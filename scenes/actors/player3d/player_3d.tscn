@@ -261,6 +261,7 @@ event = &"ToStanding"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[connection signal="item_iteracted_with" from="InteractionArea" to="." method="_on_interaction_area_item_iteracted_with"]
 [connection signal="state_entered" from="StateChart/Root" to="." method="_on_root_state_entered"]
 [connection signal="state_entered" from="StateChart/Root/Combat" to="." method="_on_combat_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="." method="_on_grounded_state_physics_processing"]

@@ -6,3 +6,4 @@ class_name AmmoBehaviour extends Resource
 @abstract func consume(state: AmmoState) -> AmmoState
 @abstract func can_reload(state: AmmoState) -> bool
 @abstract func reload(state: AmmoState) -> AmmoState
+@abstract func refill(state: AmmoState) -> AmmoState
